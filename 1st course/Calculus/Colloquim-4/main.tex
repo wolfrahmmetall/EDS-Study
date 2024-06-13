@@ -1,0 +1,996 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm, nohead, nofoot]{geometry}
+\usepackage{amsmath, amsfonts, amssymb} % математический пакет
+\usepackage {fancybox, fancyhdr}
+\usepackage{python}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [R] {\thepage}
+\fancyhead[L]{Математический анализ. Коллоквиум—4}
+\setcounter {page}{1}
+\headsep=10mm
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usepackage{epigraph}
+\hypersetup{colorlinks=true, allcolors= [RGB]{010 090 200}} % цвет ссылок
+\usepackage {setspace}
+\usepackage[pdftex]{graphicx}
+\usepackage{ dsfont }
+\usepackage{array}
+\setcounter{MaxMatrixCols}{20}
+\usepackage{mathbbol}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{listings}
+% \usepackage{breqn}
+\usepackage{indentfirst}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=C++,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+% «»
+
+\DeclareRobustCommand{\divby}{%
+  \mathrel{\text{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}}%
+}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
+\newcommand{\e}{\mathbbl{e}}
+\newcommand{\m}[1]{\mathbf{#1}}
+\newcommand{\qed}{\hfill$\square$}
+\newcommand{\dfs}{\textbf{DFS }}
+\newcommand{\eps}{\varepsilon}
+\definecolor{codegray}{gray}{0.9}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{#1}}}
+\begin{document}
+% \noindent{\LARGE{\textbf{Математический анализ. Коллоквиум—4}}}\\[4mm]
+% % \begin{flushright}
+% %     \textbf{Психику-то я вам поломал на всю жизнь}\\
+% %     \hline
+% % \end{flushright}
+% \epigraph{``К коллоку можете даже не готовиться''.}{\rightline{{\rm --- }}}
+% \epigraph{``К коллоку можете даже не готовиться''.}{\textflushright{\rm --- Роман Сергеевич Авдеев}}
+% \epigraph{Star crossed lovers.}{\textit{The Bard}}
+\section*{\LARGE{Математический анализ. Коллоквиум—4}}
+\epigraph{Психику-то я вам поломал на всю жизнь}%
+{\textit{Виктор Евгеньевич Лопаткин}\\ \textsc{}}
+\tableofcontents
+\newpage
+\section{Определения}
+\subsection{Что такое знакочередующийся ряд?}
+\textbf{Знакочередующийся ряд} — это ряд $(a_n)$, элементы которого попеременно принимают значения противоположных знаков, т.е. если $a_n>0$ (соотвественно, $a_n <0$), то $a_{n+1}<0$ (соответственно, $a_{n+1}>0$). Элементы таких рядов можно записать либо как $a_n  = (-1)^n |a_n|$, либо как $a_n = (-1)^{n+1}|a_n|$
+
+\subsection{Что такое абсолютно сходящийся ряд?}
+Ряд $(x_n)$ называется \textbf{абсолютно сходящимся}, если ряд $\left(|x_n|\right)$ сходится. Если ряд $(x_n)$ сходится, а ряд $(|x_n|)$ расходится, то говорят, что \textbf{ряд $(x_n)$ сходится условно}
+
+\subsection{Что такое безусловно сходящийся ряд?}
+Говорят, что ряд сходится \textbf{безусловно}, если он сходится и любая перестановка его элементов не нарушает его сходимости
+
+\subsection{Пусть $f:\mathbb{R}\rightarrow\mathbb{R}$ — дифференцируемая функция, что значит выражение $\mathrm{d}f=f'\mathrm{d}x$?}
+\label{1.4}
+Если $f$ — дифференцируема в $x_0$, тогда верно, что $\exists\ (\mathrm{d}f)_{x_0}:\mathbb{R}\rightarrow\mathbb{R}$ такое, что
+$$f(x_0+h)=f(x_0)+(\mathrm{d}f)_{x_0}(h)+o(\left|h\right|),\ h\rightarrow0$$
+\indent $(\mathrm{d}f)_{x_0}$ — дифференциал функции $f$ в точке $x_0$. Имеем равенство
+$$(\mathrm{d}f)_{x_0}(h): = f'(x_0)\cdot h$$
+\indentРассмотрим функцию $y(x)=x$, тогда
+$$\begin{aligned}
+    (\mathrm{d}x)_{x_0}(h) = (x'(x_0))\cdot h&\Longleftrightarrow(\mathrm{d}f)_{x_0}(h) = f'(x_0) \cdot h = f'(x_0) \cdot  (\mathrm{d}x)_{x_0}(h)\text{ (т.к. }x'=1)\\
+    &\Longleftrightarrow\boxed{\mathrm{d}f=f'\mathrm{d}x}
+\end{aligned}$$
+
+\subsection{Почему градиент это не вектор, а ковектор (=функционал)?}
+Покажем, что градиент функции — элемент двойственного пространства, т.е. градиент — это ковектор (=функционал)\\[2mm]
+\indentРассмотрим $\mathbb{R}^n$ с базисом $\e = (\m{e}_1,\ldots, \m{e}_n)$, тогда любой вектор $\m{h} = (h_1,\ldots, h_n)^\top  \in \mathbb{R}^n$ записывается в виде $\m{h} = h_1\m{e}_1 + \cdots + h_n \m{e}_n$\\[2mm]
+\indentРассмотрим координатные функции 
+$$
+x_1,\ldots, x_n:\mathbb{R}^n \to \mathbb{R}, \qquad x_i(\m{h}): = h_i, \quad 1 \leqslant i \leqslant n
+$$
+\indentТогда, их дифференциалы $(\mathrm{d}x_1, \ldots, \mathrm{d}x_n)$ — это в точности базис двойственного пространства $(\mathbb{R}^n)^*$, так как
+$$
+(\mathrm{d}x_i)(\m{e}_j) = \delta_{ij}: = \begin{cases}
+1, & i = j, \\
+0, & i \ne j
+\end{cases}
+$$
+\indentТогда, если $f:\mathbb{R}^n \to \mathbb{R}$ — дифференцируемая функция в точке $\m{a}$, то её дифференциал (=градиент) можно записать так:
+$$
+\boxed{
+\nabla_\m{a} f = \left.\frac{\partial f}{\partial x_1}\right|_\m{a} \cdot \mathrm{d}x_1 + \cdots +  \left.\frac{\partial f}{\partial x_n}\right|_\m{a} \cdot \mathrm{d}x_n
+}    
+$$
+\indentДействительно, имеем\\
+$$\begin{aligned}
+(\nabla_\m{a} f) (\m{h}) &= \left.\frac{\partial f}{\partial x_1}\right|_\m{a} \cdot \mathrm{d}x_1(\m{h}) + \cdots +  \left.\frac{\partial f}{\partial x_n}\right|_\m{a} \cdot \mathrm{d}x_n (\m{h}) \\
+&= \left.\frac{\partial f}{\partial x_1}\right|_\m{a} \cdot h_1 + \cdots +  \left.\frac{\partial f}{\partial x_n}\right|_\m{a} \cdot h_n ,
+\end{aligned}$$
+что и есть определение дифференциала фукнции.
+
+
+\subsection{Что такое линейная дифференциальная форма?}
+Выражение вида 
+$$
+f_1 \mathrm{d}x_1 + \cdots + f_n \mathrm{d}x_n,
+$$
+где $f_1,\ldots, f_n:\mathbb{R}^n \to \mathbb{R}$ — функции, называется \textbf{линейной дифференциальной формой} или 1-формой\\[2mm]
+\indentОбычно они обозначаются через $\omega$, а пространство всех линейных дифференциальных форм на $\mathbb{R}^n$ обозначается как $\Omega^1(\mathbb{R}^n)$
+
+\subsection{Что значит, что функция $F(x)$ это интеграл для функции $f(x)$ на каком-то промежутке?}
+Функция $F(x)$ в каком-то промежутке называется \textbf{интегралом} (=первообразной) для функции $f(x)$, если 
+$$F'(x) = f(x) \quad \mbox{или} \quad  \mathrm{d}F = f(x) \mathrm{d}x$$
+\indent\textbf{Тоже определдение словами:} $F(x)$ — \textbf{интеграл} для функции $f(x)$, если во всём промежутке $f(x)$ является производной для функции $F(x)$ или, что тоже, $f(x)\mathrm{d}x$ есть линейная дифференциальная форма, равная дифференциалу фукнции $F(x)$
+
+\subsection{Что такое неопределённый интеграл?}
+\label{1.8}
+\textbf{Неопределённый интеграл} — выражение $F(x) + C$, где $C$ — произвольная постоянная, представляющее собой \textbf{общий вид} функции, которая имеет производную $f(x)$, или её дифференциал есть $1$-форма $f(x) \mathrm{d}x$\\[2mm]
+\indentОбозначается символом
+$$
+\int f(x) \mathrm{d}x
+$$
+\indent$f(x)$ — подынтегральная функция
+
+\subsection{Что такое рациональная функция от одной переменной?}
+\textbf{Рациональная функция от одной переменной} — это класс эквивалентности дробей вида $\dfrac{P(x)}{Q(x)}$, где $P(x),\ Q(x)$ — полиномы, $Q(x) \ne 0$, и две такие дроби эквивалентны
+$$
+\frac{P(x)}{Q(x)} \sim \frac{A(x)}{B(x)}\Longleftrightarrow P(x) B(x) = A(x) Q(x)
+$$
+\subsection{Что называют правильной и простой дробями в поле $\mathbb{R}(x)$?}
+\textit{Friendly reminder.} $\mathbb{R}(x)$ — поле рациональных функций, то есть множество всех рациональных функций\\[2mm]
+\indent \textbf{Правильная дробь} — дробь $\displaystyle\frac{P(x)}{Q(x)}$, если $\mathrm{deg}(P(x)) < \mathrm{deg}(Q(x))$\\[2mm]
+\indent \textbf{Простыми дробями} в поле $\mathbb{R}(x)$ называются выражения вида
+\begin{enumerate}
+    \item $\dfrac{A}{(x-\alpha)^k}$, где $A,\alpha \in \mathbb{R}$, и $k\geqslant 1$
+    \item $\dfrac{Ax + B}{(x^2 + ax + b)^n}$, где $A,B, a,b \in \mathbb{R}$, $n\geqslant 1$ и предполагается, что $x^2 + ax +b$ не имеет вещественных корней
+\end{enumerate}
+\subsection{Что такое разбиение промежутка и что значит, что одно выражение тоньше другого? (тонкота!)}
+\label{1.11}
+\textbf{Разбиение промежутка} — конечное множество $\lambda(I)$ промежутков содержащихся в промежутке $I$, при этом любой $x \in I$ принадлежит одному и только одному промежутку из $\lambda$\\[2mm]
+\indent Пусть $I$ — промежуток, и пусть $\lambda(I)$, $\lambda'(I)$ — два его разбиения. Говорят, что разбиение $\lambda'(I)$ \textbf{тоньше}, чем $\lambda(I)$, если для каждого $J' \in \lambda'(I)$ найдётся такой $J \in \lambda(I)$, что $J' \subseteq J$
+
+\subsection{Что такое ступенчатая функция? Как она выражается через характеристические функции?}
+\subsubsection*{Ступенчатая функция}
+Пусть $A \subseteq \mathbb{R}$, и пусть дана функция $f: A \to \mathbb{R}$. Говорят, что $f$ \textbf{постоянная функция}, если существует такое $\alpha \in \mathbb{R}$, что $f(x) = \alpha$ для всех $x \in A$. Если $B \subseteq A$, то говорят, что $f$ \textbf{постоянная на} $B$, если существует такое $\beta \in \mathbb{R}$, что $f(y) = \beta$ для всех $y \in B$\\[2mm]
+\indentПусть дан промежуток $I \subsetneq \mathbb{R}$, и пусть дана функция $f: I \to \mathbb{R}$, и пусть $\lambda(I)$ — какое-то разбиение промежутка $I$. Говорят, что функция $f$ — \textbf{ступенчатая} на $I$ относительно $\lambda(I)$, если для каждого $J \in \lambda(I)$, $f$ является \textit{постоянной} на $J$
+\subsubsection*{Выражение ступенчатой функции через характеристические}
+\textbf{Характеристическая функция} множества $A\subseteq X$ — функция $\chi_A:X\rightarrow\{0,1\}$ такая что
+\begin{equation*}
+    \chi_A(x):=\begin{cases}
+        1,\quad x\in A,\\
+        0,\quad x\notin A
+    \end{cases}
+\end{equation*}
+\indent Пусть $f:I\rightarrow\mathbb{R}$ — ступенчатая функция на промежутке $I$ и $\lambda(I)$ — соответствующее разбиение промежутка, тогда
+$$\boxed{f=\sum_{A\in\lambda(I)}f(A)\cdot\chi_A}$$
+
+\subsection{Что такое интеграл от ступенчатой функции на промежутке?}
+Пусть $I \subsetneq \mathbb{R}$ — промежуток, $\lambda(I)$ — разбиение промежутка $I$ и пусть $f:I \to \mathbb{R}$ — ступенчатая функция относительно этого разбиения, т.е., $f = \displaystyle\sum_{A \in \lambda(I)}f(A) \cdot \chi_A$\\[2mm]
+\indent \textbf{Интеграл на промежутке $I$ ступенчатой функции} $f:I \to \mathbb{R}$ относительно разбиения $\lambda(I)$ есть
+$$
+\boxed{\int_{\lambda(I)}f: =  \sum_{A \in \lambda(I)} f(A)\cdot |A|}
+$$
+
+\subsection{Что такое верхний и нижний интегралы от ограниченной функции на промежутке?}
+Пусть $f: I \to \mathbb{R}$ — ограниченная функция на промежутке $I \subsetneq \mathbb{R}$\\[2mm]
+\indent \textbf{Верхний интеграл функции $f$ на промежутке $I$} есть
+$$
+\sup \int_I f  : = \inf  \left\{ \int_I g  , \, g \in M_{p.c}(f)\right\}
+$$
+\indent \textbf{Нижний интеграл функции $f$ на промежутке $I$} есть
+$$
+\inf \int_I f  : = \sup  \left\{ \int_I g  , \, g \in m_{p.c}(f)\right\}
+$$
+
+\subsection{Что такое интеграл Римана от ограниченной функции на промежутке?}
+\label{1.15}
+Пусть $f: I \to \mathbb{R}$ — ограниченная функция на ограниченном промежутке $I \subsetneq \mathbb{R}$, тогда если 
+$$\inf\int_If=\sup\int_If,$$
+то \textbf{интеграл Римана от ограниченной функции на промежутке} определяется так
+$$\boxed{\int_If:=\inf\int_If=\sup\int_If}$$
+
+\subsection{Что такое верхняя и нижняя сумма Римана для ограниченной функции на промежутке?}
+Пусть $f: I \to \mathbb{R}$ — ограниченная функция на промежутке $I \subsetneq \mathbb{R}$ и $\lambda(I)$ — некоторое разбиение промежутка $I$, тогда верхняя и нижняя суммы Римана:
+\begin{center}
+    $U(f,\lambda(I)):=\displaystyle\sum_{\underset{A\ne\varnothing}{ A\in\lambda(I)}} \sup_{x\in A} f(x)\cdot\left|A\right|$\\[2mm]
+    $L(f,\lambda(I)):=\displaystyle\sum_{\underset{A\ne\varnothing}{ A\in\lambda(I)}} \inf_{x\in A} f(x)\cdot\left|A\right|$
+\end{center}
+
+
+% \subsection{Что значит выражение \textit{ограниченная на промежутке функция интегрируема на нём по Риману}? Приведите пример не интегрируемой по Риману функции}
+% $\mathcal{R}([a, b])$ — множество интегрируемых по Риману функций вида $f:[a, b] \rightarrow \mathbb{R}$, где, $[a, b] \subset \mathbb{R}$ есть интервал\\[2mm]
+% \indent $\mathcal{B}(S)$ — множество функций вида $f: S \rightarrow \mathbb{R}$, где $S \subset \mathbb{R}$, ограниченных на множестве $S$
+% \subsubsection*{Необходимое условие интегрируемости по Риману}
+% Если $f \in \mathcal{R}([a, b])$ то $f \in \mathcal{B}([a, b])$
+
+% \subsubsection*{Достаточные условия интегрируемости по Риману}
+% Если $f \in \mathcal{B}([a, b])$ и $f$ имеет на $[a, b]$ не более чем счетное число точек разрыва, то $f \in \mathcal{R}([a, b])$
+% \begin{itemize}
+%     \item На любом отрезке $[a, b] \subset \mathbb{R}$ существуют интегрируемые по Риману функции, имеющие несчетное число точек разрыва
+%     \item Любая монотонная на $[a, b] \subset \mathbb{R}$ функция $f$ имеет на $[a, b]$ не более чем счетное число точек разрыва, значит, любая монотонная на $[a, b] \subset \mathbb{R}$ функция интегрируема по Риману на $[a, b]$
+% \end{itemize}
+% \subsubsection*{Пример не интегрируемой по Риману функции}
+% Функция Дирихле \textbf{не интегрируема по Риману}\\[2mm]
+% Действительно:
+% \begin{enumerate}
+%     \item На любом интервале \([a, b]\) каждый подотрезок разбиения будет содержать как рациональные, так и иррациональные точки
+%     \item В любом подотрезке, сколько бы маленьким он ни был, функция \( D(x) \) принимает значения 0 и 1
+%     \item Это означает, что верхняя сумма Дарбу (выбираем 1, когда \( D(x) = 1 \)) всегда будет равна \( (b - a) \cdot 1 = b - a \)
+%     \item Нижняя сумма Дарбу (выбираем 0, когда \( D(x) = 0 \)) всегда будет равна \( (b - a) \cdot 0 = 0 \)
+% \end{enumerate}
+
+
+
+
+\newpage
+\section{Теоремы}
+\subsection{Докажите признак Лейбница для знакочередующихся рядов}
+\textbf{Формулировка.} Пусть $(a_n)$ — знакочередующийся ряд, для которого выполняются следующие условия:
+\begin{enumerate}
+    \item $|a_n| \geqslant |a_{n+1}|$ почти для всех $n$
+    \item $\lim\limits_{n \to \infty} |a_n| = 0$
+\end{enumerate}
+Тогда ряд $(a_n)$ сходится\\[4mm]
+\indent\textbf{Доказательство.} Воспользовавшись леммой о сходимости/расходимости почти похожих рядов, мы можем считать, что $|a_n| \geqslant |a_{n+1}|$ для всех $n$. Для удобства положим, что первый элемент ряда — это $a_0$, т.е. $n \geqslant 0$. Рассмотрим частичную сумму $\mathsf{S}_{2n+1}$, имеем
+$$\begin{aligned}
+\mathsf{S}_{2n+1} &= |a_0| - |a_1| + |a_2| - |a_3| + |a_4| + \cdots  + |a_{2n}| - |a_{2n+1}| \\
+&= |a_0| - \bigl(|a_1| - |a_2|\bigr) - \bigl(|a_3| - |a_4|\bigr) - \cdots - \bigl(|a_{2n-1}|-  |a_{2n}|\bigr) - |a_{2n+1}|,
+\end{aligned}$$
+так как $|a_n| \geqslant |a_{n+1}|$, то каждая скобка положительна, это значит, что $\mathsf{S}_{2n+1} \leqslant |a_0|$, т.е. последовательность $(\mathsf{S}_{2n+1})$ ограничена сверху\\[2mm]
+\indentС другой стороны, мы можем записать
+$$\begin{aligned}
+\mathsf{S}_{2n+1} &= |a_0| - |a_1| + |a_2| - |a_3| + \cdots  + |a_{2n-2}| - |a_{2n-1}| + |a_{2n}| - |a_{2n+1}| \\
+&= \bigl(|a_0| - |a_1| \bigr) + \bigl(|a_2|-|a_3| \bigr) + \cdots + \bigl( |a_{2n-2}| - |a_{2n-1}|\bigr)+ \bigl(|a_{2n}| - |a_{2n+1}|\bigr) \\
+&= \mathsf{S}_{2n-1} + \bigl(|a_{2n}| - |a_{2n+1}|\bigr),
+\end{aligned}$$
+и так как $|a_{2n}| \geqslant |a_{2n+1}|$, то $\mathsf{S}_{2n+1} \geqslant \mathsf{S}_{2n-1}$, т.е. она не убывает\\[2mm]
+\indentИтак, последовательность $\left(\mathsf{S}_{2n+1}\right)$ ограничена сверху и не убывает, тогда по теореме Вейерштрасса у неё есть предел $\lim\limits_{n \to \infty}\mathsf{S}_{2n+1} = \mathsf{S} \leqslant |a_0|$\\[2mm]
+\indentНаконец, мы также можем записать
+$$\begin{aligned}
+\mathsf{S}_{2n+1} &= |a_0| - |a_1| + |a_2| - |a_3| +  |a_{2n}| - |a_{2n+1}| \\
+&= \mathsf{S}_{2n}  - |a_{2n+1}|,
+\end{aligned}$$
+так как $\lim\limits_{n \to \infty}\mathsf{S}_{2n+1} = \mathsf{S}$ и по условию $\lim\limits_{n\to \infty} |a_{2n+1}| = 0$, то по арифметике пределов
+$$
+\lim_{n\to \infty}\mathsf{S}_{2n}  = \lim_{n\to \infty} \left( \mathsf{S}_{2n+1} + |a_{2n+1}| \right) = \mathsf{S} + 0 = \mathsf{S}.
+$$
+\indentИтак, мы показали, что $\lim\limits_{n \to \infty}\mathsf{S}_n = \mathsf{S}$, что и означает сходимость ряда\qed
+
+\subsection{Пусть дан ряд $(x_n)$. Если сходится ряд $(|x_n|)$, то ряд $(x_n)$ тоже сходится}
+\label{2.2}
+Пусть $(\mathsf{S}_n)$ — последовательность частичных сумм ряда $(x_n)$, а $(\mathsf{A}_n)$ — последовательность частичных сумм для ряда $(|x_n|)$\\[2mm]
+\indentТак как ряд $(|x_n|)$ сходится, то по критерию Коши для каждого $\varepsilon >0$ можно найти такое $N$, что для всех $n \geqslant N$ и $p \geqslant 1$,  
+$$
+| \mathsf{A}_{n+p} - \mathsf{A}_{n} | = |x_{n+1} | + \cdots +|x_{n+p}| < \varepsilon.
+$$
+
+Далее, имеем 
+
+$$\begin{aligned}
+\mathsf{S}_{n+p} - \mathsf{S}_n &= | x_{n+1} + \cdots + x_{n+p} | \\
+&\leqslant  |x_{n+1}| + \cdots + |x_{n+p}| \\
+&< \varepsilon,
+\end{aligned}$$
+что согласно критерию Коши  означает сходимость ряда $(x_n)$\qed 
+
+\subsection{Если ряд абсолютно сходится, то при любой перестановке его элементов абсолютная сходимость полученного нового ряда не нарушается и более того, его сумма
+остаётся прежней}
+\subsubsection*{Конструкция 2.3.1}
+Пусть дан ряд $(x_n)$, положим\label{2.1}
+\begin{equation}\label{eq:1}
+    x_n^+:=\begin{cases}
+        x_n,&\text{если } x_n\geqslant0,\\
+        0,&\text{если } x_n<0,
+    \end{cases}\quad x_n^-:=\begin{cases}
+        -x_n,&\text{если } x_n\leqslant0\\
+        0,&\text{если } x_n>0
+    \end{cases}
+\end{equation}
+\subsubsection*{Предложение 2.3.2}
+Пусть ряд $(x_n)$ сходится абсолютно, тогда ряды $(x_n^+),(x_n^-)$ сходятся и более того, если $\mathsf{S},\mathsf{S}^+,\mathsf{S}^-$ — суммы рядов $(x_n),(x_n^+),(x_n^-)$ соответственно, то
+\begin{equation}\label{eq:2}
+    \mathsf{S}=\mathsf{S}^+-\mathsf{S}^-
+\end{equation}
+\subsubsection*{Доказательство Предложения 2.3.2}
+Во-первых, из леммы \ref{2.2} следует корректность утверждения, ибо ряд $(x_n)$ сходится, а тогда последовательность его частичных сумм $(\mathsf{S}_n)$ имеет предел $\mathsf{S}.$
+
+Во-вторых, так как $x_n^+ \le |x_n|$ и $x_n^- \le |x_n|$, то по признаку сравнения рядов ряды $(x_n^+)$, $(x_n^-)$ сходятся, а значит, сходятся последовательности их частичных сумм $(\mathsf{S}_n^+)$, $(\mathsf{S}_n^-)$ к $\mathsf{S}^+$, $\mathsf{S}^-$ соответственно.
+
+Далее, так как из конструкции \ref{eq:1} следует, что $x_n = x_n^+- x_n^-$, но тогда для каждого $n$ получаем
+$$\begin{aligned}
+\mathsf{S}_n  &= x_1 + \cdots + x_n \\
+&= x_1^+ - x_1^- + \cdots + x_n^+ - x_n^- \\
+&= \left( x_1^+ + \cdots + x_n^+ \right) - \left(x_1^- + \cdots + x_n^- \right) \\
+&= \mathsf{S}_n^+ - \mathsf{S}_n^-.
+\end{aligned}$$
+
+Тогда по арифметике пределов, 
+$$
+\mathsf{S} = \lim_{n \to \infty} \mathsf{S}_n = \lim_{n\to \infty}(\mathsf{S}_n^+ - \mathsf{S}_n^-) = \lim_{n\to \infty} \mathsf{S}_n^+ - \lim_{n\to \infty}\mathsf{S}_n^- = \mathsf{S}^+ - \mathsf{S}^-
+$$\qed
+\subsubsection*{Доказательство самой теоремы}
+Пусть ряд $(x_n)$ сходится абсолютно, рассмотрим ряды $(x_n^+)$, $(x_n^-)$ (конструкция \ref{eq:1}), очевидно, что $x_n = x_n^+ - x_n^-$ для всех $n.$ Так как ряд $(x_n)$ сходится абсолютно, то ввиду $x_n^+ \le |x_n|$, $x_n^- \le |x_n^-|$ и признака сравнения рядов ряды $(x_n^+)$, $(x_n^-)$ тоже сходятся.
+
+Пусть ряд, полученный после перестановки исходного ряда, имеет вид $(y_n)$, рассмотрим также ряды $(y_n^+)$, $(y_n^-)$ (конструкция \ref{eq:1}), тогда $y_n = y_n^+ - y_n^-$, и мы получаем
+
+$$\begin{aligned}
+\mathsf{S}  &= \mathsf{S}^+ - \mathsf{S}^-&\text{(по предложению \ref{eq:2})}\\
+\phantom{\mathsf{S}} &= \sum_{n=1}^\infty x_n^+ - \sum_{n=1}^\infty x_n^-& \\
+ \phantom{\mathsf{S}} &= \sum_{n=1}^\infty y_n^+ - \sum_{n=1}^\infty y_n^- & \\
+ \phantom{\mathsf{S}} &=  \sum_{n=1}^\infty (y_n^+ - y_n^-)& \\
+ \phantom{\mathsf{S}} &= \sum_{n=1}^\infty y_n
+\end{aligned}$$
+
+\subsection{Если ряд $(x_n)$ сходится условно, (т.е. ряд $(|x_n|)$ расходится), то оба ряда $(x_n^+),(x_n^-)$ расходятся, при этом $\lim\limits_{n\rightarrow\infty} x_n^+=\lim\limits_{n\rightarrow\infty} x_n^-=0$}
+\label{2.4}
+Пусть ряд $(x_n)$ сходится, но не абсолютно, т.е. ряд $(|x_n|)$ расходится. Так как $|x_n| = x_n^+ + x_n^-$, то $\mathsf{A}_n = \mathsf{S}_n^+ + \mathsf{S}_n^-$, где $\mathsf{A}_n$, $\mathsf{S}_n^+$, $\mathsf{S}_n^-$ — частичные суммы рядов $(|x_n|)$, $(x_n^+)$, $(x_n^-)$, соответственно. Тогда из расходимости последовательности $(\mathsf{A}_n)$ вытекает, что хотя бы одна из последовательностей $(\mathsf{S}_n^+)$, $(\mathsf{S}_n^-)$ расходится. Если они обе расходится, то теорема доказана\\[2mm]
+\indentПусть расходится последовательность $(\mathsf{S}_n^+)$. Так как $x_n = x_n^+ - x_n^-$ (см. конструкцию \ref{eq:1}), то $\mathsf{S}_n = \mathsf{S}_n^+ - \mathsf{S}_n^-$\\[2mm]
+Тогда
+$$
+\mathsf{S}_n^- = \mathsf{S}_n^+ - \mathsf{S}_n,
+$$
+но так как $\lim\limits_{n \to \infty} \mathsf{S}_n = \mathsf{S}$, то последовательность $(\mathsf{S}_n)$ — ограничена, скажем, $L \leqslant \mathsf{S}_n \leqslant R$\\[2mm]
+\indent С другой же стороны, так как $(x_n^+)$ — положительный расходящийся ряд, то согласно критерию сходимости положительного ряда, последовательность $(\mathsf{S}_n^+)$ — неограниченна. Это значит, что для любого числа $N$ можно найти такой номер $n$, что $\mathsf{S}_n^+ >N+R$, а тогда $\mathsf{S}_n^- > N+R-R =N$, т.е. для любого $N$ мы нашли номер $n$ такой, что $\mathsf{S}_n^- >N$, это означает, что последовательность $(\mathsf{S}_n^-)$ неограниченна, а тогда по критерию сходимости положительного ряда, ряд $(x_n^-)$ — расходится\\[2mm]
+\indentАналогично рассматривается случай, когда расходится ряд $(x_n^-)$\\[2mm]
+\indentНаконец, так как ряд $(x_n)$ сходится, то по необходимому признаку\footnote{Если ряд $(x_n)$ сходится, то $\lim\limits_{n\rightarrow\infty} x_n=0$}, $\lim\limits_{n \to \infty} x_n = 0$, а из того, что $(x_n^+)$, $(x_n^-)$ подпоследовательности в последовательности $(x_n)$, то получаем, что $$\lim\limits_{n \to \infty} x_n^+ = \lim\limits_{n \to \infty} x_n^- = 0$$\qed
+
+\subsection{[\textit{Для сына папы Алика.}] Пусть ряд $(x_n)$ сходится условно, тогда для любого числа $\alpha\in\mathbb{R}$, а также если $\alpha=\pm\infty$ можно так переставить элементы этого ряда, что сумма полученного таким образом ряда будет равна $\alpha$}
+Для ряда $(x_n)$ мы рассмотрим ряды $(x_n^+)$, $(x_n^-)$. Согласно предложению \ref{2.4}, ряды $(x_n^+)$, $(x_n^-)$ расходятся. Это значит, что последовательности их частичных сумм неограничены, т.е. их значения могут быть больше любого числа\\[2mm]
+\indentПусть $p_1$ — наименьшее натуральное число (=номер последовательности $(x_n^+)$) такое, что
+$$
+\alpha < x_1^+ + \cdots + x_{p_1}^+  = \sum_{i=1}^{p_1}x_i^+,
+$$
+далее, пусть $q_1$ — наименьшее натуральное число (=номер последовательности $(x_n^-)$) такое, что
+$$
+\alpha > \sum_{i=1}^{p_1} x_i^+ - \sum_{j=1}^{q_1} x_j^-.
+$$
+\indentПусть теперь $p_2$ есть наименьшее натуральное число (=номер последовательности $(x_n^+)$), большее, чем $p_1$, такое, что
+$$\begin{aligned}
+\alpha &< \sum_{i=1}^{p_1} x_i^+ - \sum_{j=1}^{q_1} x_j^- + \sum_{i={p_1}+1}^{p_2}x_i^+\\
+&= \sum_{i=1}^{p_2} x_i^+ - \sum_{j=1}^{q_1} x_j^- .    
+\end{aligned}$$
+\indentПотом мы выбираем такое наименьшее натуральное $q_2$ (=номер последовательности $(x_n^-)$) большее, чем $q_1$, чтобы было верно неравенство
+$$\begin{aligned}
+\alpha &> \sum_{i=1}^{p_2} x_i^+ - \sum_{j=1}^{q_1} x_j^- - \sum_{j={q_1}+1}^{q_2}x_j^-\\
+&=\sum_{i=1}^{p_2} x_i^+ -  \sum_{j={q_1}+1}^{q_2}x_j^-.
+\end{aligned}$$
+\indentПродолжая таким образом, мы получаем последовательность номеров $p_1, q_1,\ldots, p_k,q_k,\ldots,$ и новую последовательность 
+$$
+(x_n') = x_1^+, \ldots, x_{p_1}^+, x_1^-, \ldots, x_{q_1}^-, x_{p_1+1}^+, \ldots, x_{p_2}^+, x_{q_1+1}^-, \ldots, x_{q_2}^-, \ldots,
+$$
+при этом, если числа $p_1,q_1, \ldots, p_k, q_k$ выбраны, то мы имеем
+$$
+\alpha > \sum_{i=1}^{p_k} x_i^+ - \sum_{j=1}^{q_k} x_j^-
+$$
+и тогда мы подбираем $p_{k+1}$ как наименьшее натуральное число, большее, чем $p_k$ так, чтобы
+$$
+\alpha < \sum_{i=1}^{p_k}x_i^+ - \sum_{j=1}^{q_k} x_j^- + \sum_{i=p_k+1}^{p_{k+1}} x_i^+ = \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^-,
+$$
+но тогда (в силу условия минимальности на выбор числа $p_{k+1}$) имеем
+$$
+\alpha \ge \sum_{i=1}^{p_k}x_i^+ - \sum_{j=1}^{q_k} x_j^- + \sum_{i=p_k+1}^{p_{k+1}-1} x_i^+ = \sum_{i=1}^{p_{k+1}-1}x_i^+ - \sum_{j=1}^{q_k}x_j^-.
+$$
+\indentИтак, мы получаем
+$$
+\sum_{i=1}^{p_{k+1}-1}x_i^+ - \sum_{j=1}^{q_k}x_j^- \le \alpha < \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^-.
+$$
+\indentИз полученных неравенств вычтем сумму $\sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^-$, тогда получаем
+$$
+\left(\sum_{i=1}^{p_{k+1}-1}x_i^+ - \sum_{j=1}^{q_k}x_j^-\right) - \left( \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^- \right) \le \alpha - \left( \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^- \right) < 0.
+$$
+откуда получаем
+$$
+- x_{p_k+1}^+ \le \alpha - \left( \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^- \right) < 0,
+$$
+или
+$$
+0 < \left( \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^- \right) - \alpha \le x_{p_k+1}^+.
+$$
+Далее, согласно предложению \ref{2.4} $\lim_{k \to \infty}x_{p_k+1}^+ = 0$, то по лемме о зажатой последовательности получаем, что
+\begin{equation}\label{2.5.1}
+\boxed{
+\lim_{k\to \infty} \left( \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^- \right) = \alpha.    
+}
+\end{equation}
+С другой стороны, если числа $p_1,\ldots, p_k,q_k,p_{k+1}$ выбраны, то
+$$
+\alpha < \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_k}x_j^-,
+$$
+и тогда $q_{k+1}$ мы выбираем как наименьшее натуральное число такое, что
+$$
+\alpha > \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_k}x_j^- - \sum_{j=q_{k+1}}^{q_{k+1}} x_j^- = \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}}x_j^-,
+$$
+а тогда получаем
+$$
+\alpha \le \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}-1}x_j^-.
+$$
+
+Мы получаем неравенства
+$$
+\sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}}x_j^- < \alpha \le \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}-1}x_j^-, 
+$$
+вычитая сумму $\sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}}x_j^-$ из каждого неравенства, мы получаем
+$$
+0 < \alpha - \left( \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}}x_j^- \right) \le \left( \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}-1}x_j^-\right) - \left( \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}}x_j^-\right),
+$$
+откуда вытекает
+$$
+0 < \alpha - \left( \sum_{i=1}^{p_{k+1}} x_i^+-  \sum_{j=1}^{q_{k+1}}x_j^- \right) \le x_{q_{k+1}}^-.
+$$
+
+А тогда, согласно предложению \ref{2.4}, $\lim_{k \to \infty}x_{p_k+1}^+ = 0$, то по лемме о зажатой последовательности получаем, что
+\begin{equation}\label{2.5.2}
+\boxed{
+\lim_{k\to \infty} \left( \sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_{k+1}}x_j^- \right) = \alpha.    
+}
+\end{equation}
+
+Но по построению, все частичные суммы ряда 
+$$
+(x_n') = x_1^+, \ldots, x_{p_1}^+, x_1^-, \ldots, x_{q_1}^-, x_{p_1+1}^+, \ldots, x_{p_2}^+, x_{q_1+1}^-, \ldots, x_{q_2}^-, \ldots,
+$$
+имеют либо вид $\displaystyle\sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_k}x_j^-$ либо $\displaystyle\sum_{i=1}^{p_{k+1}}x_i^+ - \sum_{j=1}^{q_{k+1}}x_j^-$, а тогда из уравнений (\ref{2.5.1} и \ref{2.5.2}) вытекает, что сумма ряда $(x_n')$ есть $\alpha$\qed
+
+\subsection{Докажите, что $\displaystyle\int\left(\alpha f(x)+\beta g(x)\right)\mathrm{d}x=\alpha\int f(x)\mathrm{d}x+\beta\int g(x)\mathrm{d}x$, где $\alpha,\beta\in\mathbb{R}$}
+\label{2.6}
+Пусть $F(x)$, $G(x)$ — интегралы для фукнции $f(x)$ и $g(x)$, соответственно\\[2mm]
+\indent\textbf{(1) }Прежде всего, докажем, что 
+$$
+\int \alpha f(x) \mathrm{d}x = \alpha \int f(x) \mathrm{d}x.
+$$
+\indentЕсли $\alpha = 0$, то мы получаем тождество, поэтому пусть $\alpha \ne 0.$ В силу линейности дифференциала, получаем
+$$\begin{aligned}
+\int \alpha f(x) \mathrm{d}x &= \int \alpha \mathrm{d}F(x) \\
+&= \int \mathrm{d}(\alpha F(x)) \\
+&= \alpha F(x) + C \\
+&= \alpha \left( F(x) + \frac{C}{\alpha} \right)
+\end{aligned}$$
+\indentТак как $C$ — произвольное число, то число $\displaystyle\frac{C}{\alpha}$ можно также рассматривать как произвольное, и тогда согласно определению \ref{1.8}, выражение в последней скобке — это $\displaystyle\int f(x) \mathrm{d}x$\\[2mm]
+Получаем
+$$\begin{aligned}
+\int \alpha f(x) \mathrm{d}x &=\alpha \left( F(x) + \frac{C}{\alpha} \right) \\
+& = \alpha \int f(x) \mathrm{d}x.
+\end{aligned}$$
+\indent\textbf{(2) }Пусть $\alpha, \beta\ne 0$, так как в противном случае, мы либо получаем тождество $0 \equiv 0$, либо что уже было доказано выше\\[2mm]
+\indentИспользуя те же свойства и только что полученное, получаем
+$$\begin{aligned}
+\int \Bigl(\alpha f(x) + \beta g(x) \Bigr) \mathrm{d}x &= \int\Bigl( \alpha f(x) \mathrm{d}x + \beta g(x) \mathrm{d}x \Bigr) \\
+&= \int \Bigl( \alpha \mathrm{d}F(x) + \beta \mathrm{d}G(x) \Bigr) \\
+&= \int \Bigl( \mathrm{d}(\alpha F(x)) + \mathrm{d}(\beta G(x))  \Bigr) \\
+&= \int \mathrm{d}(\alpha F(x) + \beta G(x)) \\
+&= \alpha F(x) + \beta G(x) + C.
+\end{aligned}$$
+\indentИмеем $C = \displaystyle\frac{C}{2} + \frac{C}{2}$ и так как $C$ — произвольное число, то и числа $\displaystyle\frac{C}{2\alpha}, \frac{C}{2\beta}$ тоже можно считать произвольными. Тогда согласно определению \ref{1.8} и линейности дифференциала, получаем
+$$\begin{aligned}
+\int \Bigl(\alpha f(x) + \beta g(x) \Bigr) \mathrm{d}x &= \alpha F(x) + \beta G(x) + C \\
+&= \alpha \left( F(x) + \frac{C}{2\alpha} \right) + \left(G(x) + \frac{C}{2\beta} \right) \\
+&=\alpha \int \mathrm{d}F(x) + \beta \int \mathrm{d}G(x) \\
+&= \alpha \int f(x) \mathrm{d}x + \beta \int g(x) \mathrm{d}x
+\end{aligned}$$\qed
+
+
+\subsection{Пусть $u = u(x)$, $v= v(x)$ — две функции от $x$, имеющие непрерывные производные $u'= u'(x)$, $v' = v'(x)$. Тогда имеет место формула
+$\int u \mathrm{d}v = uv - \int v \mathrm{d}u$}
+Согласно определению \ref{1.4}, а также правилу Лейбница, имеем 
+$$\begin{aligned}
+\mathrm{d}(uv) &= (uv)' \mathrm{d}x \\
+&= u'v \mathrm{d}x + uv'\mathrm{d}x \\
+&= v \bigl( u'\mathrm{d}x\bigr) + u \bigl( v'\mathrm{d}x \bigr) \\
+&= v \mathrm{d}u + u \mathrm{d}v
+\end{aligned}$$
+Таким образом, $u\mathrm{d}v = \mathrm{d}(uv) - v \mathrm{d}u$. Тогда, используя линейность интеграла (п.\ref{2.6}), получаем
+$$\begin{aligned}
+\int u \mathrm{d}v &= \int \Bigl(  \mathrm{d}(uv) - v \mathrm{d}u \Bigr) \\
+&= \int \mathrm{d}(uv) - \int v \mathrm{d}u \\
+&= uv - \int v \mathrm{d}u,
+\end{aligned}$$\qed
+
+\subsection{Каждая правильная дробь может быть представлена в виде суммы конечного числа простых дробей}
+Рассмотрим дробь $\displaystyle\frac{P(x)}{Q(x)}$, мы можем записать знаменатель в виде 
+$$
+Q(x) = (x - a_1)^{k_1} \cdots (x-a_p)^{k_p} (x^2 + b_1x + c_2)^{m_1}\cdots (x^2 + b_qx + c_q)^{m_q}, 
+$$
+где $k_1 + \cdots + k_p + 2m_1 + \cdots + 2m_q = \mathrm{deg}(P(x))$ и все $k_i, m_j \in \mathbb{Z}_{\geqslant 0}$, и более того, согласно теореме Безу, все $a_i$ — это всё корни уравнения $Q(x) =0$\\[2mm]
+\indent\textbf{(1)} Пусть хотя бы один $k_i$ больше нуля, обозначим его просто через $k$, тогда можно записать $Q(x) = (x-a)^k \widetilde{Q}(x)$, где $a$ — это соответствующее число из чисел $a_i$. Тогда $a$ не является корнем уравнения $\widetilde{Q}(x) =0$\\[2mm]
+\indentДопустим теперь, что существует такое число $A$ и такой полином $\widetilde{P}(x)$, что 
+$$
+\frac{P(x)}{Q(x)} = \frac{A}{(x-a)^k} + \frac{\widetilde{P}(x)}{(x-a)^{k-1}\widetilde{Q}(x)}
+$$
+\indentДля доказательства этого равенства достаточно подобрать эти неизвестные $A, \widetilde{P}(x)$ так, чтобы выполнялось равенство
+$$
+P(x) - A \widetilde{Q}(x) = (x-a)\widetilde{P}(x).
+$$
+\indentТак как $A$ это число, то оно не должно зависеть от $x$, поэтому положим в этом равенстве $x = a$, и тогда мы получаем, что
+$$
+P(a) - A \widetilde{Q}(a) = 0
+$$
+откуда $A = \displaystyle\frac{P(a)}{\widetilde{Q}(a)}$. Это выражение корректно, так как $a$ был выбран так, чтобы $a$ — корень уравнения $Q(x) =0$, но не корень уравнения $\widetilde{Q}(x) = 0$\\[2mm]
+\indentДалее, полином $\widetilde{P}(x)$ можно теперь определить так:
+$$
+\widetilde{P}(x): = \frac{P(x) - A \widetilde{Q}(x)}{x-a}
+$$
+\indent\textbf{(2)} Пусть теперь $Q(x)$ содержит хотя бы один сомножитель вида $(x^2 + bx + c)^m$, тогда запишем $Q(x)= (x^2 + bx + c)^m \widehat{Q}(x)$, где уже $\widehat{Q}(x)$ не делится на $x^2 + bx + c$. Тогда подберём числа $B,C$ и полином $\widehat{P}(x)$ так, чтобы
+$$
+\frac{P(x)}{Q(x)} = \frac{Bx + C}{(x^2 + bx + c)^m} + \frac{\widehat{P}(x)}{(x^2 + bx + c)^{m-1} \widehat{Q}(x)}
+$$
+\indentЭто то же самое, что подобрать эти же неизвестные, чтобы выполнялось равенство
+$$
+P(x) - (Bx +C)\widehat{Q}(x) = (x^2 + bx + c) \widehat{P}(x)
+$$
+\indentПоступим следующим образом. Разделим полиномы $P(x)$, $\widehat{Q}(x)$ на $x^2 + bx + c$ с остатком;
+$$\begin{aligned}
+P(x) &= F(x)(x^2 + bx + c) + \alpha x + \beta, \\
+\widehat{Q}(x) &= H(x)(x^2 + bx + c) + \gamma x + \delta
+\end{aligned}$$
+\indentТогда, подставляя в предыдущее равенство, получаем
+$$
+F(x)(x^2 + bx + c) + \alpha x + \beta - (Bx +C) \bigl( H(x)(x^2 + bx + c) + \gamma x + \delta\bigr) = (x^2 + bx + c) \widehat{P}(x).
+$$
+\indentПотребуем теперь, чтобы полином
+$$
+R(x) = \alpha x + \beta  - (Bx + C) (\gamma x +\delta ) =0
+$$
+делился на $x^2 + bx + c$ без остатка\footnote[1]{Если можно будет найти такие числа, то значит, мы добьёмся того, что существуют такие $B,C$, что полином $P(x) - (Bx + C)\widehat{Q}(x)$ делится на $x^2 + bx + c$ без остатка. В таком случае, полином $\widehat{P}(x)$ находится как частное от деления полинома $P(x) - (Bx + C)\widehat{Q}(x)$ на $x^2 + bx + c$}\\[2mm]
+\indentИтак, имеем
+$$\begin{aligned}
+R(x) &= \alpha x + \beta  - (Bx + C) (\gamma x +\delta )  \\
+&= - \gamma B x^2 + (\alpha - \delta B - \gamma C)x + (\beta - \delta C)
+\end{aligned}$$
+\indentРазделив теперь $R(x)$ на $x^2 + bx +c $ на $x^2 + bx +c$, мы получим в остатке следующее выражение:
+
+$$
+\Bigl( (b \gamma - \delta)B - \gamma C  + \alpha \Bigr)x + c \gamma B - \delta C + \beta
+$$
+Тогда мы получаем систему (относительно неизвестных $B,C$) линейных уравнений
+$$
+\begin{cases}
+(b \gamma - \delta)B - \gamma C =- \alpha \\
+c \gamma B - \delta C =- \beta.
+\end{cases}
+$$
+Определитель этой системы имеет вид
+$$
+\Delta = \begin{vmatrix}
+b \gamma - \delta & \gamma \\
+c\gamma & -\delta
+\end{vmatrix} = \delta^2 - b\gamma \delta + c \gamma^2
+$$
+
+Пусть $\gamma \ne 0$, тогда
+$$
+\Delta = \gamma^2 \left( \left( -\frac{\delta}{\gamma} \right)^2 + b \left(-\frac{\delta}{\gamma}\right) + c \right),
+$$
+но это есть значение полинома $x^2 + bx +c$ в точке $x = -\frac{\delta}{\gamma}$ и, следовательно $\Delta \ne 0$, ибо мы предположили, что $x^2 + bx +c$ не имеет корней. Таким образом, система имеет решение, и числа с необходимым требованием существуют\\[2mm]
+\indentЕсли же $\gamma =0$, то $\Delta = \delta^2$, но так как $\widehat{Q}(x) = H(x)(x^2 + bx + c) + \gamma x + \delta$, то $\delta \ne 0$ ибо $\widehat{Q}(x)$ на $x^2 + bx +c$ не делится\\[2mm]
+\indentИтак, в любом случае, решение системы существует, а значит, можно подобрать так $B,C$, чтобы полином $P(x) - (Bx + C)\widehat{Q}(x)$ делится на $x^2 + bx + c$ без остатка. В таком случае полином
+$$
+\widehat{P}(x): = \frac{P(x) - (Bx + C)\widehat{Q}(x)}{x^2 + bx + c}.
+$$
+Таким образом, доказательство теоремы сводится к повторному применению случаев (1) и (2), которые обеспечивают возможность последовательного выделения простых дробей из данной правильной дроби, вплоть до её исчерпывания\qed
+
+\subsection{Для каждого $n\geqslant1$ рассмотрим форму $\omega_n:=\displaystyle\frac{dx}{(x^2+\alpha^2)^n}$, тогда $\displaystyle\int\omega_{n+1}=\frac{1}{2n\alpha^2}\cdot\frac{x}{(x^2+\alpha^2)^n}+\frac{2n-1}{2n\alpha^2}\cdot\int\omega_{n},\ \int\omega_1=\frac{1}{\alpha}\cdot\arctan{\left(\frac{x}{\alpha}\right)}+C$}
+\label{2.9}
+\indent\textbf{(1) }Так как $(\arctan(y))' = \displaystyle\frac{1}{y^2 + 1}$, то
+$$\begin{aligned}
+\int \omega_1 &= \int \frac{\mathrm{d}x}{x^2 + \alpha^2}  = \int \frac{\mathrm{d}x}{\alpha^2\cdot\left (\left( \frac{x^2}{\alpha^2} \right) + 1\right)}\\
+&= \frac{1}{\alpha^2} \int \frac{\alpha \cdot\mathrm{d}\left(\frac{x}{\alpha}\right)}{\left( \frac{x^2}{\alpha^2} \right) + 1} = \frac{1}{\alpha} \int \frac{ \mathrm{d}\left(\frac{x}{\alpha}\right)}{\left( \frac{x}{\alpha} \right)^2 + 1} = \frac{1}{\alpha} \cdot \arctan\left( \frac{x}{\alpha}\right) + C.
+\end{aligned}$$
+
+\indent\textbf{(2) }Пусть теперь $n \geqslant 1$, будем интегрировать $\omega_n$ по частям, т.е. воспользуемся правилом
+$$
+\int u \mathrm{d}v = uv - \int v \mathrm{d}u.
+$$
+
+Положили $u = \frac{1}{(x^2 + \alpha^2)^n}$, $v = x$, находим
+$$
+\mathrm{d}u = \left( \frac{1}{(x^2 + \alpha^2)^n} \right)'\mathrm{d}x = - \frac{2nx}{(x^2 + \alpha^2)^{n+1}}\mathrm{d}x, \qquad \mathrm{d}v = \mathrm{d}x.
+$$
+
+Тогда
+$$\begin{aligned}
+\int \omega_n &= \int \frac{\mathrm{d}x}{(x^2 + \alpha^2)^n} = \frac{x}{(x^2 + \alpha^2)^n} + 2n \cdot \int \frac{x^2}{(x^2 + \alpha^2)^{n+1}}\mathrm{d}x \\
+&= \frac{x}{(x^2 + \alpha^2)^n} + 2n \cdot \int \frac{(x^2+\alpha^2) - \alpha^2}{(x^2 + \alpha^2)^{n+1}}\mathrm{d}x \\
+&= \frac{x}{(x^2 + \alpha^2)^n} + 2n \cdot \left( \int \frac{(x^2+\alpha^2)}{(x^2 + \alpha^2)^{n+1}}\mathrm{d}x - \alpha^2 \int  \frac{\mathrm{d}x}{(x^2 + \alpha^2)^{n+1}}\right) \\
+&= \frac{x}{(x^2 + \alpha^2)^n} + 2n \cdot \left( \int \frac{\mathrm{d}x}{(x^2 + \alpha^2)^{n}} - \alpha^2 \int  \frac{\mathrm{d}x}{(x^2 + \alpha^2)^{n+1}}\right) \\
+&=\frac{x}{(x^2 + \alpha^2)^n} + 2n\cdot \int \omega_n  - 2n\alpha^2 \int \omega_{n+1},
+\end{aligned}$$
+т.е. мы получили рекуррентное соотношение 
+$$
+\int \omega_n = \frac{x}{(x^2 + \alpha^2)^n} + 2n\cdot \int \omega_n  - 2n\alpha^2 \int \omega_{n+1},
+$$
+из которого следует требуемое\qed
+
+\subsection{Интеграл от формы $\frac{Ax+B}{(x^2+ax+b)^n}dx$ выражается через рациональные функции и функции $\ln,\arctan$}
+Выделим в выражении $x^2 + ax + b$ полный квадрат
+$$
+x^2 + ax + b = \left(x+ \frac{a}{2} \right)^2 + \left(b - \frac{a^2}{4} \right),
+$$
+так как по условию $x^2 + ax + b =0$ не имеет корней, то $a^2 - 4b <0$, тогда положим 
+$$
+c^2: = b- \frac{a^2}{4}, \qquad c = + \sqrt{b- \frac{a^2}{4}}
+$$
+тогда сделаем замену 
+$$
+y:= x+ \frac{a}{2},
+$$
+находим
+$$\begin{aligned}
+\mathrm{d}y &= \left( x+ \frac{a}{2}\right)' \mathrm{d}x = \mathrm{d}x,\\
+x^2 + ax + b &= \left(x+ \frac{a}{2} \right)^2 + \left(b - \frac{a^2}{4} \right) = y^2 + c^2, \\
+Ax + B &=  Ay + \left(B - \frac{Aa}{2} \right).
+\end{aligned}$$
+Рассмотрим два случая\\[2mm]
+\indent\textbf{(1)} $n = 1$, тогда получаем
+$$\begin{aligned}
+\int \frac{Ax + B}{x^2 + ax + b}\mathrm{d}x = \int \frac{Ay + \left( B - \frac{Aa}{2} \right)}{y^2 + c^2}\mathrm{d}y &= \frac{A}{2} \int \frac{2y\mathrm{d}y}{y^2 + c^2} + \left( B - \frac{Aa}{2} \right) \int \frac{\mathrm{d}y}{y^2 + c^2} \\
+&= \frac{A}{2} \ln(y^2 + c^2) + \frac{1}{c} \cdot \left( B - \frac{Aa}{2} \right)\arctan\left(\frac{y}{c}\right) + C,
+\end{aligned}$$
+или, возвращаясь к $x$ и подставляя вместо $c$ его значение:
+$$
+\int \frac{Ax + B}{(x^2 + ax + b)}\mathrm{d}x =  \frac{A}{2}\ln(x^2 + ax + b) + \frac{2B-Aa}{\sqrt{4b-a^2}}\arctan\left( \frac{2x+a}{\sqrt{4b-a^2}} \right) + C.
+$$
+\indent\textbf{(2) }Пусть $n >1$, делая ту же замену, получаем
+$$
+\int \frac{Ax + B}{(x^2 + ax + b)^n}\mathrm{d}x = \int \frac{Ax + \left( B - \frac{Aa}{2} \right)}{(y^2 + c^2)^n}\mathrm{d}y = \frac{A}{2} \int \frac{2y\mathrm{d}y}{(y^2 + c^2)^n} + \left( B - \frac{Aa}{2} \right) \int \frac{\mathrm{d}y}{(y^2 + c^2)^n}.
+$$
+\indentВидим, что второй интеграл это интеграл от формы $\omega$ который найден в теореме \ref{2.9}, первый же интеграл легко берётся с помощью замены $t:=y^2 + c^2 $, тогда $\mathrm{d}t = (y^2 + c^2)'\mathrm{d}y = 2y\mathrm{d}y$, следовательно $y\mathrm{d}y = \frac{1}{2}\mathrm{d}t$, и мы получаем
+$$
+\int \frac{2y\mathrm{d}y}{(y^2 + c^2)^n} = \int \frac{\mathrm{d}t}{t^n} = - \frac{1}{n-1}\cdot \frac{1}{t^{n-1}} +C
+$$\qed
+
+
+
+\subsection{Пусть $I\subsetneq\mathbb{R}$ — промежуток и $f:I\rightarrow\mathbb{R}$ — ступенчатая функция относительно разбиения $\lambda(I)$, тогда если имеем разбиение $\lambda'(I)$, которое тоньше, чем $\lambda(I)$, то $\displaystyle\int_{\lambda(I)}f=\int_{\lambda'(I)}f$}
+Пусть $\lambda(I) = \{ A_1,\ldots, A_n \}$ и пусть 
+$$
+\lambda'(I) : = \Bigl\{A_{11}', \ldots, A'_{1\ell_1},\ldots, A'_{n1},\ldots, A'_{n\ell_n} \Bigr\},
+$$
+где $A_i$ содержит только $A'_{i1},\ldots, A'_{i\ell_i}$, $1\leqslant i \leqslant n$. Из определения \ref{1.11} тогда следует, что $$A_i = A'_{i1} \cup \cdots \cup A'_{i\ell_i}\text{ и }|A_i| = |A'_{i1}| + \cdots + |A'_{i\ell_i}|$$
+\indentНаконец, получаем, что
+$$
+f(A'_{i1}) = \cdots = f(A'_{i\ell_i}) = f(A_i), \qquad 1 \leqslant i \leqslant \ell.
+$$
+\indentТаким образом, имеем
+$$\begin{aligned}
+\int_{\lambda'(I)}f &= \Bigl(f(A_{11}') \cdot \left| A'_{11} \right| + \cdots + f(A_{1\ell_1})\cdot \left|A'_{1\ell_1}\right|\Bigr) + \cdots + \Bigl(f(A_{n1}') \left|A_{n1}'\right| + \cdots + f(A_{n\ell_n})\cdot \left|A'_{n\ell_n}\right| \Bigr) \\
+&= f(A_1) \cdot \left( \left| A'_{11}  \right| + \cdots + \left| A'_{1\ell_1} \right| \right) + \cdots + f(A_n) \cdot \left( \left| A'_{n1}  \right| + \cdots + \left| A'_{n\ell_n} \right| \right) \\
+&= f(A_1) |A_1| + \cdots + f(A_n)\cdot |A_n| \\
+&= \int_{\lambda(I)}f
+\end{aligned}$$\qed
+
+\subsection{Пусть $I\subsetneq\mathbb{R}$ — промежуток и $f,g:I\rightarrow\mathbb{R}$ — две ступенчатые функции на нем}
+\label{2.12}
+$\boxed{\text{Замечание.}}$ Если $f = \chi_I$, и взяв разбиение $\lambda(I) = \{I\}$, мы получаем следующее
+$$
+\int_{\lambda(I)}\chi_I = |I|.
+$$
+\indentИ тогда мы можем записать, что если $f = \displaystyle\sum_{A \in \lambda(I)}f(A) \cdot \chi_A$, то
+$$
+\boxed{
+\int_{\lambda(I)}f = \sum_{A \in \lambda(I)} f(A) \cdot \int_{\lambda(I)}\chi_A
+}
+$$
+\indentПусть $\lambda_f(I)  =  \displaystyle\bigcup_{p=1}^n A_p$, $\lambda_g(I) =  \displaystyle\bigcup_{q=1}^m B_q$ — разбиения промежутка $I$ относительно которых $f$, $g$ — ступенчаты, соответственно
+$$\begin{aligned}
+& f =  \sum_{p=1}^n\sum_{q=1}^m f(A_p) \cdot \chi_{A_p}\cdot \chi_{B_q} = \sum_{p=1}^n\sum_{q=1}^m f(A_p) \cdot \chi_{A_p\cap B_q}, \\
+& g=  \sum_{p=1}^n\sum_{q=1}^m g(B_q) \cdot \chi_{A_p} \cdot \chi_{B_q} = \sum_{p=1}^n\sum_{q=1}^m g(B_q) \cdot \chi_{A_p\cap B_q}.
+\end{aligned}$$
+\indent\textbf{(a)} $$\displaystyle\int_I(f\pm g)=\int_I f\pm\int_I g,\ \alpha,\beta\in\mathbb{R}$$\\[2mm]
+\indent\textbf{Доказательство.} Согласно следствию, $f\pm g = \sum_{p=1}^n\sum_{q=1}^m (f(A_p) \pm g(B_q)) \cdot \chi_{A_p\cap B_q}$, и тогда согласно замечанию
+$$\begin{aligned}
+\int_I (f\pm g) &= \sum_{p=1}^n\sum_{q=1}^m (f(A_p) \pm g(B_q)) \cdot \int_I \chi_{A_p \cap B_q} \\
+&=\sum_{p=1}^n\sum_{q=1}^m f(A_p) \cdot \int_I \chi_{A_p \cap B_q} \pm \sum_{p=1}^n\sum_{q=1}^m g(B_q) \cdot \int_I \chi_{A_p \cap B_q} \\
+&= \int_I f \pm \int_I g
+\end{aligned}$$\qed\\[4mm]
+\indent\textbf{(b)} Если $f(x) \ge g(x)$ для всех $x \in I$, то
+$$
+\int_I f \ge \int_I g
+$$
+\indent\textbf{Доказательство.} Если $f(x) \ge g(x)$ для всех $x\in I$, то для любых $p,q$ таких, что $A_p \cap B_q \ne \varnothing$, имеем $f(A_p) \ge g(B_q)$. Тогда, согласно замечанию,
+$$\begin{aligned}
+\int_I f &:=  \sum_{p=1}^n\sum_{q=1}^m f(A_p) \cdot \int_I \chi_{A_p \cap B_q} = \sum_{p=1}^n\sum_{q=1}^m f(A_p) \cdot |A_p \cap B_q| \\
+&\geqslant  \sum_{p=1}^n\sum_{q=1}^m g(A_p) \cdot |A_p \cap B_q| \\
+&= \sum_{p=1}^n\sum_{q=1}^m f(A_p) \cdot \int \chi_{A_p \cap B_q} \\
+&=: \int_I g
+\end{aligned}$$\qed\\[4mm]
+\indent\textbf{(c)} Если $f(x) = \alpha$ для всех $x \in I$, то
+$$
+\int_I f = \alpha \cdot |I|
+$$
+\indent\textbf{Доказательство.} Если $f(x) = \alpha$ для всех $x\in I$, то $f = \alpha \cdot \chi_I$, и согласно замечанию,
+$$
+\int_I f = \alpha\cdot \int \chi_I = \alpha \cdot |I|
+$$\qed\\[4mm]
+\indent\textbf{(d)} Если $I \subseteq J$ и если $\varphi: J \to \mathbb{R}$ функция, определённая следующим образом
+$$
+\varphi(x) : = \begin{cases}
+f(x) & x \in I,\\
+0 & x \notin I,
+\end{cases}
+$$
+тогда $\varphi(x)$ — ступенчатая на $J$ и 
+$$\int_J\varphi   = \int_I f$$
+\indent\textbf{Доказательство.} Пусть $\lambda(I)$ — разбиение промежутка $I$ и $f = \displaystyle\sum_{A \in \lambda(I)} f(A) \cdot \chi_A$, то определим разбиение $\lambda(J)$ промежутка $J$ следующим образом
+$$
+\lambda(J): = \lambda(I) \cup \{J\setminus I\}
+$$
+положим, что $\varphi(J\setminus I) :=0$ мы получаем, что $\varphi$ — ступенчата на $J.$ Мы можем также записать
+$$
+\varphi = \sum_{A \in \lambda(I)} f(A) \chi_A + \varphi(J\setminus I) \chi_{J \setminus I}
+$$
+тогда согласно замечанию,
+$$\begin{aligned}
+\int_J \varphi &= \sum_{A \in \lambda(I)} f(A) \int_J \chi_A + \varphi(J\setminus I) \int_J \chi_{J \setminus I}   \\
+&= \sum_{A \in \lambda(I)} f(A) \cdot |A| + 0 \cdot |J \setminus I|\\
+&= \int_I f
+\end{aligned}$$\qed\\[4mm]
+\indent\textbf{(e)} Пусть $\{A,B\}$ — разбиение промежутка $I$, тогда если функции $f|_A:A \to \mathbb{R}$, $f|_B:B \to \mathbb{R}$ ступенчаты на $A$ и $B$ соответственно, то
+$$
+\int_I f  = \int_A f|_A  + \int_B f|_B
+$$
+\indent\textbf{Доказательство.} Пусть $\lambda(A): = \displaystyle\bigcup_{p=1}^n A_p$, $\lambda(B) : = \displaystyle\bigcup_{q=1}^m B_q$ — разбиения промежутков $A,B$ соответственно. Тогда $\lambda : = \lambda(A) \cup \lambda(B)$ разбиение промежутка $I$\\[2mm]
+\indentИмеем
+$$
+f = \sum_{C \in \lambda(I)} f(C) \cdot \chi_C = \sum_{p=1}^n f(A_p)\cdot \chi_{A_p} + \sum_{q=1}^m f(B_q)\cdot \chi_{B_q} = f|_A + f|_B,
+$$
+тогда согласно замечанию,
+$$\begin{aligned}
+\int_I f &= \sum_{C \in \lambda(I)} f(C) \cdot \int_I \chi_C \\
+&= \sum_{C \in \lambda(I)} f(C) \cdot |C| \\
+&= \sum_{p=1}^n f(A_p) \cdot |A_p| + \sum_{q=1}^m f(B_q)\cdot |B_q| \\
+&= \int_A f|_A + \int_B f|_B.
+\end{aligned}$$\qed
+
+\subsection{Пусть $f:I \to \mathbb{R}$ — ограниченная функция на промежутке $I \subsetneq \mathbb{R}$, числами $a,b$, т.е., $a \leqslant f(x) \leqslant b$ для всех $x \in I$. Тогда $a\cdot |I| \leqslant \inf \int_I f  \leqslant \sup \int_I f \leqslant b \cdot |I|$}
+\label{2.13}
+Рассмотрим функции $a,b:I \to \mathbb{R}$, $a(x) := a$, $b(x): =b$, $x\in I$. Тогда $a \in m(f)$, $b \in M(f)$, тогда по определению $\sup, \inf$, получаем
+$$
+\sup \int_I f\le \int_I b = b \cdot |I|, \qquad \inf \int_I f \ge \int_I a = a\cdot |I|.
+$$
+\indentПокажем, что $\inf \int_I f \leqslant \sup \int_I f$. Пусть $h\in m(f)$, $g\in M(f)$, тогда $h \leqslant g$ и по теореме \ref{2.12} п.2, получаем $\int_I h \leqslant \int_I g$. Отсюда вытекает
+$$
+\inf \int_I f :=\sup \left\{ \int_I h, \, h \leqslant g \right\} \leqslant \inf\left\{\int_I g, g\geqslant h\right\}=:\sup\int_I f
+$$\qed
+
+\subsection{Пусть $f:I\rightarrow\mathbb{R}$ — ступенчатая функция на ограниченном промежутке $I\subsetneq\mathbb{R}$, тогда она интегрируема по Риману, и более того, интеграл Римана от неё это то же самое, что и интеграл от ступенчатой функции}
+\label{2.14}
+Так как $f$ — ступенчата и $f(x)\leqslant f(x)\forall x\in I$, то $f\in M_{p.c}(f), f\in m_{p.c}(f)$, тогда
+$$\sup\int_I f\leqslant\int_I f,\quad \inf\int_I f\geqslant\int_I f,$$
+то есть
+$$\sup\int_I f\leqslant\int_I f\leqslant\inf\int_I f$$
+Тогда, согласно лемме \ref{2.13}
+$$\begin{aligned}
+    \inf\int_I f\leqslant\sup\int_I f\\
+    \inf\int_I f=\sup\int_I f
+\end{aligned}$$\qed
+
+\subsection{Пусть $I\subsetneq\mathbb{R}$ — промежуток и пусть $f,g:I\rightarrow\mathbb{R}$ — две ограниченные функции на нем и при этом они интегрируемы на нем по Риману}
+Пусть $\overline{f}$ (соотв. $\underline{f}$) — функция из $M_{p.c}(f)$ (соотв. из $m_{p.c}(f)$). Тогда ясно, что $\overline{f}+\overline{g}\in M_{p.c}(f+g)$ и $\underline{f}+\underline{g}\in m_{p.c}(f+g)$\\[2mm]
+\indent Если $f$ — интегрируемая функция по Риману на $I$, тогда согласно определению \ref{1.15}
+$$\begin{aligned}
+    \int_I f=\sup\int_I f=\inf\int_I f
+\end{aligned}$$
+Тогда по определению inf, sup для любого $\varepsilon>0$ найдутся такие $\overline{f}\in M_{p.c}(f),\ \underline{f}\in m_{p.c}$, что 
+\begin{equation}\label{6.3.1}
+    \int_I f+\varepsilon=\sup\int_I f + \varepsilon > \int_I \overline{f},\quad
+    \int_I f-\varepsilon=\inf\int_I f + \varepsilon < \int_I \underline{f}
+\end{equation}
+\begin{enumerate}
+    \item Функция $f+g$ интегрируема на $I$ и более того,
+    $$\int_I (f+g)=\int_I f + \int_I g$$\\[2mm]
+    \textbf{Доказательство.} Покажем, что $f+g$ интегрируема по Риману. Воспользуемся определением \ref{1.15} и теоремой \ref{2.12} и полученными выше неравенствами\\
+    $$\begin{aligned}
+        \sup\int_I(f+g)&\leqslant\int_I (\overline{f}+\overline{g})\\
+        &=\int_I\overline{f}+\int_I\overline{g}\\
+        &<\int_I f+\varepsilon+\int_I g+\varepsilon\\
+        &=\int_I f+\int_I g+2\varepsilon
+    \end{aligned}$$
+    Аналогично получаем, что
+    $$\begin{aligned}
+        \inf\int_I (f+g) >\int_I f +\int_I g-2\varepsilon
+    \end{aligned}$$
+    Тогда, по теореме \ref{2.13} получим
+    $$\begin{aligned}
+        \int_I f+\int_I g-2\varepsilon<\inf\int_I(f+g)\leqslant\sup\int_I(f+g)<\int_I f+\int_I g+2\varepsilon
+    \end{aligned}$$
+    в частности имеем, что
+    $$\begin{aligned}
+        -2\varepsilon<\inf\int_I(f+g)-\left(\int_I f+\int_I g\right)<2\varepsilon\\
+        -2\varepsilon<\sup\int_I(f+g)-\left(\int_I f+\int_I g\right)<2\varepsilon\\
+    \end{aligned}$$
+    для любого $\varepsilon>0$, это значит, что 
+    \begin{equation*}
+        \inf\int_I(f+g)=\int_I f+\int_I g,\quad\sup\int_I(f+g)=\int_I f+\int_I g
+    \end{equation*}
+    то есть
+    \begin{equation*}
+        \inf\int_I(f+g)=\sup\int_I(f+g)=\int_I f+\int_I g
+    \end{equation*}\qed
+    \item Для любого $\alpha\in\mathbb{R}$, функция $\alpha f$ — интегрируема на $I$ и
+    \begin{equation*}
+        \int_I \alpha\cdot f=\alpha\int_I f
+    \end{equation*}
+    \textbf{Доказательство.} Покажем, что $\alpha f$ интегрируема по Риману. Рассмотрим случаи, в зависимости от $\alpha$\\[2mm]
+    \textit{Пусть $\alpha=0$.} Тогда $\alpha f=0$ — постоянная функция и по лемме \ref{2.14}, интеграл Римана от $\alpha f$ тоже самое, что интеграл от ступенчатой функции $\alpha\cdot f$, который равен $\alpha=0$\\[2mm]
+    \textit{Пусть $\alpha>0$.} Тогда $\alpha\overline{f}\in M_{p.c}(\alpha f),\ \alpha\underline{f}\in m_{p.c}(f)$. Тогда по определению inf, sup, теореме \ref{2.12} и полученным неравенствам, имеем
+    $$\begin{aligned}
+        \sup\int_I\alpha f&\leqslant\int_I\alpha\overline{f}\\
+        &=\alpha\int_I\overline{f}<\alpha\left(\int_I f+\varepsilon\right),\\
+        \inf\int_I\alpha f&\geqslant\int_I\alpha\underline{f}\\
+        &=\alpha\int_I\underline{f}>\alpha\left(\int_I f-\varepsilon\right)
+    \end{aligned}$$
+    пользуясь теоремой \ref{2.13}, имеем
+    \begin{equation*}
+        \alpha\int_I f-\alpha\varepsilon<\inf\int_I\alpha f\leqslant\sup\int_I\alpha f<\alpha\int_I f+\alpha\varepsilon
+    \end{equation*}
+    В частности,
+    \begin{equation*}
+        \alpha\int_I f-\alpha\varepsilon<\inf\int_I\alpha f<\alpha\int_I f+\alpha\varepsilon,\quad\alpha\int_I f-\alpha\varepsilon<\sup\int_I\alpha f<\alpha\int_I f+\alpha\varepsilon
+    \end{equation*}
+    для любого $\varepsilon>0$. Это значит, что
+    \begin{equation*}
+        \inf\int_I\alpha f=\alpha\int_I f\quad\sup\int_I\alpha f=\alpha\int_I f
+    \end{equation*}
+    то есть,
+    \begin{equation*}
+        \int_I\alpha f=\alpha\int_I f
+    \end{equation*}
+    \textit{Пусть $\alpha<0$.} Тогда можно написать, что $\alpha=-|\alpha|$ и тогда, если $|\alpha|\overline{f}\in M_{p.c}(|\alpha|f)$, то $\alpha f=-|\alpha|f\in m_{p.c}(-|\alpha|f)$. Аналогично, если $|\alpha|\overline{f}\in m_{p.c}(|\alpha|f)$, то $\alpha f=-|\alpha|f\in M_{p.c}(-|\alpha|f)$. Тогда имеем
+    $$\begin{aligned}
+        \sup\int_I\alpha f=\sup\int_I-|\alpha|f\leqslant\int_I\alpha\underline{f}<-|\alpha|\int_I f+\varepsilon,\\
+        \inf\int_I\alpha f=\inf\int_I-|\alpha|f\geqslant\int_I\alpha\overline{f}<-|\alpha|\int_I \overline{f}-\varepsilon
+    \end{aligned}$$
+    Тогда по лемме \ref{2.13}
+    \begin{equation*}
+        \alpha\int_I f-\varepsilon<\inf\int_I\alpha f\leqslant\sup\int_I\alpha f<\alpha\int_I f+\varepsilon
+    \end{equation*}\qed
+    \item Функция $f-g$ интегрируема на $I$ и 
+    \begin{equation*}
+        \int_I(f+g)=\int_I f-\int_I g
+    \end{equation*}
+    \textbf{Доказательство.} Применим пункты 1 и 2 к $f+(-g)$ и получим требуемое\qed
+    \item Если $f(x)\geqslant0\forall x\in I$, то
+    \begin{equation*}
+        \int_I f\geqslant0
+    \end{equation*}
+    \textbf{Доказательство.} Так как $f(x)\geqslant0\forall x\in I$, то нулевая функция $0:I\rightarrow\mathbb{R},x\longmapsto0,x\in I$ принадлежит множеству $m_{p.c}(f)$, но тогда
+    \begin{equation*}
+        \inf\int_I f\geqslant\int_I 0=0,
+    \end{equation*}
+    а так как $f$ интегрируема по Риману, то
+    \begin{equation*}
+        \int_I f=\inf\int_I f\geqslant0
+    \end{equation*}\qed
+    \item Если $f(x)\geqslant g(x)$ для всех $x\in I$, то
+    \begin{equation*}
+        \int_I f\geqslant\int_I g
+    \end{equation*}
+    \textbf{Доказательство.} Рассмотрим функцию $h=f-g$, тогда следовательно пунктам 3 и 4, получим требуемое\qed
+    \item Если $f(x)=\alpha$ для всех $x\in I$, то
+    \begin{equation*}
+        \int_I f=\alpha\cdot|I|
+    \end{equation*}
+    \textbf{Доказательство.} Функция $f(x)=\alpha$ — ступенчаиая на $I$, тогда по лемме \ref{2.14} она интегрируема по Риману, и более того, согласно лемме \ref{2.12} п.3 имеем
+    \begin{equation*}
+        \int_I f=\alpha\cdot|I|
+    \end{equation*}\qed
+    \item Пусть $J\subsetneq\mathbb{R}$ — ограниченный промежуток, и $I\subseteq J$ и пусть $\varphi:J\rightarrow\mathbb{R}$ — функция, опредленная так
+    \begin{equation*}
+        \varphi(x):=\begin{cases}
+            f(x),& x\in I,\\
+            0,& x\notin I
+        \end{cases}
+    \end{equation*}
+    Тогда $\varphi$ — интегрируема на $J$ и более того
+    \begin{equation*}
+        \int_J\varphi=\int_I f
+    \end{equation*}
+    \textbf{Доказательство.} Для данных $\overline{f}\in M_{p.c}(f),\underline{f}\in m_{p.c}(f)$ определим $\overline{F},\underline{F}:J\rightarrow\mathbb{R}$ следующим образом
+    \begin{equation*}
+        \overline{F}(x):=\begin{cases}
+            \overline{f}(x),&x\in I,\\
+            0,&x\notin I,
+        \end{cases}\quad\underline{F}(x):=\begin{cases}
+            \underline{f}(x),&x\in I,\\
+            0,&x\notin I,
+        \end{cases}
+    \end{equation*}
+    тогда $\overline{F}\in M_{p.c}(F)$ и $\underline{F}\in m_{p.c}(F)$. Тогда для любого $\varepsilon>0$ (см. неравенства \ref{6.3.1}), пользуясь теоремой \ref{2.12} п.4 получаем
+    $$\begin{aligned}
+        \sup\int_J F\leqslant\int_J\overline{F}=\int_I\overline{F}=\int_I\overline{f}<\int_I f+\varepsilon\\[1mm]
+        \inf\int_J F\geqslant\int_J\underline{F}=\int_I\underline{F}=\int_I\underline{f}>\int_I f-\varepsilon
+    \end{aligned}$$
+    Отсюда получаем, что для любого $\varepsilon>0$
+    \begin{equation*}
+        \int_I f-\varepsilon<\inf\int_J F\leqslant\sup\int_J F<\int_I f+\varepsilon
+    \end{equation*}
+    Откуда следует, что
+    \begin{equation*}
+        \int_J F=\int_I f
+    \end{equation*}\qed
+    % \item Пусть $\{A,B\}$ — разбиение $I$, тогда функции $f\vert_A,f\vert_B$ — интегрируемы на $A,B$ соответственно и более того
+    % \begin{equation*}
+    %     \int_I f=\int_A f\vert_A+\int_B f\vert_B
+    % \end{equation*}
+    % \textbf{Доказательство.} Если функции $f\vert_A,f\vert_B$ интегрируемы по Риману, то утверждение следует из пунктов 1 и 7. Рассмотрим функции
+    % \begin{equation*}
+    %     F_A(x):=\begin{cases}
+    %         f\vert_A(x),& x\in A,\\
+    %         0,&x\notin A
+    %     \end{cases}\quad F_B(x):=\begin{cases}
+    %         f\vert_B(x),&x\in B,\\
+    %         0,& x\notin B
+    %     \end{cases}
+    % \end{equation*}
+    % тогда $f=F_A+F_B$ и согласно п. 1 и 7 получим
+    % \begin{equation*}
+    %     \int_I f=\int_I(F_A+F_B)=\int_I F_A+\int_I F_B=\int_A f\vert_A+\int_B f\vert_B
+    % \end{equation*}
+    % Это показывает вторую часть утверждения\\[2mm]
+    % Теперь покажем, что если функция $f$ интегрируема по Риману на $I$, то и функции $f\vert_A,f\vert_B$ тоже интегрируемы по Риману на $A$ и $B$ соответственно\\[2mm]
+    % Выберем произвольный $\varepsilon>0$ и рассмотрим две произвольные функции $\overline{f}\in M_{p.c}(f),\underline{f}\in m_{p.c}(f)$. Ясно, что $\overline{f}_A\in M_{p.c}(f\vert_A)$ и $\underline{f}\vert_A\in m_{p.c}(\underline{f})$\\[2mm]
+    % Имеем
+    % $$\begin{aligned}
+    %     \int_A \underline{f}_A\leqslant\inf\int_A f\vert_A\leqslant\sup\int_A f\vert_A\leqslant\int_A \underline{f}\vert_A\\
+    %     \int_B \underline{f}_B\leqslant\inf\int_B f\vert_B\leqslant\sup\int_B f\vert_B\leqslant\int_B \underline{f}\vert_B
+    % \end{aligned}$$
+    % Тогда по теореме \ref{2.12} п.5 получаем
+    % $$\begin{aligned}
+    %     \int_I \overline{f}=\int_A \overline{f}_A+\int_B \overline{f}_B\\
+    %     \int_I \underline{f}=\int_A \underline{f}_A+\int_B \underline{f}_B
+    % \end{aligned}$$
+    % Тогда используя неравенства \ref{6.3.1} имеем
+    % \begin{equation*}
+    %     \int_I f-\eps<\left(\int_A \underline{f}\vert_A+\int_B\underline{f}_B\right)\leqslant\left(\int_A\overline{f}\vert_A+\int_B\overline{f}_B\right)<\int_I f+\eps
+    % \end{equation*}
+    % Отсюда вытекает
+    % $$\begin{aligned}
+    %     0\leqslant\left(\int_A\overline{f}\vert_A+\int_B\overline{f}_B\right)-\left(\int_A\underline{f}\vert_A+\int_B\underline{f}_B\right)\leqslant2\eps&\Longleftrightarrow\\
+    %     &\Longleftrightarrow 0\leqslant\left(\int_A\overline{f}\vert_A-\int_A\underline{f}\vert_A\right)+\left(\int_B\overline{f}_B-\int_B\underline{f}_B\right)\leqslant2\eps
+    % \end{aligned}$$
+    % Так как $\overline{f}\vert_A\geqslant\underline{f}\vert_A,\overline{f}\vert_B\geqslant\underline{f}\vert_B$, то согласно \ref{2.12} п.2 получаем, что обе скобки положительны, то есть
+    % $$\begin{aligned}
+    %     0\leqslant\int_A\overline{f}\vert_A-\int_A\underline{f}\vert_A\leqslant2\eps\\
+    %     0\leqslant\int_B\overline{f}_B-\int_B\underline{f}_B\leqslant2\eps
+    % \end{aligned}$$
+    % для любого $\eps>0$\\[2mm]
+    % Из неравенств $$\begin{aligned}\label{2.15.8}
+    %     \int_A \underline{f}_A\leqslant\inf\int_A f\vert_A\leqslant\sup\int_A f\vert_A\leqslant\int_A \overline{f}\vert_A\\
+    %     \int_B \underline{f}_B\leqslant\inf\int_B f\vert_A\leqslant\sup\int_B f\vert_B\leqslant\int_B \overline{f}\vert_B
+    % \end{aligned}$$ следует, что
+    % \begin{equation*}
+    %     0\leqslant\sup\int_A f\vert_A-\inf\int_A f\vert_A\leqslant2\eps,\quad 0\leqslant\sup\int_B f\vert_B-\inf\int_B f\vert_B\leqslant2\eps
+    % \end{equation*}
+    % а так как это верно для любого $\eps>0$, то
+    % \begin{equation*}
+    %     \sup\int_A f\vert_A=\inf\int_A f\vert_A,\quad \sup\int_B f\vert_B=\inf\int_B f\vert_B
+    % \end{equation*}
+    % что и означает интегрируемость функций $f\vert_A,f\vert_B$ по Риману\qed
+\end{enumerate}
+
+
+
+
+
+
+
+\end{document}
