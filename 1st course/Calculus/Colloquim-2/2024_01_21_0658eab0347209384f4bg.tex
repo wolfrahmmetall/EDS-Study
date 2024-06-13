@@ -1,0 +1,564 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm, nohead, nofoot]{geometry}
+\usepackage{amsmath, amsfonts, amssymb} % математический пакет
+\usepackage {fancybox, fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [R] {\thepage}
+\fancyhead[L]{Математический анализ. Коллоквиум - 2}
+\setcounter {page}{1}
+\headsep=10mm
+\usepackage{xcolor}
+\usepackage {hyperref}
+\hypersetup{colorlinks=true, allcolors= [RGB]{010 090 200}} % цвет ссылок
+\usepackage {setspace}
+\usepackage[pdftex]{graphicx}
+\usepackage{ dsfont }
+\usepackage{array}
+\setcounter{MaxMatrixCols}{20}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\linespread{1.3}
+\usepackage{mathtools}
+\usepackage{ mathrsfs }
+\setlength{\parindent}{20pt}
+\begin{document}
+\tableofcontents
+\newpage
+% \section{Часть I}
+% \section{Определения}
+\section{Определения}
+\subsection{Что такое предел отображения в точке между двумя метрическими просстранствами?}
+Пусть заданы метрические пространства $E, E^{\prime}$ и подмножество $A \subseteq E$. Отображение $f: A \rightarrow E^{\prime}$. Точка $a \in \bar{A}$ - точка замыкания множества $A$
+
+В случае $a \notin A,\ f(x)$ будет иметь предел $a^{\prime} \in E^{\prime}$ при $x \rightarrow a(x \in A)$, если отображение\\ $\bar{f}: A \cup\{a\} \rightarrow E^{\prime}$ непрерывно в точке $a$. Отображение $\bar{f}(x)$ определено вот так:
+
+$$
+\bar{f}(x)= \begin{cases}f(x), & x \in A \\ a^{\prime}, & x=a\end{cases}
+$$
+
+В этом случае мы пишем $a^{\prime}:=\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)$
+
+В случае $a\in A$ мы пользуемся той же терминологией, наше отображение $f$ должно быть непрерывно в точке $a$, причем $a^{\prime}:=f(a)$
+
+\subsection{Какой критерий непрерывности отображения в точке между двумя метрическими пространствами?}
+
+
+Пусть $f: E \rightarrow E^{\prime}$. Для того, чтобы $f$ было непрерывно в точке $x_{0} \in E$ ($x_{0}$ - точка замыкания множества $E\setminus \{x_0\}$), необходимо и достаточно, чтобы $f(x_{0})=\lim\limits_{\substack{x \rightarrow x_{0} \\ x \in E \setminus\{x_{0}\}}} f(x)$
+
+\subsection{Что такое сходимость в $\mathbb{R}^{n}, n \geqslant 1$ ?}
+
+
+Если последовательность ($\mathbf{x}_{m}$) точек в $\mathbb{R}^{n}$ сходится в точку $\mathbf{a}$, i.e. $\lim\limits_{m \rightarrow \infty} \mathbf{x}_{m}=\mathbf{a}$, то она сходится покоординатно, i.e. $\lim_{m \rightarrow \infty} x_{k m}=a_{k}$, где $\mathbf{a}=\left(a_{1}, \ldots, a_{n}\right)^{T}$
+
+\subsection{Что такое произведение метрических пространств и какая там метрика?}
+
+
+Пусть $\left(E_{1}, d_{1}\right),\left(E_{2}, d_{2}\right)$ - два метрических пространства, где $d_{1}, d_{2}$ - расстояния в $E_{1}, E_{2}$. Для любой пары точек $x=\left(x_{1}, x_{2}\right), y=\left(y_{1}, y_{2}\right)$ положим
+
+$$
+d(x, y):=\max \left\{d_{1}\left(x_{1}, y_{1}\right), d_{2}\left(x_{2}, y_{2}\right)\right\}
+$$
+
+Так как:
+
+(1) $d(x, y)=0 \Longleftrightarrow x=y$
+
+(2) $d(x, y)=d(y, x)$
+
+(3) $d(x, z)=\max \left\{d_{1}\left(x_{1}, z_{1}\right), d_{2}\left(x_{2}, z_{2}\right)\right\} \leqslant \max \left\{d_{1}\left(x_{1}, y_{1}\right)+d_{1}\left(y_{1}, z_{1}\right), d_{2}\left(x_{2}, y_{2}\right)+d_{2}\left(y_{2}, z_{2}\right)\right\} \leqslant$ $\leqslant \max \left\{d_{1}\left(x_{1}, y_{1}\right), d_{2}\left(x_{2}, y_{2}\right)\right\}+\max \left\{d_{1}\left(y_{1}, z_{1}\right), d_{2}\left(y_{2}, z_{2}\right)\right\}=d(x, y)+d(y, z)$
+
+Мы проверили, что это метрика. Поэтому мы получаем метрическое пространство $(E, d)$, где $E=E_{1} \times E_{2}$
+\newpage
+\subsection{Что такое нормированное пространство?}
+
+
+\textit{Нормированное пространство} - векторное пространстово, в котором задана норма
+
+\textit{Норма} в векторном пространстве $E$ есть отображение (обычно записываемое $x \mapsto\|x\|$) пространства $E$ в $\mathbb{R}_{\geqslant 0}$, обладающее следующими свойствами:
+
+(1) $\|x\|=0 \Longrightarrow x=0$ - нулевой вектор
+
+(2) $\|\lambda x\|=|\lambda| \cdot\|x\|, \forall x \in E, \lambda \in \mathbb{R}$
+
+(3) $\|x+y\| \leqslant\|x\|+\|y\|, \forall x, y \in E$ (неравенство треугольника)
+
+\subsection{Что такое эквивалентность норм?}
+
+
+Пусть на веткторном пространстве $E$ заданы две нормы $\|?\|_{1}$ и $\|?\|_{2}$. Нормы эквивалентны, если $\exists a, b>0:$
+$$
+a\|x\|_{1} \leqslant\|x\|_{2} \leqslant b\|x\|_{1} \quad(\forall x \in E)
+$$
+Эквивалентность норм - это отношение эквивалентности
+
+\subsection{Что значит выражение $f=\mathbf{o}(g)$, при $x \rightarrow a$ ?}
+
+Говорят, что $f$ - бесконечно малая по сравнению с $g$ при $x \rightarrow a$, если $f(x)=h(x) g(x)$ и $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} h(x)=0$. Используется обозначение $f=\mathbf{o}(g)$ при $x \rightarrow a$
+
+В частном случае, $f=\mathbf{o}(1)$ при $x \rightarrow a$ означает, что $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=0$ и говорят, что
+$f$ - бесконечно малая функиия при $x \rightarrow a$
+
+\subsection{Что такое линейное отображение и как его можно задать?}
+
+Линейное отображение $f: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ - это такое отображение, что $f(\alpha \mathbf{x}+\beta \mathbf{y})=\alpha f(\mathbf{x})+$ $\beta f(\mathbf{y})$, где $\mathbf{x}, \mathbf{y} \in \mathbb{R}^{n}, \alpha, \beta \in \mathbb{R}$. Его можно задать матрицей размера $m \times n$
+
+\subsection{Что геометрически означает линейное отображение между конечномерными векторными пространствами?}
+
+Геометрически $f(\alpha \mathbf{x}+\beta \mathbf{y})=\alpha f(\mathbf{x})+\beta f(\mathbf{y})$ показывает, что образ прямой - прямая линия
+
+\subsection{Что значит отображение $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ дифференцируемо в точке а $\in$ $\mathbb{R}^{n}$ ?}
+
+
+Пусть $\mathbb{R}^{n}$ и $\mathbb{R}^{m}$ - векторные пространства с евклидовой нормой $\|?\|$. Отображение $F: \mathbb{R}^{n} \rightarrow$ $\mathbb{R}^{m}$ дифферениируемо в точке $\mathbf{a} \in \mathbb{R}^{n}$, если существует такое линейное отображение (зависящее от точки а) $\mathrm{d} F_{\mathbf{a}}: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$, что:
+$$
+F(\mathbf{a}+\mathbf{h})=F(\mathbf{a})+\mathrm{d} F_{\mathbf{a}}(\mathbf{h})+\mathbf{o}(\|\mathbf{h}\|)
+$$
+\newpage
+\subsection{Что геометрически означает то, что отображение $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$ дифференцируемо в точке $a \in \mathbb{R}^{n}$ ?}
+
+Из дифференцируемости имеем, что существует линейное отображение в точке:
+
+$$
+F(\mathbf{a}+\mathbf{h})=F(\mathbf{a})+\mathrm{d} F_{\mathbf{a}}(\mathbf{h})+\mathbf{o}(\|\mathbf{h}\|)
+$$
+
+А значит, геометрически в этой точке отображение локально линейно
+
+\subsection{Что такое дифференциал отображения в точке?}
+
+Линейное отображение d$F_\mathbf{a}$ - \textit{дифференциал оотображения} в точке $\mathbf{a}$
+
+\subsection{Что такое производная функции от одной переменной?}
+
+Производная функции $f(x)$ в точке $x_{0}$ - это предел:
+
+$$
+\lim\limits_{h \rightarrow 0} \frac{f\left(x_{0}+h\right)-f\left(x_{0}\right)}{h}
+$$
+который принято обозначать $f^{\prime}\left(x_{0}\right)$, $\frac{\mathrm{d} f}{\mathrm{~d} x}\left(x_{0}\right)$. А если $x$ - это параметр времени, который обозначается через $t$, то производную обозначают $\dot{f}\left(t_{0}\right)$
+
+\subsection{Производная функции то же самое, что дифференциал?}
+
+Дифференциал - это линейная часть приращения функции, а производная - это предел отношения приращения функции к приращению аргумента при приращении стремящемся к нулю. Это не одно и то же
+
+\subsection{Может ли быть так, что функция везде непрерывна, но нигде не дифференцируема? Ответ обоснуйте}
+
+
+Да, например, функция Вейерштрасса:
+$$\boxed{
+f(x)=\sum_{n=0}^{\infty} a^{n} \cos \left(b^{n} \pi x\right)
+}$$
+где $0<a<1, \quad b-$ положительное нечетное целое, а также выполняется $a b>1+\frac{3 \pi}{2}$
+
+По сути функция Вейерштрасса резко меняет свое направление в каждой точке, поэтому она не дифференцируема, и при этом она непрерывна.
+
+\subsection{Что такое частная производная?}
+$$a_i=\lim\limits_{h_i\mapsto0} \frac{f(\mathbf{x}+h_i\mathbf{e}_i)+f(\mathbf{e})}{h_i}$$
+$\mathbf{e}_i$ - базисный вектор
+
+Частная производная - это предел отношения приращения функции по выбранной переменной к приращению этой переменной, при стремлении этого приращения к нулю
+\subsection{Геометрический смысл частной производной}
+Геометрически, частная производная даёт производную по направлению одной из координатных осей
+\subsection{Что такое производная по направлению?}
+
+Пусть есть непрерывное отображение $\gamma:(-c, c) \rightarrow \mathbb{R}^{n}$ - кривая в $\mathbb{R}$.
+
+Пусть $\gamma(0)=\mathbf{x}_{0}$ и пусть $\gamma$ дифференцируема в точка $t=0$ и $\dot\gamma(0)=\mathrm{v}$. Наконец, пусть
+$f: \mathbb{R}^{n} \rightarrow \mathbb{R}$ - дифференцируемая в точке $\mathbf{x}_{0}$ функция, тогда число
+$$
+\nabla_{\dot\gamma(0)}(f):=\left\langle\nabla f\left(x_{0}\right), \gamma(0)\right\rangle
+$$
+называется произоводной по направлению функции $f$ вдоль вектора $\gamma(0)$
+
+\subsection{Что такое градиент функции?}
+
+Дифференициал $(\mathrm{d} f)_{\mathbf{x}_{0}}$ функции $f: \mathbb{R}^{n} \rightarrow \mathbb{R}$ в точке $\mathbf{x}_{0}$ называется градиентом функции. Принято обозначение $\nabla_{\mathbf{x}_{0}} f$ для градиента
+
+\subsection{Что значит то, что линейное отображение ограничено?}
+Линейное отображение $L: \mathbb{R}^n\rightarrow\mathbb{R}^m$ ограничено, если $\exists K\geqslant0:\forall\mathbf{v}\in\mathbb{R}^n\ \|L(\mathbf{v})\|\leqslant K\|\mathbf{v}\|$
+\subsection{Что такое полином Тейлора для функции?}
+
+Пусть функция $f(x)\ n$ раз дифференцируема в точке $\mathbf{a} \in \mathbb{R}$, тогда полином вида:
+
+$$
+T_{f}(x):=\sum_{k=0}^{n} \frac{f^{(k)}(\mathbf{a})}{k !}(x-\mathbf{a})^{k}
+$$
+называется полиномом Тейлора для функции $f$
+
+\newpage
+\section{Доказательства}
+\subsection{Докажите, что отображение между метрическими пространствами может иметь лишь один предел по множеству $A$ в данной точке $a \in \bar{A}$}
+
+Предположим, что отображение имеет два предела $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=a^{\prime}$ и $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=b^{\prime}(a \neq b)$ тогда согласно одному из определений предела:
+
+$$
+\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=a^{\prime} \Longleftrightarrow \forall \varepsilon>0: \exists \delta>0: x \in A \text { и } d(x, a)<\delta \Longrightarrow d^{\prime}\left(a^{\prime}, f(x)\right)<\varepsilon
+$$
+Тогда, если предела два:
+
+(1) $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=a^{\prime} \Longrightarrow \forall \varepsilon>0: \exists \delta_{1}>0: x \in A$ и $d(x, a)<\delta_{1} \Longrightarrow d^{\prime}\left(a^{\prime}, f(x)\right)<\varepsilon$
+
+(2) $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=b^{\prime} \Longrightarrow \forall \varepsilon>0: \exists \delta_{2}>0: x \in A$ и $d(x, a)<\delta_{2} \Longrightarrow d^{\prime}\left(b^{\prime}, f(x)\right)<\varepsilon$\\
+Однако, по неравенству треугольника $d^{\prime}\left(a^{\prime}, b^{\prime}\right) \leqslant d^{\prime}\left(a^{\prime}, f(x)\right)+d^{\prime}\left(b^{\prime}, f(x)\right)<2 \varepsilon \quad(\forall \varepsilon>0)$\\
+$\Longrightarrow d^{\prime}\left(a^{\prime}, b^{\prime}\right)=0 \Longleftrightarrow a^{\prime}=b^{\prime}$. Получили противоречие. Q.E.D.
+
+\subsection{Докажите критерий непрерывности в точке}
+
+(1) $f: E \rightarrow E^{\prime}$ непрерывно в $x_{0} \in E\left(x_{0}\right.$ - точка замыкания $\left.E \backslash\left\{x_{0}\right\}\right)$
+$\Longleftrightarrow(2) f\left(x_{0}\right)=\lim\limits_{\substack{x \rightarrow x_{0} \\ x \in E \backslash\left\{x_{0}\right\}}} f(x)
+$\\
+Более подробно:\\
+(1) $\Longrightarrow$ (2): Если $f$ непрерывна и определена в точке $x_{0}$, то можно сказать, что есть отображение $f_{0}:\left(E \backslash\left\{x_{0}\right\}\right) \rightarrow E^{\prime}$, определенное на множестве, из которого выкинули точку замыкания $x_{0}$. Положим, что $\overline{f_{0}}(x)=f(x)$. Это отображение будет иметь предел $\overline{f_{0}}\left(x_{0}\right)=$ $f\left(x_{0}\right)=\lim\limits_{\substack{x \rightarrow x_{0} \\ x \in E \backslash\left\{x_{0}\right\}}} f_{0}(x)=\\
+=\lim\limits_{\substack{x \rightarrow x_{0} \\ x \in E \backslash\left\{x_{0}\right\}}} f(x)$\\[2mm]
+(2)$\Longrightarrow$(1): Если существует предел $f\left(x_{0}\right)=\lim\limits_{\substack{x \rightarrow x_{0} \\ x \in E \backslash\left\{x_{0}\right\}}} f(x)$. Это значит, что по определению предела: $\forall \varepsilon>0: \exists \delta>0: x \in E$ и $d\left(x_{0}, x\right)<\delta \Longrightarrow d^{\prime}\left(f\left(x_{0}\right), f(x)\right)<\varepsilon$, значит $f$ непрерывна в точке $x_{0}$ по определению непрерывности отображения
+
+\subsection{Пусть $E, E^{\prime}, E^{\prime \prime}$ - метрические пространства, $A \subseteq E, f: A \rightarrow E^{\prime}$, $g: E^{\prime} \rightarrow E^{\prime \prime}$ - отображения. Если $\lim\limits_{x \rightarrow a, x \in A} f(x)=a^{\prime}$ и $g$ непрерывно в точке $a^{\prime}$, то $g\left(a^{\prime}\right)=\lim\limits_{x \rightarrow a, x \in A} g(f(x))$}
+Если $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)$ существует в точке $a$, значит, $\bar{f}$ - непрерывна в точке $a$ и принимает значение $a^{\prime}$. А так как $g$ непрерывна в точке $a^{\prime}$. По теореме о непрерывности композиции непрерывных отношений: $g(\bar{f}(x))$ - непрерывно.
+
+Обозначим $h=g \circ f$, тогда $\bar{h}=g \circ \bar{f}-$ непрерывно в точке $a$. Отсюда имеем $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} h(x)=\bar{h}(a)$ $\Longrightarrow \lim\limits_{\substack{x \rightarrow a \\ x \in A}} g(f(x))=g(\bar{f}(a))=g\left(a^{\prime}\right)$
+
+\subsection{Для любой точки $a \in \bar{A}$ существует такая последовательность $\left\{x_{n}\right\}$ точек из $A$, что $a=\lim\limits_{x \rightarrow a, x \in A} x_{n}$}
+
+
+Так как $a$ - точка замыкания множества $A$, то $\forall$ шар $B(a, r)$ содержит хотя бы одну точку из $A\\[2mm]
+\quad(B(a, r) \cap A \neq \varnothing)$.
+
+Пусть $r=\frac{1}{n}(\forall n \in \mathbb{N}, n \geqslant 1) \Longrightarrow B\left(a, \frac{1}{n}\right) \cap A \neq \varnothing$.
+
+По Аксиоме выбора мы можем для каждого $n$ взять $x_{n} \in B\left(a, \frac{1}{n}\right) \cap A$. Осталось показать, что $\lim\limits_{n \rightarrow \infty} x_{n}=a$. Покажем это по критерию Коши. Пусть $n<m: x_{n} \in B\left(a, \frac{1}{n}\right), x_{m} \in B\left(a, \frac{1}{m}\right)$
+
+$$
+d\left(x_{n}, x_{m}\right) \leqslant d\left(a, x_{n}\right)+d\left(a, x_{m}\right)<\frac{1}{n}+\frac{1}{m}<\frac{2}{n}
+$$
+
+Для всех элементов начиная с $n$-го $x_{n}, x_{n+1}, \ldots \in B\left(a, \frac{2}{n}\right)$. Отсюда следует, что последовательность $\left\{x_{n}\right\}$ имеет предел и сходится к точке $a$. Q.E.D.
+
+\subsection{Пусть $f: A \rightarrow E^{\prime}$ - отображение множества $A \subseteq E$ в метрическое пространство $E^{\prime}$ и $a \in \bar{A}$. Для того, чтобы $f$ имело предел $a^{\prime} \in E^{\prime}$ в точке $a$ по $A$, необходимо и достаточно, чтобы для каждой последовательности $\left\{s_{n}\right\}$ точек из $A$, сходящейся к $a$, последовательность $f\left(s_{n}\right)$ сходилась к $a^{\prime}$}
+
+$\underline{\text {Необходимость}}$
+
+
+Пусть $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=a^{\prime}$ и пусть $s: \mathbb{N} \rightarrow A \cup\{A\}-$ последовательность $\left\{s_{n}\right\}$. По условию, $\lim\limits_{n \rightarrow \infty} s_{n}=a$. Так как существует предел $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)=a^{\prime}$, то $\bar{f}-$ непрерывна в точке $a$. $s^{\prime}:=\bar{f} \circ s: \mathbb{N} \rightarrow E^{\prime}\left(s_{n}^{\prime}=f\left(s_{n}\right)\right)$. А отсюда по теореме 2.3 о пределе композиции: если $\lim\limits_{n \rightarrow \infty} s_{n}=a$, а $\bar{f}$ непрерывна в $a$, то $\lim\limits_{n \rightarrow \infty} f\left(s_{n}\right)=\lim\limits_{n \rightarrow \infty} s_{n}^{\prime}=\bar{f}(a)=a^{\prime}=\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)$\\[2mm]
+$\underline{\text {Достаточность}}$
+
+Докажем от противного, пусть предел у отображения не $a^{\prime}$.
+
+Пусть для любой последовательности $\left\{s_{n}\right\}$ точек из $A$ выполняется $\lim\limits_{n \rightarrow \infty} s_{n}=a$, а значит $\lim\limits_{n \rightarrow \infty} f\left(s_{n}\right)=a^{\prime}$. Ho $\lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x) \neq a^{\prime}$
+
+Тогда из определения предела последовательности $\lim\limits_{n \rightarrow \infty} s_{n}=a$, начиная с какого-то $N$ : $\forall n>N: d\left(a, s_{n}\right)<\varepsilon$
+
+Но с другой стороны $a^{\prime} \neq \lim\limits_{\substack{x \rightarrow a \\ x \in A}} f(x)$ а значит отображение $\bar{f}$ не является непрерывным в точке $a$. Тогда существует $\varepsilon>0$, что для любого номера $n$ найдется такая точка $x_{n} \in A$, удовлетворяющая условиям $d\left(a, s_{n}\right)<\frac{1}{n}$ и $d^{\prime}\left(a^{\prime}, f\left(s_{n}\right)\right) \geqslant \varepsilon$ (если бы выполнялась непрерыность, то $d^{\prime}\left(a^{\prime}, f\left(x_{n}\right)\right)<\varepsilon$ из определения предела). Но тогда последовательность $\left\{f\left(s_{n}\right)\right\}$ не сходится к $a^{\prime}$, что протиоречит условию
+
+\subsection{Если $\left(\mathbf{x}_{n}\right)$ последовательность в $\mathbb{R}^{n}$ такая, что $\lim\limits_{m \rightarrow \infty} \mathbf{x}_{m}=\mathbf{a}$, то она сходится покоординатно, т.е., $\lim\limits_{m \rightarrow \infty} x_{m k}=a_{k}$, где $\mathbf{a}=\left(a_{1}, \ldots, a_{n}\right)^{T}$}
+
+$$\boxed{
+\max _{1 \leqslant k \leqslant n}\left|x_{k}\right| \leqslant \sqrt{\sum_{k=1}^{n} x_{k}^{2}} \leqslant \sqrt{n} \max _{1 \leqslant k \leqslant n}\left|x_{k}\right|}$$\\[2mm]
+Из этого неравенства имеем: $\forall k(1 \leqslant k \leqslant n):\left|x_{k m}-a_{k}\right| \leqslant \sqrt{\sum_{k=1}^{n}\left(x_{k m}-a_{k}\right)^{2}}=d\left(\mathbf{x}_{m}, \mathbf{a}\right)$\\[2mm]
+$\lim\limits_{m \rightarrow \infty} \mathbf{x}_{m}=\mathbf{a} \Longleftrightarrow \forall \varepsilon>0: \exists M: \forall m>M: d\left(\mathbf{x}_{m}, \mathbf{a}\right)=\left\|\mathbf{x}_{m}-\mathbf{a}\right\|<\varepsilon$ (по определению предела последовательности)
+
+$$
+\begin{aligned}
+& \Longleftrightarrow \forall k(1 \leqslant k \leqslant n):\left|x_{k m}-a_{k}\right| \leqslant \sqrt{\sum_{k=1}^{n}\left(x_{k m}-a_{k}\right)^{2}}=d\left(\mathbf{x}_{m}, \mathbf{a}\right)=\left\|\mathbf{x}_{k m}-a_{k}\right\|<\varepsilon \\
+& \Longleftrightarrow \lim\limits_{m \rightarrow \infty} x_{k m}=a_{k}(1 \leqslant k \leqslant n)-\text { сходится покоординатно } \quad \text { Q.E.D. }
+\end{aligned}
+$$
+
+\subsection{Докажите обобщенную теорему Больцано-Вейерштрасса}
+
+Рассмотрим $\mathbb{R}^{n}$ с обычной метрикой $d$, и пусть имеется такая последовательность $\left\{\mathbf{x}_{m}\right\}$, элементы которой целиком лежат в каком-то шаре $B(\mathbf{a}, r) \subseteq \mathbb{R}^{n}$, тогда в ней имеется сходящаяся подпоследовательность.
+
+Если $\left\{\mathbf{x}_{m}\right\} \subseteq B(\mathbf{a}, r) \Longrightarrow d\left(\mathbf{x}_{m}, \mathbf{a}\right)<r$
+
+Далее из неравенства:
+
+$$
+\left|x_{k m}-a_{k}\right| \leqslant \max _{q \leqslant k \leqslant n}\left|x_{k m}-a_{k}\right| \leqslant \sqrt{\sum_{k=1}^{n}\left(x_{k m}-a_{k}\right)^{2}}=d\left(\mathbf{x}_{m}, \mathbf{a}\right)<r
+$$
+
+Так как $\mathbf{a}=\left(a_{1}, \ldots, a_{n}\right)^{T}$ - фиксированная точка, значит, если мы рассмотрим покоординатно, каждая последовательность ($x_{k m}$) ограничена при каждом $m$ и $1 \leqslant k \leqslant n$. Если последовательность ограничена, то в ней есть сходящаяся подпоследовательность по теореме Больцано-Вейерштрасса, значит и в последовательности ($x_{1 m}$) есть сходящаяся подпоследовательность $\left(x_{1 m_{t_{1}}}\right) \subseteq\left(x_{1 m}\right)$, где $t_{1}$ пробегает некоторое множество индексов $T_{1}$. Далее мы можем найти такую сходящуюся подпоследовательность $\left(x_{2 m_{t_{2}}}\right) \subseteq\left(x_{2 m}\right)$, в которой $t_{2}$ пробегает множество индексов $T_{2} \subseteq T_{1}$. Продолжая таким образом получим набор подопследовательностей
+
+$$
+\left\{\left(x_{1 m_{t_{1}}}\right),\left(x_{2 m_{t_{2}}}\right), \ldots,\left(x_{n m_{t_{n}}}\right)\right\}
+$$
+
+где каждый $t_{k}$ пробегает множество индексов $T_{k}$, при этом $T_{n} \subseteq T_{n-1} \subseteq \ldots \subseteq T_{2} \subseteq T_{1}$
+
+Тогда пусть все они пробегают одно и то же множество $T_{n}$, тогда получаем сходящююся подпоследовательность:
+
+$$
+\mathbf{x}^{\prime}=\left(\begin{array}{c}
+\left(x_{1 m_{t_{n}}}\right) \\
+\left(x_{2 m_{t_{n}}}\right) \\
+\ldots \\
+\left(x_{n m_{t_{n}}}\right)
+\end{array}\right)=\left(\mathbf{x}_{m_{t_{n}}}\right)
+$$
+
+Q.E.D.
+
+\subsection{Пусть $F, E_{1}, E_{2}$ - метрические пространства, и пусть $f_{1}: F \rightarrow E_{1}$, $f_{2}: F \rightarrow E_{2}$. Тогда отображение $f: F \rightarrow E_{1} \times E_{2},\ z \mapsto\left(f_{1}(z), f_{2}(z)\right)$ будет непрерывным в точке $z_{0} \in F$, если и только если оба отображения $f_{1}$ и $f_{2}$ непрерывны в точке $z_{0}$}
+
+Пусть $p_0=(f_1(z_0),f_2(z_0)$, покажем что $$f^{-1}(B(p_0, r))=f_1^{-1}(B(f(z_0), r))\cap f_2^{-1}(B(f_2(z_0), r))$$
+Действительно, $z\in f^{-1}(B(p_0, r))\Longleftrightarrow$
+
+$$
+\begin{aligned}
+& \Longleftrightarrow f(z)\in B(p_0,r)\\
+& \Longleftrightarrow (f_1(z), f_2(z))\in B_1(f(z_0), r)\times B_2(f_2(z_0), r) \\
+& \Longleftrightarrow \{z\in F: f_1(z)\in B_1(f_1(z_0), r)\}\cap\{z\in F_1: f_2(z)\in B_2(f_2(z_0), r)\}\\
+& \Longleftrightarrow z\in f_1^{-1}(B(f(z_0), r))\cap f_2^{-1}(B(f_2(z_0), r))
+\end{aligned}
+$$
+
+Используя лемму о том, что объединение любого семейства открытых множеств открыто и пересечение любого конечного числа открытых множеств открыто, заключаем, что прообраз любогго открытого при $f$ открыт, что доказывает предложение. Q.E.D
+
+
+\subsection{Докажите, что в векторном пространстве $\mathbb{R}^n$ все нормы эквивалентны}
+Так как эквивалентность норм есть отношение эквивалентности, то достаточно показать, что любая норма $\|?\|_1$ эквивалентна евклидовой норме $\|?\|$\\[2mm]
+(1) Пусть $\mathbf{x} \in \mathbb{R}^n$, тогда $\mathbf{x}=x_1 \mathbf{e}_1+\cdots+x_n \mathbf{e}_n$, тогда
+$$
+\|x\|_1=\left\|x_1 \mathbf{e}_1+\cdots+x_n \mathbf{e}_n\right\| \leq\left|x_1\right| \cdot\left\|\mathbf{e}_1\right\|_1+\cdots+\left|x_n\right| \cdot\left\|\mathbf{e}_n\right\|_1,
+$$\\
+так как $\left|x_i\right| \leq \sqrt{x_1^2+\cdots+x_n^2}$ для каждого $1 \leq i \leq n$, то мы получили
+$$
+\|\mathbf{x}\|_1 \leq\left(\left\|\mathbf{e}_1\right\|_1+\cdots+\left\|\mathbf{e}_n\right\|_1\right)\|\mathbf{x}\| .
+$$
+(2) Будем рассуждать от противного. Пусть не существует такого числа $c$, что $\|\mathbf{x}\| \leq c\|\mathbf{x}\|_1$. Это значит, что для любого натурального $N \in \mathbb{N}$ найдётся $x_N \neq 0$ такой, что $\left\|x_N\right\|>N\left\|x_N\right\|_1$. С другой стороны, для любого $\lambda \in \mathbb{R} \backslash\{0\},\left\|\lambda x_N\right\|>N\left\|\lambda x_N\right\|_1$.
+
+Пусть $\mathbf{y}_N:=\frac{\mathbf{x}_N}{\left\|\mathbf{x}_N\right\|}$, тогда $\left\|\mathbf{y}_N\right\|>N\left\|y_N\right\|_1$, и так как $\left\|y_N\right\|=1$, получаем, что $\left\|y_N\right\|_1<\frac{1}{N}$. Это значит, что $\lim _{N \rightarrow \infty}\left\|y_N\right\|_1=0$\\[2mm]
+\indent Далее, мы получаем последовательность $\left(\mathbf{y}_N\right)$, для которой $\left\|y_N\right\|=1$, то есть все $y_N$ лежат в шаре $B(0, r) \subseteq\left(\mathbb{R}^n,\|?\|\right), r>1$, т.е. она ограничена по норме $\|?\|$. Тогда по обобщённой теореме Больцано-Вейерштрасса найдётся сходящаяся подпоследовательность ($\mathbf{y}_{N_k}$), $\lim _{N_k \rightarrow \infty} \mathbf{y}_{N_k}=\mathbf{a}$\\[2mm]
+\indent Мы уже показали, что $\left\|y_{N_k}-\mathbf{a}\right\|_1 \leq c\left\|y_{N_k}-\mathbf{a}\right\|$, но это значит, что тогда последовательность ($y_{N_k}$) также сходится к $\mathbf{a}$ и по норме $\|?\|_1$. С другой стороны, мы уже показали, что $\lim _{N \rightarrow \infty}\left\|y_N\right\|_1=0$, тогда $\|\mathbf{a}\|_1=0$, m.e. $\mathbf{a}=0$. Но $\lim _{k \rightarrow \infty}\left\|\mathbf{y}_{N_k}\right\|=\|a\|$, тогда $\|\mathbf{a}\|=1$, потому что все $\left\|y_{N_k}\right\|=1$, а значит, $\mathbf{a} \neq 0$, что даёт противоречие. Q.E.D.
+
+\subsection{Докажите, что любое линейное отображение $\mathscr{L}: \mathbb{R}^n \rightarrow\mathbb{R}^m$ дифференцируемо}
+Так как $\mathscr{L}$ линейное, то $\forall \mathbf{x},\mathbf{h}\in\mathbb{R}^n: \mathscr{L}(\mathbf{x}+\mathbf{h})=\mathscr{L}(\mathbf{x})+\mathscr{L}(\mathbf{h})$\\[2mm]
+\indentПолагая, что d$\mathscr{L}_\mathbf{x}:=\mathscr{L}$, и так как нулевая функция 0 точно лежит в $o(\|\mathbf{h}\|)$, мы получаем, что линейное отображение дифференцируемо. Q.E.D
+
+\subsection{Если функция $f(x)$ дифференцируема в точке $x_0$, то она непрерывна в этой точке}
+
+Нужно показать, что $\lim\limits_{x\rightarrow x_0} f(x)=f(x_0)$, так как значение $f(x_0)$ определено по определению. Пусть $x:=x_0+h$, тогда если $h\rightarrow0$, то $x_0\rightarrow0$ и из определения производной в точке следует, что существует предел:
+$$f'(x_0)=\lim\limits_{x\rightarrow x_0} \frac{f(x)-f(x_0)}{x-x_0}$$
+$$f(x)-f(x_0)=\frac{f(x)-f(x_0)}{x-x_0}(x-x_0)$$
+$$\lim\limits_{x\rightarrow x_0} (f(x)-f(x_0))=\lim\limits_{x\rightarrow x_0} \frac{f(x)-f(x_0)}{x-x_0}(x-x_0)=f'(x_0)\lim\limits_{x\rightarrow x_0} (x-x_0)=0$$\\
+Это означает, что $\lim\limits_{x\rightarrow x_0} f(x)=f(x_0)$, что означает непрерывность функции. Q.E.D
+
+\subsection{Функция $f(x)$, непрерывная на отрезке $[a, b]$, ограничена на этом отрезке}
+
+Докажем, что она ограничена сверху (ограниченность снизу доказывается аналогично)\\[2mm]
+\indentПусть для любого $n \in \mathbb{N}$ на отрезке $[a, b]$ есть такая точка $x_n$, что $f\left(x_n\right)>n$. Мы получаем ограниченную последовательность ($x_n$), тогда можно выбрать сходящуюся подпоследовательность $\left(x_{n_k}\right)$. Пусть тогда $\lim _{n \rightarrow \infty} x_{n_k}=x_0$. Тогда, $a \leq x_0 \leq b$\\[2mm]
+\indent Далее, так как $f(x)$ непрерывна на всём отрезке, то $f\left(x_0\right)=\lim _{x \rightarrow x_0} f(x)$, но тогда $f\left(x_0\right)=\lim _{n \rightarrow \infty} f\left(x_{n_k}\right)$, но мы предположили, что $f\left(x_{n_k}\right)>n_k$, тогда $\lim _{n \rightarrow \infty} f\left(x_{n_k}\right)=$ $\infty$, что даёт противоречие
+
+
+
+
+\subsection{Функция $f(x)$, непрерывная на отрезке $[a, b]$, достигает максимума и минимума в некоторых точках этого отрезка}
+Рассмотрим множество $\{f(x), x \in[a, b]\}=: \operatorname{Im}(f)$. Очевидно, что оно не пусто. Согласно предыдущей теореме, оно ограничено. Тогда, согласно принципу полноты Вейерштрасса, это множество имеет супремум и инфинум\\[2mm]
+\indentПокажем, что на отрезке $[a, b]$ есть такая точка $x_0$, для которой $f\left(x_0\right)=M:=\sup _{f(x) \in[a, b]}\{f(x)\}$. (Для инфиниума доказательство аналогичное)\\[2mm]
+\indentИтак, множество $\{f(x), x \in[a, b]\}$ ограничено и не пусто и имеет sup, inf. Тогда из определения супремума следует, что найдутся такие $f\left(x_n\right)$, что $M-\frac{1}{n} \leq f\left(x_n\right) \leq M$ для какой-то последовательности ($x_n$) точек из $[a, b]$. Можно выбрать сходящуюся подпоследовательность $\left(x_{n_k}\right)$. Мы можем положить, что эта подпоследовательность сходится к $x_0$, но тогда $f\left(x_0\right)=\lim _{n \rightarrow \infty} f\left(x_{n_k}\right)$, но так как $M-\frac{1}{n} \leq f\left(x_n\right) \leq M$, то по лемме о зажатой последовательности $f\left(x_0\right)=M$. Q.E.D
+
+
+\subsection{Докажите теорему Ферма (о функции, а не великую!)}
+\textbf{Theorem.} Пусть функция $f(x)$ определена на отрезке $[a,b],x_0\in(a,b)$ — точка экстремума, и $f'(x_0)$ существует. Тогда $f'(x_0) = 0$\\[2mm]
+\textbf{Proof.} Пусть $f\left(x_0\right) \leqslant f(x)$ для всех $x \in[a, b]$ (аналогично для максимума)
+Рассмотрим пределы
+$$
+A:=\lim _{\substack{x \rightarrow x_0 \\ x \in \mathbb{R}_{>}>x_0}} \frac{f(x)-f\left(x_0\right)}{x-x_0}, \quad B:=\lim _{\substack{x \rightarrow x_0 \\ x \in \mathbb{R}_{<x_0}}} \frac{f(x)-f\left(x_0\right)}{x-x_0}
+$$
+
+Так как существует производная $f^{\prime}\left(x_0\right):=\lim _{\substack{x \rightarrow x_0 \\ x \in \mathbb{R}}} \frac{f(x)-f\left(x_0\right)}{x-x_0}$, то предел по любому подмножеству $U \subseteq \mathbb{R}$ (для которого $x_0 \in \bar{U}$ ) должен совпадать, а значит, $A=B$. А так как
+$$
+\begin{aligned}
+& \forall x \in[a, b]: f\left(x_0\right) \leqslant f(x) \Longrightarrow f(x)-f\left(x_0\right) \geqslant 0 \\
+& A \geqslant 0 \Longleftarrow\left\{\begin{array}{l}
+f(x)-f\left(x_0\right) \geqslant 0 \\
+x-x_0 \geqslant 0
+\end{array}\right. \\
+& B \leqslant 0 \Longleftarrow\left\{\begin{array}{l}
+f(x)-f\left(x_0\right) \geqslant 0 \\
+x-x_0 \leqslant 0
+\end{array}\right. \\
+& \Longrightarrow A=B=0=f^{\prime}\left(x_0\right)
+\end{aligned}
+$$
+Q.E.D.
+
+
+\subsection{Докажите теорему Ролля}
+\textbf{Theorem.} Пусть функция $f(x)$ дифференцируема на отрезке $[a, b]$, причём $f(a)=f(b)$. Тогда существует такая точка $x_0 \in(a, b)$, что $f^{\prime}\left(x_0\right)=0$\\[2mm]
+\textbf{Proof.} Согласно теореме Вейештрасса 2.13 $f(x)$ достигает максимума $M$ и минимума $m$ на этом отрезке\\[2mm]
+(1) Пусть $M=m$, тогда $f(x)=$ const, так как $m \leq f(x) \leq M$ для всех $x \in[a, b]$. Тогда в качестве $x_0$ можно взять любую точку из $(a, b)$\\[2mm]
+(2) Пусть $f(x) \neq$ const, тогда найдётся точка $x_0 \in(a, b)$ такая, что $f\left(x_0\right) \neq f(a)=f(b)$. Положим $f(x)>f(a)$. Далее, согласно теореме Вейерштрасса, найдётся точка $x_1 \in[a, b]$, в которой $f\left(x_1\right)$ максимальна. Тогда $x_1 \neq a, b$ и по теореме Ферма мы получаем требуемое. Q.E.D.
+
+\subsection{Докажите теорему Лагранжа}
+\textbf{Theorem.} Пусть функция $f(x)$ дифференцируема на отрезке $[a, b]$. Тогда существует такая точка $x_0 \in(a, b)$, что
+$$
+f^{\prime}\left(x_0\right)=\frac{f(b)-f(a)}{b-a}
+$$\\[2mm]
+\textbf{Proof.} Рассмотрим функцию
+$$
+\varphi(x)=f(x)-\frac{f(b)-f(a)}{b-a}(x-a) .
+$$\\[2mm]
+Эта функция дифференцируема на отрезке $[a, b]$ и $\varphi(a)=\varphi(b)=f(a)$, тогда по теореме Ролля существует $x_0 \in(a, b)$ такая, что $\varphi^{\prime}\left(x_0\right)=0$, m.e.
+$$
+\varphi^{\prime}\left(x_0\right)=f^{\prime}\left(x_0\right)-\frac{f(b)-f(a)}{b-a}=0,
+$$
+Q.E.D\\[2mm]
+Эту теорему часто записывают в виде $f(b)-f(a)=f^{\prime}\left(x_0\right)(b-a)$ и называют \textit{формулой конечных приращений или теоремой о среднем значении}
+
+
+\subsection{Если функция $f: \mathbb{R}^n \rightarrow\mathbb{R}$ дифференцируема на каком-то открытом $\mathscr{U}\subseteq \mathbb{R}^n$ или в фиксированной точке $x$, то она имеет в этой точке частные производные по всем переменным}
+
+
+Пусть $f: \mathbb{R}^n \rightarrow \mathbb{R}$, дифференцируемая на каком-то открытом $\mathscr{U} \subseteq \mathbb{R}^n$ или в фиксированной точке $\mathbf{x}$. Тогда её дифференциал $(\mathrm{d} f)_{\mathbf{x}}$ в точке $\mathbf{x}$ задаётся матрицей размера $n \times 1, (\mathrm{~d} f)_{\mathbf{x}}=\left(\begin{array}{lll}a_1 & \ldots & a_n\end{array}\right)$, где все $a_i$ есть функции от $\mathbf{x}$. Наша цель - найти эти $a_i$. Пусть $\mathbf{h}=\left(h_1, \ldots, h_n\right)^{\top} \in \mathscr{U} \subseteq \mathbb{R}^n$, тогда получаем
+$$
+\begin{aligned}
+f(\mathbf{x}+\mathbf{h})-f(\mathbf{x}) & =(\mathrm{d} f)_{\mathbf{x}}(\mathbf{h})+o(\|\mathbf{h}\|) \\
+& =\left(\begin{array}{lll}
+a_1 & \ldots & a_n
+\end{array}\right)\left(\begin{array}{c}
+h_1 \\
+\vdots \\
+h_n
+\end{array}\right)+o(\|\mathbf{h}\|) \\
+& =a_1 h_1+\cdots+a_n h_n+o(\|\mathbf{h}\|) .
+\end{aligned}
+$$
+
+Видно, что $a_i$ не зависит от координат вектора $\mathbf{h}$ кроме $h_i$ т.е. чтобы найти $a_i$, нам достаточно рассмотреть вектор $\mathbf{h}_i=h_i \mathbf{e}_i$, где $\mathbf{e}_i$ - базисный вектор. В таком случае, $\left\|\mathbf{h}_i\right\|=\left|h_i\right|$, и тогда для каждого $1 \leq i \leq n$ мы получаем
+$$
+f\left(\mathbf{x}+h_i \mathbf{e}_i\right)-f(\mathbf{x})=a_i h_i+o\left(\left|h_i\right|\right),
+$$
+
+таким образом,
+$$
+a_i=\lim _{h_i \rightarrow 0} \frac{f\left(\mathbf{x}+h_i \mathbf{e}_i\right)-f(\mathbf{x})}{h_i},
+$$
+
+такое выражение называется частной производной функции по переменной $x_i$ и обозначается либо как $\frac{\partial f}{\partial x_i}$, либо как $f_{x_i}^{\prime}$, m.e.
+$$
+\frac{\partial f}{\partial x_i}:=\lim _{h_i \rightarrow 0} \frac{f\left(\mathbf{x}+h_i \mathbf{e}_i\right)-f(\mathbf{x})}{h_i},
+$$
+
+если же мы хотим знать её значение в точке $\mathbf{x}_0$, то получаем
+$$
+\frac{\partial f}{\partial x_i}\left(\mathbf{x}_0\right):=\lim _{h_i \rightarrow 0} \frac{f\left(\mathbf{x}_0+h_i \mathbf{e}_i\right)-f\left(\mathbf{x}_0\right)}{h_i}
+$$
+
+\subsection{Пусть функция $f$ имеет конечные частные производные по всем координатам в окрестности точки а. Если они непрерывны в точке а, то $f$ дифференцируема в этой точке}
+
+Пусть $\mathscr{U}$ - окрестность точки а, и пусть $\mathbf{a}+\mathbf{h} \in \mathscr{U}$. Согласно формуле конечных приращений, мы имеем
+$$
+f(\mathbf{a}+\mathbf{h})-f(\mathbf{a})=\sum_{k=1}^n f_{x_k}^{\prime}\left(\mathbf{a}+\mathbf{v}_k\right) \cdot h_k
+$$
+
+где $\mathbf{a}+\mathbf{v}_k \in \mathscr{U}, 1 \leq k \leq n$.
+По условию, все частные производные непрерывны и конечны, тогда для любого $\varepsilon>0$ из || $\mathbf{v}_k||<\delta$ следует $\left|f_{x_k}^{\prime}\left(\mathbf{a}+\mathbf{v}_k\right)-f_{x_k}^{\prime}(\mathbf{a})\right|<\varepsilon$. Другими словами, можно сказать, что
+$$
+f_{x_k}^{\prime}\left(\mathbf{a}+\mathbf{v}_k\right)=f_{x_k}^{\prime}(\mathbf{a})+\varepsilon_k(\mathbf{h})
+$$
+где $\varepsilon_k(\mathbf{h}) \rightarrow 0$ когда $\mathbf{h} \rightarrow 0$.
+Таким образом, получаем
+$$
+f(\mathbf{a}+\mathbf{h})-f(\mathbf{a})=\sum_{k=1}^n\left(f_{x_k}^{\prime}(\mathbf{a})+\varepsilon_k(\mathbf{h})\right) h_k=\sum_{k=1}^n f_{x_k}^{\prime}(\mathbf{a}) h_k+\alpha(\mathbf{h}),
+$$
+где $\alpha(\mathbf{h}):=\sum_{k=1}^n \varepsilon_k(\mathbf{h}) h_k$. Ясно, что
+$$
+\frac{\alpha(\mathbf{h})}{\|\mathbf{h}\|}=\sum_{k=1}^n \varepsilon_k(\mathbf{h}) \frac{h_k}{\|\mathbf{h}\|}
+$$
+Наконец по определению сходимости,
+$$
+\|\mathbf{h}\|=\sqrt{h_1^2+\cdots+h_n^2} \geq \max _{1 \leq i \leq n}\left|h_i\right|,
+$$\\[2mm]
+тогда
+$$
+\frac{h_k}{\|\mathbf{h}\|}<\frac{h_i}{\max _{1 \leq i \leq n}\left|h_i\right|} \leq \frac{\max _{1 \leq i \leq n}\left|h_i\right|}{\max _{1 \leq i \leq n}\left|h_i\right|}=1
+$$
+т.е. все дроби $\frac{h_k}{\|\mathbf{h}\|}$ ограничены. Далее, так как $\varepsilon_k(\mathbf{h})$ бесконечно малые, мы получаем
+$$
+f(\mathbf{a}+\mathbf{h})-f(\mathbf{a})=\sum_{k=1}^n f_{x_k}^{\prime}(\mathbf{a}) h_k+o(\|\mathbf{h}\|)
+$$\\[2mm]
+а это и означает, что $f$ дифференцируема. Q.E.D.
+
+
+\subsection{Пусть $L: \mathbb{R}^n \rightarrow \mathbb{R}^m$ - линейное отображение. Тогда следующие утверждения равносильны:\\
+(1) $L$ - непрерывно\\
+(2) $L$ - непрерывно в нуле\\
+(3) Существует такое $C>0$, что $\|L(\mathbf{v})|\leq C| \mid \mathbf{v}\|$ для любого $\mathbf{v} \in \mathbb{R}^n$}
+(1) $\Longrightarrow$ (2). Это просто следует из того, что если $L$ непрерывно, то оно непрерывно во всех точках $\mathbb{R}$, в частности и в нуле тоже\\[2mm]
+$(2) \Longrightarrow(3)$. Если $L$ непрерывно в нуле, то это значит, что для любого $\varepsilon>0$ можно всегда найти такое $\delta>0$, что из $\|\mathbf{h}\|<\delta$ будет следовать $\|L(\mathbf{h})\|<\varepsilon$. Пусть $\varepsilon=1$, тогда мы всегда найдём такой $\delta>0$, что если $\|\mathbf{h}\|<\delta$, то $\|L(\mathbf{h})\|<1$. Зафиксируем такое $\delta$.
+Возьмём теперь произвольный ненулевой вектор ${ }^{\|} \mathbf{v}$, тогда имеем
+$$
+\begin{aligned}
+\|L(\mathbf{v})\| & =\left\|\frac{2}{\delta}\right\| \mathbf{v}\left\|L\left(\frac{\delta \mathbf{v}}{2\|\mathbf{v}\|}\right)\right\| \\
+& =\frac{2}{\delta}\|\mathbf{v}\| \cdot\left\|L\left(\frac{\delta \mathbf{v}}{2\|\mathbf{v}\|}\right)\right\|<\frac{2}{\delta}\|\mathbf{v}\|
+\end{aligned}
+$$
+потому что
+$$
+\left\|\frac{\delta \mathbf{v}}{2\|\mathbf{v}\|}\right\|=\frac{\delta}{2}<\delta
+$$
+и так как $\delta$ фиксировано, мы получаем требуемое\\[2mm]
+(3) $\Longrightarrow(1)$. Имеем
+$$
+\|L(\mathbf{v})-L(\mathbf{u})\|=\|L(\mathbf{v}-\mathbf{u})\| \leq K\|\mathbf{u}-\mathbf{v}\|,
+$$
+тогда если $\|\mathbf{u}-\mathbf{v}\|<\delta$, то $\|L(\mathbf{v})-L(\mathbf{u})\|<K \delta$, поэтому для любого $\varepsilon>0$, если мы положим, что $0<\delta<\frac{\varepsilon}{K}$, то мы и получаем непрерывность $L$. Q.E.D
+
+
+\subsection{Любое линейное отображение $L: \mathbb{R}^n \rightarrow \mathbb{R}^m$ непрерывно}
+
+Пусть $L$ задаётся матрицей $\left(a_{i, j}\right)_{1 \leq i \leq n, 1 \leq j \leq m}$, тогда
+$$
+L(\mathbf{v})=\left(\begin{array}{ccc}
+a_{11} & \ldots & a_{1 n} \\
+\vdots & \ddots & \vdots \\
+a_{m 1} & \ldots & a_{m n}
+\end{array}\right)\left(\begin{array}{c}
+v_1 \\
+\vdots \\
+v_n
+\end{array}\right)=\left(\begin{array}{c}
+a_{11} v_1+\cdots+a_{1 n} v_n \\
+\vdots \\
+a_{m 1} v_1+\cdots+a_{m n} v_n
+\end{array}\right)=\left(u_1, \ldots, u_m\right)^{\top}=: \mathbf{u} \in \mathbb{R}^m,
+$$
+тогда
+$$
+\begin{aligned}
+\|L(\mathbf{v})\| & =\|\mathbf{u}\| \\
+& =\sqrt{\left(a_{11} v_1+\cdots+a_{1 n} v_n\right)^2+\cdots+\left(a_{m 1} v_1+\cdots+a_{m n} v_n\right)^2} \\
+& \leq \sqrt{m} \max _{1 \leq k \leq m}\left|a_{k 1} v_1+\cdots+a_{k n} v_n\right| \\
+& \leq \sqrt{m} \max _{1 \leq k \leq m}\left(\left|a_{k 1}\right| \cdot\left|v_1\right|+\cdots+\left|a_{k n}\right| \cdot\left|v_n\right|\right) \\
+& \leq \sqrt{m} \max _{1 \leq k \leq m}\left(\left|a_{k 1}\right| \cdot\|\mathbf{v}\|+\cdots+\left|a_{k n}\right| \cdot\|\mathbf{v}\|\right) \\
+& =\sqrt{m} \max _{1 \leq k \leq m}\left(\left|a_{k 1}\right|+\cdots+\left|a_{k n}\right|\right) \cdot\|\mathbf{v}\| \\
+& =K\|\mathbf{v}\|,
+\end{aligned}
+$$
+где $K:=\sqrt{m} \max _{1 \leq k \leq m}\left(\left|a_{k 1}\right|+\cdots+\left|a_{k n}\right|\right)$, тогда по предыдущем пункту оно непрерывно.
+
+\end{document}
