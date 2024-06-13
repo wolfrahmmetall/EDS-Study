@@ -1,0 +1,299 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm, nohead, nofoot]{geometry}
+\usepackage{amsmath, amsfonts, amssymb} % математический пакет
+\usepackage {fancybox, fancyhdr}
+\usepackage{python}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\LaTeX\ by Viner Daniil BEDA232}
+\fancyfoot [C] {\thepage}
+\fancyhead[L]{\textbf{Linear algebra and geometry}}
+\setcounter {page}{1}
+\headsep=10mm
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usepackage{epigraph}
+\hypersetup{colorlinks=true, allcolors= [RGB]{010 090 200}} % цвет ссылок
+\usepackage {setspace}
+\usepackage[pdftex]{graphicx}
+\usepackage{ dsfont }
+\usepackage{array}
+\setcounter{MaxMatrixCols}{20}
+\usepackage{mathbbol}
+\usepackage{minted}
+\usepackage{enumerate}
+\usepackage{listings}
+% \usepackage{breqn}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage{mathtools} 
+\usepackage{extarrows} 
+\usepackage{tcolorbox}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=C++,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+% «»
+
+\DeclareRobustCommand{\divby}{%
+  \mathrel{\text{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}}%
+}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}
+\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
+\newcommand{\e}{\mathbbl{e}}
+\newcommand{\m}[1]{\mathbf{1}}
+\newcommand{\qed}{\hfill$\square$}
+\newcommand{\dfs}{\textbf{DFS }}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\vphi}{\varphi}
+\newcommand{\mat}{\text{Mat}}
+\newcommand{\rk}{\text{rk }}
+\definecolor{codegray}{gray}{0.9}
+\newcommand{\pr}{\text{pr}}
+\newcommand{\code}[1]{\colorbox{codegray}{\texttt{1}}}
+\newcommand{\im}{\text{Im }}
+\newcommand{\labeledmatrix}[2]{
+    \begin{array}{ll}
+        #1 & #2
+    \end{array}
+}
+\newcommand{\ort}{\text{ort}}
+
+
+% \pagecolor{black}
+% \color{white}
+\begin{document}
+
+\begin{center}
+    \LARGE{\textbf{Consultation for Exam—2 by Roman Avdeev}}
+\end{center}
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+    \textbf{2022/2023. Вариант 1. Задача 1.} Определите все значения, которые может принимать размерность ядра линейного оператора $\varphi: \mathbb{R}^{4} \rightarrow \mathbb{R}^{4}$ при условии, что в пересечении ядра и образа содержится вектор $v=(1,0,-1,2)$.
+\end{tcolorbox}
+Пусть вектор $v=e_1$\\[2mm]
+\indent Очевидно, что
+$$\begin{aligned}
+    \dim{\ker{\varphi}}&\geqslant1\\
+    \dim{\im{\varphi}}&\geqslant1\\
+    \dim{\ker{\varphi}}&+\dim{\im{\varphi}}=4
+\end{aligned}$$
+$\dim{\ker{\varphi}}=3$\\[2mm]
+\indent Дополним $e_1$ до базиса $$\begin{aligned}
+    e_2=(0,1,0,0)\\
+    e_3=(0,0,1,0)\\
+    e_4=(0,0,0,1)
+\end{aligned}$$
+Теперь в базисе $\e=(e_1,e_2,e_3,e_4)$ построим матрицу линейного отображения\\[2mm]
+Рассмотрим несколько случаев
+\begin{enumerate}
+    \item $\dim{\ker{\varphi}}=1\Rightarrow\dim{\im{\varphi}}=3$\\[2mm]
+    $A(\varphi,\e)=\begin{pmatrix}
+    0&1&0&0\\
+    0&0&0&0\\
+    0&0&1&0\\
+    0&0&0&1
+\end{pmatrix}$
+\item $\dim{\ker{\varphi}}=2\Rightarrow\dim{\im{\varphi}}=2$\\[2mm]
+    $A(\varphi,\e)\begin{pmatrix}
+    0&0&1&0\\
+    0&0&0&1\\
+    0&0&0&0\\
+    0&0&0&0
+\end{pmatrix}$
+\item $\dim{\ker{\varphi}}=3\Rightarrow\dim{\im{\varphi}}=1$\\[2mm]
+$A(\varphi,\e)=\begin{pmatrix}
+    0&0&0&1\\
+    0&0&0&0\\
+    0&0&0&0\\
+    0&0&0&0
+\end{pmatrix}$
+\end{enumerate}
+\newpage
+
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+    \textbf{2022/2023. Вариант 1. Задача 2.} Приведите пример неопределённой квадратичной формы $Q: \mathbb{R}^{3} \rightarrow \mathbb{R}$, принимающей отрицательные значения на всех ненулевых векторах подпространства $\left\{(x, y, z) \in \mathbb{R}^{3} \mid x+y-2 z=0\right\}$. Ответ представьте в стандартном виде многочлена 2-й степени от координат $x, y, z$
+\end{tcolorbox}
+Положим, что $U=\{(x,y,z)\in\mathbb{R}^3\vert x+y-2z=0\}$\\[2mm]
+\indent Возьмем базис $\e=(e_1,e_2,e_3)$, такой что
+$$\begin{aligned}
+    e_1=(1,-1,0)\\
+    e_2=(2,0,1)\\
+    e_3=(1, 0, 0)
+\end{aligned}$$
+\indent В этом базисе квадратичная форма имеет матрицу
+$$B(Q,\e)=\begin{pmatrix}
+    -1&0&0\\
+    0&-1&0\\
+    0&0&1
+\end{pmatrix}$$
+\indent Она будет неопределнной, так как в матрице присутствуют $-1\text{ и }1$\\[2mm]
+\indent Ограничим $Q$ на данное подпространство $U$
+$$Q\vert_U=\begin{pmatrix}
+    -1&0\\
+    0&-1
+\end{pmatrix}$$
+\indent Пусть $C$ — матрица перехода от стандартного базиса к базису $\e$, тогда $C$ имеет вид
+$$C=\begin{pmatrix}
+    1&2&1\\
+    -1&0&0\\
+    0&1&0
+\end{pmatrix}$$
+\indent Тогда, $B'$ — матрица формы $Q$ в стандартном базисе, причем $$B'=(C^{-1})^TBC^{-1},$$ из этой матрицы мы получим требуемый многочлен\\[2mm]
+\begin{tcolorbox}[colback=yellow!20!white, colframe=black!100!black]
+    \textbf{Пример.} $$\begin{aligned}
+        Q(x,y,z)&=-x^2-y^2-z^2+(x+2-2z)^2\\
+        Q(0,0,1)&=3\geqslant0
+    \end{aligned}$$
+\end{tcolorbox}
+\newpage
+
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+    \textbf{2022/2023. Вариант 1. Задача 3.} В евклидовом пространстве $\mathbb{R}^{3}$ со стандартным скалярным произведением даны векторы
+$$u_{1}=(1,-1,2), u_{2}=(1,1,-1), u_{3}=(1,0,-1)$$
+Обозначим через $v_{1}, v_{2}, v_{3}$ ортогональные проекции вектора $v=(5,3,-1)$ на подпространства $u_{1}^{\perp}, u_{2}^{\perp}, u_{3}^{\perp}$ соответственно. Найдите объём параллелепипеда, натянутого на векторы $v_{1}, v_{2}, v_{3}$
+\end{tcolorbox}
+$\pr_{u_i^{\perp}} v=v-\ort_{u_i^{\perp}} v=v-\pr_{\langle u_i\rangle} v=v-\displaystyle\frac{(v, u_i)}{(u_i,u_i)}u_i$\\[2mm]
+\indent Применяя эту формулу получим три вектора\\[2mm]
+\indent Далее считаем объем трехмерного параллелепипеда по формуле (например, как определитель матрицы $3\times3$)\footnote{Рома не дорешал :)}\\[2mm]
+
+ 
+\newpage
+
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+     \textbf{2022/2023. Вариант 1. Задача 4.} Приведите пример недиагонализуемого линейного оператора $\varphi$ в $\mathbb{R}^{2}$, для которого оператор $\varphi^{2}+3 \varphi$ диагонализуем.
+\end{tcolorbox}
+Возьмем жорданову клетку
+$$A=\begin{pmatrix}
+    \lambda&1\\
+    0&\lambda
+\end{pmatrix}\Rightarrow A^2+3A=\begin{pmatrix}
+    \lambda^2&2\lambda\\
+    0&\lambda^2
+\end{pmatrix}+\begin{pmatrix}
+    3\lambda&3\\
+    0&3\lambda
+\end{pmatrix}=\begin{pmatrix}
+    \lambda^2+3\lambda&2\lambda+3\\
+    0&\lambda^2+3\lambda
+\end{pmatrix}$$
+\indent При $2\lambda+3=0$ получаем диагонализуемый линейный оператор, то есть $\lambda=-\displaystyle\frac{3}{2}$
+
+\newpage
+
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+     \textbf{2022/2023. Вариант 1. Задача 5.} Вставьте вместо звёздочки, ромбика и кружочка подходящие числа таким образом, чтобы линейный оператор $\varphi: \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$, имеющий в стандартном базисе матрицу
+
+$$
+\left(\begin{array}{ccc}
+\star & 2 / 3 & 2 / 3 \\
+-2 / 3 & 1 / 3 & \diamond \\
+2 / 3 & 2 / 3 & \circ
+\end{array}\right)
+$$
+
+был ортогональным. Найдите ортонормированный базис, в котором матрица оператора $\varphi$ имеет канонический вид, и выпишите эту матрицу. Укажите ось и угол поворота, определяемого оператором $\varphi$.
+\end{tcolorbox}
+Столбцы (строки) этой матрицы должны образовывать ортонормированный базис\\[2mm]
+\indent $2/3\cdot\star\cdot\displaystyle\frac{2}{9}+\frac{4}{9}=0=\Rightarrow \star=-\frac{1}{3}$\\[2mm]
+\indent $\diamond=-\displaystyle\frac{2}{3}$\\[2mm]
+\indent $\circ=-\displaystyle\frac{1}{3}$
+\newpage
+
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+     \textbf{2022/2023. Вариант 1. Задача 6.} Существует ли матрица $A \in \operatorname{Mat}_{2 \times 3}(\mathbb{R})$ ранга 2 со следующими свойствами:
+
+1) одно из сингулярных значений матрицы $A$ равно $\sqrt{10}$;
+
+2) ближайшая к $A$ по норме Фробениуса матрица ранга 1 есть $B=\left(\begin{array}{ccc}1 & -1 & 2 \\ -2 & 2 & -4\end{array}\right)$ ?
+
+Если существует, то предъявите такую матрицу.
+\end{tcolorbox}
+Представим матрицу $B$ в виде произведения столбца на строку и нормируем
+$$B=\begin{pmatrix}
+    1\\
+    -2
+\end{pmatrix}\begin{pmatrix}
+    1&-1&2
+\end{pmatrix}=\sqrt{30}\begin{pmatrix}
+    \frac{1}{\sqrt{5}}\\[1mm]
+    -\frac{2}{\sqrt{5}}
+\end{pmatrix}\begin{pmatrix}
+    \frac{1}{\sqrt{6}}&-\frac{1}{\sqrt{6}}&\frac{2}{\sqrt{6}}
+\end{pmatrix}=\begin{pmatrix}
+    \frac{1}{\sqrt{5}}\\[1mm]
+    -\frac{2}{\sqrt{5}}
+\end{pmatrix}\sqrt{30}\begin{pmatrix}
+    \frac{1}{\sqrt{6}}&-\frac{1}{\sqrt{6}}&\frac{2}{\sqrt{6}}
+\end{pmatrix}$$
+\indent Значит, существует требуемая матрица $A$, так как $\sqrt{10}<\sqrt{30}$\\[2mm]
+$$\begin{aligned}
+    A&=u_1\sigma_1 v_1^T&+u_2\sigma_2 v_2^T\\
+    &=B&+u_2\sigma_2 v_2^T
+    \end{aligned}$$
+\indent Тогда пусть $\sigma_2=\sqrt{10}$\\[2mm]
+\indent Выберем $u_2$ и $v_2$ так
+$$\begin{aligned}
+u_2&=\begin{pmatrix}
+    \frac{2}{\sqrt{5}}&\frac{1}{\sqrt{5}}
+\end{pmatrix}\\
+v_2&=\frac{1}{\sqrt{2}}\begin{pmatrix}
+    1&1&0
+\end{pmatrix}\end{aligned}$$
+\indent Остается только перемножить и сложить по формуле
+
+\newpage
+
+\begin{tcolorbox}[colback=blue!20!white, colframe=black!100!black]
+     \textbf{2022/2023. Вариант 1. Задача 7.} Найдите прямоугольную декартову систему координат в $\mathbb{R}^{3}$ (выражение старых координат через новые), в которой уравнение поверхности
+
+$$
+3 x^{2}+2 y^{2}-4 x z-4 y+7=0
+$$
+
+имеет канонический вид. Укажите этот вид, определите тип поверхности и нарисуйте её эскиз.
+\end{tcolorbox}
+\indent Выделяем квадратичную форму
+$$(x,y,z):\begin{pmatrix}
+    3&0&-2\\
+    0&2&0\\
+    -2&0&0
+\end{pmatrix}$$
+\indent Ограничиваем ее
+$$(x,z):\begin{pmatrix}
+    3&-2\\
+    -2&0
+\end{pmatrix}$$
+\indent А дальше ничего никто не сказал :)\\[2mm]
+% См. консультацию Алены и мой \TeX\ ее консы \href{https://drive.google.com/file/d/1iV3cNWS9gDKkPBHholCHBuGCmXng0qlg/view?usp=sharing}{тут} и в чате
+
+% $2y^2-4y=2(y-1)^2-2$
+
+
+
+
+
+
+
+
+
+\end{document}
