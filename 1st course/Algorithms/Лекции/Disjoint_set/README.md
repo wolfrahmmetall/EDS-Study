@@ -37,17 +37,18 @@
 
 Тогда операции ```find(x)``` и ```union(x, y)``` можно реализовать так:
 
-    int find(x){
-        while (p[v] != -1){
-            v = p[v]
-        }
-        return v
+```cpp
+int find(x){
+    while (p[v] != -1){
+        v = p[v]
     }
-    
-    void union(x, y){
-        p[find(x)] = find(y)
-    }
+    return v
+}
 
+void union(x, y){
+    p[find(x)] = find(y)
+}
+```
 **Сложность** — $O(N^2)$
 
 ### Сжатие путей
