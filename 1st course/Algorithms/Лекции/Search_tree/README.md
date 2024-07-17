@@ -22,12 +22,14 @@
 меньше, чем «более правых»
 
 Для работы с деревьями поиска нужно создать структуру
+```cpp
+struct Node:
+  T key                    // key of the node
+  Node left                // pointer to the left child
+  Node right               // pointer to the right child
+  Node parent              // pointer to the parent
+```
 
-    struct Node:
-      T key                    // key of the node
-      Node left                // pointer to the left child
-      Node right               // pointer to the right child
-      Node parent              // pointer to the parent
 
 ## Поиск элемента
 
@@ -40,16 +42,15 @@
 -   В противном случае функция вызывается рекурсивно для левого или
     правого поддерева
 
-<!-- -->
-
-    Node search(x : Node, k : T):
-       if x == null or k == x.key
-          return x
-       if k < x.key
-          return search(x.left, k)
-       else
-          return search(x.right, k)
-
+```cpp
+Node search(x : Node, k : T):
+   if x == null or k == x.key
+      return x
+   if k < x.key
+      return search(x.left, k)
+   else
+      return search(x.right, k)
+```
 ### Сложность в худшем случае 
 $O(h)$ ($h$ — высота дерева), так
 как узлы, которые посещает функция образуют нисходящее дерево. Такое
@@ -64,16 +65,16 @@ $O(\log N)$. Если изменить способ
 
 Почти то же самое, что поиск элемента, но теперь при обнаружении у
 элемента отсутствия ребенка нужно подвесить на него вставляемый элемент
-
-    Node insert(x : Node, z : T):               // x - root of the subtree, z - key to be inserted
-       if x == null 
-          return Node(z)                        // attach a Node with key = z
-       else if z < x.key
-          x.left = insert(x.left, z)
-       else if z > x.key
-          x.right = insert(x.right, z)
-       return x
-
+```cpp
+Node insert(x : Node, z : T):               // x - root of the subtree, z - key to be inserted
+   if x == null 
+      return Node(z)                        // attach a Node with key = z
+   else if z < x.key
+      x.left = insert(x.left, z)
+   else if z > x.key
+      x.right = insert(x.right, z)
+   return x
+```
 ## Удаление элемента
 
 Рассмотрим три случая при рекурсивной реализации
@@ -98,8 +99,7 @@ $O(\log N)$. Если изменить способ
 
         -   нужно заменить удаляемый элемент потомком
 
-<!-- -->
-
+```cpp
     Node delete(root : Node, z : T):    // root of subtree, key to delete
       if root == null
         return root
@@ -118,3 +118,4 @@ $O(\log N)$. Если изменить способ
         else
           root = null
       return root
+```
