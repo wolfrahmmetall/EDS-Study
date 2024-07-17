@@ -41,34 +41,35 @@
 ссылок насчитывать суммы
 
 **Сложность** — $O(n)$
-
-    Segtree(int lb, int rb) : lb(lb), rb(rb) {
-        if (lb + 1 == rb)
-            s = a[lb];
-        else {
-            int t = (lb + rb) / 2;
-            l = new Segtree(lb, t);
-            r = new Segtree(t, rb);
-            s = l->s + r->s;
-        }
+```cpp
+Segtree(int lb, int rb) : lb(lb), rb(rb) {
+    if (lb + 1 == rb)
+        s = a[lb];
+    else {
+        int t = (lb + rb) / 2;
+        l = new Segtree(lb, t);
+        r = new Segtree(t, rb);
+        s = l->s + r->s;
     }
-
+}
+```
 ### Изменение
 
 Для запроса прибавления будем рекурсивно спускаться вниз, пока не дойдем
 до листа, соответствующего элементу $k$, и на всех промежуточных
 вершинах прибавим $x$:
 
-    void add(int k, int x) {
-        s += x;
-        if (l){
-            if (k < l->rb)
-                l->add(k, x);
-            else
-                r->add(k, x);
-        }
+```cpp
+void add(int k, int x) {
+    s += x;
+    if (l){
+        if (k < l->rb)
+            l->add(k, x);
+        else
+            r->add(k, x);
     }
-
+}
+```
 **Сложность** — $O(\log n)$
 
 ### Сумма
@@ -82,16 +83,16 @@
 
 3.  else: рекурсивно запускаемся от детей
 
-<!-- -->
 
-    int sum(int lq, int rq) {
-        if (lb >= lq && rb <= rq)
-            return s;
-        if (max(lb, lq) >= min(rb, rq))
-            return 0;
-        return l->sum(lq, rq) + r->sum(lq, rq);
-    }
-
+```cpp
+int sum(int lq, int rq) {
+    if (lb >= lq && rb <= rq)
+        return s;
+    if (max(lb, lq) >= min(rb, rq))
+        return 0;
+    return l->sum(lq, rq) + r->sum(lq, rq);
+}
+```
 **Сложность** — $O(\log n)$. На каждом уровне дерева отрезков, наша
 рекурсивная функция могла посетить максимум четыре отрезка; тогда,
 учитывая оценку $O (\log n)$ для высоты дерева, мы получаем асимптотику
