@@ -1,9 +1,10 @@
 \documentclass[a4paper, 10pt]{article}
 \usepackage{header}
 
-\title{\LARGE{Теория вероятности и математическая статистика—1}}
+\title{\LARGE{Теория вероятности и математическая статистика—1}\\
+ФЭН НИУ ВШЭ}
 \author{Винер Даниил  \href{https://t.me/danya_vin}{@danya\_vin}}
-\date{\today}
+\date{Версия от \today}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -12,8 +13,15 @@
 \definition $\Omega=\{\omega_1,\ldots,\omega_k,\ldots\}$ называется \textit{пространством элементарных исходов}, где $w_i$ — элементарный исход\\[2mm]
 \definition $A$ — любое подмножество $\Omega$\\[2mm]
 \definition Событие называется \textit{достоверным}, если $A=\Omega$\\[2mm]
-\comment К $A$ применимы те же опреации, что используются с множествами\\[2mm]
-\definition Полная группа несовместных событий — такой набор событий, для которого выполняются такие условия:
+\comment К $A$ применимы те же опреации, что используются с множествами:
+\begin{itemize}
+    \item $A\setminus B$ — вычитание
+    \item $A\cap B$ — пересечение
+    \item $A\cup B$ — объединение
+    \item $A_c=\overline{A}=\Omega\setminus A$ — дополнение
+\end{itemize}
+\subsection{Полная группа несовместных событий}
+\definition Это такой набор событий, для которого выполняются такие условия:
 \begin{equation*}
     A_i\cap A_j=\varnothing\ \forall i\ne j
 \end{equation*}
@@ -24,8 +32,8 @@
 \axiom $\forall \omega_i\ \exists p_i\geqslant0,$ при этом $\displaystyle\sum_i p_i=1$\\[2mm]
 \corollary $0\leqslant p_i\leqslant1$\\[2mm]
 \definition $P(A)=\sum_{w_i\in A} P(w_i)$, где $P(w_i)=p_i$\\[2mm]
-\indent $(\Omega, P)$ — вероятностное пространство в дискретном случае\\[2mm]
-\textbf{Подходы к определению вероятностей}
+\indent $(\Omega, P)$ — вероятностное пространство в дискретном случае
+\subsection{Подходы к определению вероятностей}
 \begin{enumerate}
     \item Априорный (предварительное знание)
     \item Частотный (предел ряда частот)
@@ -34,7 +42,7 @@
 \subsection{Классическое определение вероятности}
 \indent Имеет место, когда исходы равновероятны\\[2mm]
 \definition
-$$P(A)=\displaystyle\frac{|A|}{|\Omega|}$$
+$$P(A)=\displaystyle\frac{|A|}{|\Omega|}=\displaystyle\frac{\text{число благоприятных исходов}}{\text{количество всех исходов}}$$
 \subsection{Теорема сложения}
 \indent $P(A\cup B)=P(A)+P(B)-P(A\cap B)$\\[2mm]
 \indent $P(A_1\cup\ldots\cup A_n)=\sum_{i=1}^{n} P(A_i)-\sum_{i<j} (A_i\cap A_j)+\ldots+(-1)^{n-1}P(A_1\cap\ldots\cap A_n)$
