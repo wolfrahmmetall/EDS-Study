@@ -1,0 +1,48 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage{header}
+
+\title{\LARGE{Теория вероятности и математическая статистика—1}}
+\author{Винер Даниил  \href{https://t.me/danya_vin}{@danya\_vin}}
+\date{\today}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Дискретное вероятностное пространство. Базовые теоремы вероятности}
+\definition $\Omega=\{\omega_1,\ldots,\omega_k,\ldots\}$ называется \textit{пространством элементарных исходов}, где $w_i$ — элементарный исход\\[2mm]
+\definition $A$ — любое подмножество $\Omega$\\[2mm]
+\definition Событие называется \textit{достоверным}, если $A=\Omega$\\[2mm]
+\comment К $A$ применимы те же опреации, что используются с множествами\\[2mm]
+\definition Полная группа несовместных событий — такой набор событий, для которого выполняются такие условия:
+\begin{equation*}
+    A_i\cap A_j=\varnothing\ \forall i\ne j
+\end{equation*}
+\begin{equation*}
+    \displaystyle\bigcup\limits_i A_i=\Omega
+\end{equation*}
+
+\axiom $\forall \omega_i\ \exists p_i\geqslant0,$ при этом $\displaystyle\sum_i p_i=1$\\[2mm]
+\corollary $0\leqslant p_i\leqslant1$\\[2mm]
+\definition $P(A)=\sum_{w_i\in A} P(w_i)$, где $P(w_i)=p_i$\\[2mm]
+\indent $(\Omega, P)$ — вероятностное пространство в дискретном случае\\[2mm]
+\textbf{Подходы к определению вероятностей}
+\begin{enumerate}
+    \item Априорный (предварительное знание)
+    \item Частотный (предел ряда частот)
+    \item Модельный (математическая модель)
+\end{enumerate}
+\subsection{Классическое определение вероятности}
+\indent Имеет место, когда исходы равновероятны\\[2mm]
+\definition
+$$P(A)=\displaystyle\frac{|A|}{|\Omega|}$$
+\subsection{Теорема сложения}
+\indent $P(A\cup B)=P(A)+P(B)-P(A\cap B)$\\[2mm]
+\indent $P(A_1\cup\ldots\cup A_n)=\sum_{i=1}^{n} P(A_i)-\sum_{i<j} (A_i\cap A_j)+\ldots+(-1)^{n-1}P(A_1\cap\ldots\cap A_n)$
+\subsection{Условная вероятность}
+$P(A|B)=\displaystyle\frac{P(A\cap B)}{P(B)}\ \forall B: P(B)>0$
+\subsection{Теорема умножения}
+$P(A_1\cap\ldots\cap A_n)=P(A_1)\cdot P(A_2|A_1)\cdot P(A_3|A_1\cap A_2)\cdot\ldots\cdot P(A_n|A_1\cdot\ldots\cdot A_{n-1})$
+
+
+
+\end{document}
