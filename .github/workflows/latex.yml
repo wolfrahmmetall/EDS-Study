@@ -1,0 +1,38 @@
+name: Build LaTeX PDF and Commit
+
+on:
+  push:
+    paths:
+      - "*.tex"
+  pull_request:
+    paths:
+      - "*.tex"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install LaTeX
+      run: sudo apt-get install -y texlive-full
+
+    - name: Set the name of the LaTeX file
+      run: echo "TEX_FILE=$(ls *.tex)" >> $GITHUB_ENV
+
+    - name: Compile LaTeX document
+      run: |
+        latexmk -pdf $TEX_FILE
+
+    - name: Commit PDF file
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        PDF_FILE="${TEX_FILE%.tex}.pdf"  # Заменяем расширение .tex на .pdf
+        git add $PDF_FILE
+        git commit -m "Update PDF from LaTeX source [skip ci]"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
