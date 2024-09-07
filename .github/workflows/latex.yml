@@ -3,10 +3,10 @@ name: Build LaTeX PDF and Commit
 on:
   push:
     paths:
-      - "*.tex"
+      - "2nd course/Microeconomics-2/Seminars/Seminar-1.06.09.24/*.tex"
   pull_request:
     paths:
-      - "*.tex"
+      - "2nd course/Microeconomics-2/Seminars/Seminar-1.06.09.24/*.tex"
 
 jobs:
   build:
