@@ -25,6 +25,9 @@ jobs:
     - name: Compile LaTeX document
       run: |
         latexmk -pdf $TEX_FILE
+      env:
+        TEX_FILE: ${{ env.TEX_FILE }}
+
 
     - name: Commit PDF file
       run: |
