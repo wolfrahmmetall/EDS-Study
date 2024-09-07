@@ -35,10 +35,10 @@ jobs:
     
     - name: Commit PDF file
       run: |
+        PDF_FILE="${{ env.TEX_FILE%.tex }}.pdf"
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        PDF_FILE="${{ env.TEX_FILE | sed 's/.tex/.pdf/' }}"
-        git add $PDF_FILE
+        git add "$PDF_FILE"
         git commit -m "Update PDF from LaTeX source [skip ci]"
         git push
       env:
