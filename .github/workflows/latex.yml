@@ -20,7 +20,7 @@ jobs:
       run: sudo apt-get install -y texlive-full
 
     - name: Set the name of the LaTeX file
-      run: echo "TEX_FILE=$(ls *.tex)" >> $GITHUB_ENV
+      run: echo "TEX_FILE=$(ls **.tex)" >> $GITHUB_ENV
 
     - name: Compile LaTeX document
       run: |
