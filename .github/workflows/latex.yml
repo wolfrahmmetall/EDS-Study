@@ -1,46 +1,46 @@
-name: Build LaTeX PDF and Commit
+# name: Build LaTeX PDF and Commit
 
-on:
-  push:
-    paths:
-      - "**/*.tex"
-  pull_request:
-    paths:
-      - "**/*.tex"
+# on:
+#   push:
+#     paths:
+#       - "**/*.tex"
+#   pull_request:
+#     paths:
+#       - "**/*.tex"
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v3
 
-    - name: Install LaTeX
-      run: sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended
+#     - name: Install LaTeX
+#       run: sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended
 
-    - name: Find changed LaTeX files
-      id: find_tex
-      run: |
-        TEX_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.tex$')
-        echo "TEX_FILES=${TEX_FILES}"
-        echo "TEX_FILES=${TEX_FILES}" >> $GITHUB_ENV
+#     - name: Find changed LaTeX files
+#       id: find_tex
+#       run: |
+#         TEX_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.tex$')
+#         echo "TEX_FILES=${TEX_FILES}"
+#         echo "TEX_FILES=${TEX_FILES}" >> $GITHUB_ENV
 
-    - name: Compile LaTeX document(s)
-      run: |
-        for TEX_FILE in ${{ env.TEX_FILES }}; do
-          echo "Compiling ${TEX_FILE}"
-          latexmk -pdf "${TEX_FILE}"
-          PDF_FILE="${TEX_FILE%.tex}.pdf"
-          git add "$PDF_FILE"
-        done
+#     - name: Compile LaTeX document(s)
+#       run: |
+#         for TEX_FILE in ${{ env.TEX_FILES }}; do
+#           echo "Compiling ${TEX_FILE}"
+#           latexmk -pdf "${TEX_FILE}"
+#           PDF_FILE="${TEX_FILE%.tex}.pdf"
+#           git add "$PDF_FILE"
+#         done
     
-    - name: Commit PDF files
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git commit -m "Update PDF from LaTeX source [skip ci]" || echo "No changes to commit"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     - name: Commit PDF files
+#       run: |
+#         git config --global user.name 'github-actions[bot]'
+#         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+#         git commit -m "Update PDF from LaTeX source [skip ci]" || echo "No changes to commit"
+#         git push
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
