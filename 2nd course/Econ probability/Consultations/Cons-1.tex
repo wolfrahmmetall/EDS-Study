@@ -1,0 +1,112 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage{standart-header}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [C] {\thepage}
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{2mm}
+\newcommand{\orr}{\text{ or }}
+\newcommand{\andd}{\text{ and }}
+\newcommand{\definition}{\textbf{Определение. }}
+\fancyhead[L]{ТВиМС—1. Консультация—1 по минимуму 13.09.2024}
+
+\begin{document}
+\section*{№1}
+\begin{enumerate}
+    \item[$a)$]$P(A|B)=\displaystyle\frac{P(A\cap B)}{P(B)}=\frac{0.1}{0.4}=0.25$
+    \item[$b)$] $P(A\cup B)=P(A)+P(B)-P(A\cap B)=0.3+0.4-0.1=0.6$
+    \item[$c)$] $A$ и $B$ — независимы?
+
+    \definition События $A$ и $B$ называются независимыми, если $P(A\cap B)=P(A)\cdot P(B)$
+
+    \definition События $A$ и $B$ называются несовместными, если $A\cap B=\varnothing$
+
+    Пусть $P(A)\ne0,P(B)\ne0$. Тогда, $A$ и $B$ несовместны, то $A$ и $B$ зависимы
+
+    $0=P(A\cap B)=P(A)\cdot P(B)\ne0\Longrightarrow$ $A$ и $B$ зависимы
+\end{enumerate}
+
+\section*{№2}
+\subsection*{Способ №1 (С помощью формулы умножения вероятностей)}
+$P(A_1\cap \ldots \cap A_n)=P(A_1)\cdot P(A_2|A_1)\cdot P(A_3|A_1\cap A_2)\cdot\ldots\cdot P(A_n|A_1\cap\ldots\cap A_{n-1})$
+
+Пусть имеются такие события: \begin{equation*}
+    \begin{aligned}
+        A_1&:=\{\text{первая буква — К}\}\\
+        A_2&:=\{\text{вторая буква — О}\}\\
+        A_3&:=\{\text{третья буква — Р}\}\\
+        A_4&:=\{\text{четвертая буква — Т}\}
+    \end{aligned}
+\end{equation*}
+
+Тогда, искомая вероятность:
+\begin{equation*}
+\begin{aligned}
+    P(A_1\cap A_2\cap A_3\cap A_4)&=P(A_1)\cdot P(A_2|A_1)\cdot P(A_3|A_1\cap A_2)\cdot P(A_4|A_1\cap A_2\cap A_3)\\
+    &=\frac{2}{13}\cdot\frac{2}{12}\cdot\frac{1}{11}\cdot\frac{1}{10}\\
+    &=\frac{1}{4290}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{Способ №2 (комбинаторный)}
+$P(A)=\displaystyle\frac{|A|}{|\Omega|},\ \Omega=\{(a_1,a_2,a_3,a_4):a_1\in L, a_2\in L, a_3\in L, a_4\in L, a_i\ne a_j\text{ при }i\ne j\}$
+
+$|\Omega|=\displaystyle\frac{13!}{9!}$
+
+$A=\{(K_1,O_1,P_1,T_1),(K_2,O_1,P_1,T_1),(K_1,O_2,P_1,T_1),(K_2,O_2,P_1,T_1)\}\longrightarrow$ 4 исхода
+
+Индекс у букв означают какой по счету встретилась буква в слове <<КОМБИНАТОРИКА>>
+
+
+\section*{№3}
+\definition Совокупность событий $D_1,\ldots,D_n$ называется \textbf{разбиением} пространства элементарных событий, если 
+$$\Omega=D_1\sqcup D_2\sqcup\ldots\sqcup D_n$$
+
+$D_i:=\{\text{выбираем $i$-ю урну}\}$, где $i=1,2,3$ — разбиение $\Omega$
+
+\begin{enumerate}
+    \item[$a)$]\textbf{Формуа полной вероятности}
+    $$P(A)=P(A|D_1)\cdot P(D_1)+\ldots+P(A|D_n)\cdot P(D_n)$$
+    То есть, в нашем случае формула примет вид
+    $$P(A)=P(A|D_1)\cdot P(D_1)+P(A|D_2)\cdot P(D_2)+P(A|D_3)\cdot P(D_3)$$
+    $A:=\{\text{шар оказался белым}\}$
+    \item[$b)$] $P(D_1|A)=\displaystyle\frac{P(A|D_1)\cdot P(D_1)}{P(A|D_1)P(D_1)+P(A|D_2)P(D_2)+P(A|D_3)P(D_3)}=\ldots$
+\end{enumerate}
+
+\section*{№4}
+Обозначим сотрудников так:
+\begin{equation*}
+    \begin{aligned}
+        D_1&:=\{\text{\textbf{опытный} сотрудник}\}\\
+        D_2&:=\{\text{\textbf{неопытный} сотрудник}\}
+    \end{aligned}
+\end{equation*}
+
+Пусть $A:=\{\text{совершена ошибка}\}$
+
+Тогда, условия задачи можно записать так:
+\begin{equation*}
+    \begin{aligned}
+        P(A|D_1)&=0.01\\
+        P(A|D_2)&=0.1
+    \end{aligned}
+\end{equation*}
+
+\begin{enumerate}
+    \item[$a)$] $P(A)=P(A|D_1)\cdot P(D_1)+P(A|D_2)\cdot P(D_2)=0.01\cdot0.8+0.1\cdot0.2=0.028$
+    \item[$b)$] $P(D_2|A)=\displaystyle\frac{P(A|D_2)\cdot P(D_2)}{P(A)}=0.714$
+
+    Заметим, что события $(D_2|A)$ и $(D_1|A)$ образуют полную группу вероятностей, то есть $$P(D_2|A)+P(D_1|A)=1\Longrightarrow P(D_1|A)=0.286$$
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
