@@ -28,7 +28,7 @@
 \begin{equation*}
     \begin{aligned}
         \mu(I)&=|I|
-        =\prod_{i=1}^{k} (b_i-a_i)
+        =\prod_{i=1}^{n} (b_i-a_i)
     \end{aligned}
 \end{equation*}
 
@@ -132,17 +132,10 @@ $$
 
         \foreach \i in {0.25, 0.5, ..., 2} {
         \foreach \j in {0.25, 0.5, ..., 2} {
-            \fill (\i,\j) circle (1pt);  % Рисуем точку в координатах (\i, \j)
+            \fill (\i,\j) circle (1pt);
         }
     }
-    
-        % \fill[black] (0.25,0.25) circle (1pt);
-        % \fill[black] (0.25,0.5) circle (1pt);
-        % \fill[black] (0.25,0.75) circle (1pt);
-        % \fill[black] (0.5,0.25) circle (1pt);
-        % \fill[black] (0.5,0.5) circle (1pt);
-        % \fill[black] (0.75,0.25) circle (1pt);
-        % \fill[black] (1.75,1.75) circle (1pt);
+
     \end{tikzpicture}
 $$
 \end{minipage}
