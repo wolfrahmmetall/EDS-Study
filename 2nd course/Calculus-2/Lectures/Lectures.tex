@@ -66,7 +66,13 @@
 \definition \label{1.8} Интегральная сумма Римана функции $f$ на $(\T, \xi)$ — величина
 $$\sigma(f, \T, \xi) := \sum_{i=1}^kf(\xi_i)\cdot|I_i|$$
 
-\definition \label{1.9} Функция $f$ интегрируема (по Риману) на замкнутом брусе $I$ ($f:I\rightarrow\R$), если $$\exists A\in\R: \forall \varepsilon > 0\ \exists \delta > 0: \forall(\T, \xi): \Delta_{\T} < \delta\: |\sigma(f, \T, \xi)| - A| < \varepsilon$$
+\definition \label{1.9} Функция $f$ интегрируема (по Риману) на замкнутом брусе $I$ ($f:I\rightarrow\R$), если 
+\begin{equation*}
+\begin{aligned}
+    \exists A\in\R: \forall \varepsilon > 0\, \exists \delta > 0: \forall(\T, \xi): \Delta_{\T} < \delta:\\
+    |\sigma(f, \T, \xi)| - A| < \varepsilon
+\end{aligned}
+\end{equation*}
 Тогда 
 $$A = \int_If(x)dx = \underset{I}{\int\ldots\int}f(x_1, \ldots, x_n)dx_1\ldots dx_n$$
 Обозначение: $f\in\mathcal{R}(I)$
@@ -140,5 +146,151 @@ $$
 $$
 \end{minipage}
 
+\subsection{Свойства кратных интегралов}
+\begin{enumerate}
+    \item \textbf{Линейность.}
+    \begin{equation*}
+        f, g \in R(I) \implies \forall \alpha, \beta \in \R \quad(\alpha f + \beta g)\in R(I)
+    \end{equation*}
+    И верно, что:
+    \begin{equation*}
+            \int_I(\alpha f + \beta g)dx = \alpha\int_I fdx + \beta\int_Igdx
+    \end{equation*}
+\proof 
+\begin{enumerate}
+    \item
+\begin{equation*}
+\begin{aligned}
+    f\in R(I): \quad \forall \varepsilon > 0 \, \exists\delta_1>0: \Delta_{\T} < \delta_1 \\
+    |\sigma(f, \T, \Xi)  - \int_Ifdx| =: |\sigma_f - A_f| < \frac{\varepsilon}{|\alpha|+|\beta|+1}
+\end{aligned}
+\end{equation*}
+\item По определению:
+\begin{equation*}
+    \begin{aligned}
+        g\in R(I): \quad \forall \varepsilon > 0 \, \exists\delta_2>0: \Delta_{\T} < \delta_2 \\
+|\sigma(g, \T, \Xi)  - \int_Igdx| =: |\sigma_g - A_g| < \frac{\varepsilon}{|\alpha|+|\beta|+1}
+    \end{aligned}
+\end{equation*}
+\item Пусть $\delta = \min\{\delta_1, \delta_2\}$. Тогда (a) и (b) верно для $\delta \implies$
+\begin{equation*}
+    \begin{aligned}
+        |\sigma_{\alpha f+\beta g} - A_{\alpha f+ \beta g}| = |\alpha\sigma_f + \beta\sigma_g - \alpha A_f - \beta A_g| \le \\
+        |\alpha||\sigma_f - A_f| + |\beta||\sigma_g-A_g| < (|\alpha| + |\beta|) \frac{\varepsilon}{|\alpha|+|\beta|+1} < \varepsilon
+    \end{aligned}
+\end{equation*}
+\end{enumerate}
+\QED
 
+\item \textbf{Монотонность}
+\begin{equation*}
+    f, g\in R(I); f|_I\le g|_I \implies \int_Ifdx \le \int_Igdx
+\end{equation*}
+\proof
+    \begin{equation*}
+        f\in R(I) \implies \exists A_f\in \R : |\sigma_f - A_f| < \ve\, (\forall \ve > 0 \exists\delta: \forall(\T, \Xi): \Delta_{\T} < \delta)
+    \end{equation*}
+    Аналогично для $g\in R(I)$, тогда:
+    \begin{equation*}
+    \begin{aligned}
+        A_f - \ve < \sigma_f \le \sigma_g < A_g + \ve \implies\\
+        A_f < A_g + 2\ve 
+    \end{aligned}
+    \end{equation*}
+    Что верно для $\forall \ve > 0$, даже при $\ve \to 0 \implies A_f \le A_g$
+\QED
+\item \textbf{Оценка интеграла (сверху)}
+\begin{equation*}
+    f\in R(I) \implies \left|\int_Ifdx\right| \le \underset{I}{\sup}|f||I|
+\end{equation*}
+\proof
+По необходимому условию для интегрируемости функции (см. ниже)
+\begin{equation*}
+    f\in R(I) \implies f \text{ Ограничена на } I \implies
+\end{equation*}
+
+\begin{equation*}
+    \begin{aligned}
+        -\sup_I|f| \le f \le \sup_I|f| \implies\\
+        -\int_I\sup|f|dx \le \int_Ifdx\le \int_I\sup|f|dx = \sup_I|f||I| \implies\\
+        -\sup_I|f||I| \le A_f \le \sup_I|f||I|
+    \end{aligned}
+\end{equation*}
+\QED
+\end{enumerate}
+
+\subsection{\theorem Необходимое условие интегрирования.}
+Пусть $I$ - замкнутый брус. 
+\begin{equation*}
+    f\in R(I) \implies f \text{ Ограничена на } I
+\end{equation*}
+
+\proof От противного.
+\begin{enumerate}
+    \item \begin{equation*}
+        \begin{aligned}
+            f\in R(I) \implies \exists A_f\in\R : \forall\ve > 0 \, \exists\delta > 0: \forall(\T, \Xi): \Delta_{\T} < \delta\\
+            |\sigma_f-A_f| < \ve \implies \\
+        \end{aligned}
+    \end{equation*}
+    Для $\ve = 1$ это тоже верно, поэтому:
+    \begin{equation*}
+        A_f-1<\sigma_f<A_f+1 \implies \sigma_f - \text{ ограничена}
+    \end{equation*}
+    \item Пусть $f$ - неограничена на $I$, но $f\in R(I) \implies \forall\T = \{I_i\}_i=1^K \,\, \exists i_0: \, f$ неограничена на $I_{i_0}$.\\
+    Тогда можно представить так: 
+    \begin{equation*}
+        \sigma_f = \sum_{i\ne i_0}f(\xi_i)|I_i| + f(\xi_{i_0})|I_{i_0}| \implies
+    \end{equation*}
+    можно выбирать $\xi_{i_0}$ на $I_{i_0}$ так, что $\sigma_f$ будет сколь угодно велика/мала $\implies$ \textbf{противоречие}, поэтому:
+\end{enumerate}
+\begin{equation*}
+    f\in R(I) \implies f \text{ Ограничена на } I
+\end{equation*}
+\QED
+
+\section{Лебегова мера}
+\subsection{Множество меры 0 по Лебегу}
+\definition Мн-во $M\subset\R^n$ будем называть мн-вом меры 0 по Лебегу, если $\exists$не более чем счетный набор замкнутых брусов $\{I_i\}:$
+\begin{enumerate}
+    \item $M\subset \displaystyle\bigcup_iI_i$ и 
+    \item $\displaystyle\sum_i|I_i| < \ve\,\, \forall \ve < 0$
+\end{enumerate}
+
+\textbf{Пример:} $x_0\in\R^n$ - мн-во меры нуль по Лебегу в $\R^n$\\
+\proof $x_0 = (x_{01}, \ldots, x_{0n})$
+Покроем точку замкнутым брусом (тут Даня должен вставить крутую картинку как квадрат накладывается на точку) $I = [x_{01}-d, x_{01}+d] \times\ldots\times[x_{0n}-d, x_{0n}+d \implies$\\
+$$\forall \ve > 0\,\,\exists I: |I| = (2d)^n<\ve \implies d < \frac{\sqrt[n]{\ve}}{2} \implies$$
+Точка является мн-вом меры нуль по Лебегу
+
+\subsection{Свойства мн-ва меры 0 по Лебегу}
+\begin{enumerate}
+    \item Если брусы в определении сделать открытыми, то определение остается верным.\\
+    \proof Пусть $\{I_i\}$ - открытые брусы  $M\subset \displaystyle\bigcup_iI_i$.\\
+    Пусть $\{\bar I_i\}$ - замкнутые брусы $I_i$.
+    \begin{equation*}
+        \begin{aligned}
+            M\subset\bigcup_iI_i \subset\bigcup_i\bar I_i, \, |I_i| = |\bar I_i|
+        \end{aligned}
+    \end{equation*}
+    Если
+    \begin{equation*}
+        \forall\ve\, \exists\{I_i\}: M \subset \bigcup_iI_i: \sum_i|I_i|<\ve
+    \end{equation*}
+    то
+    \begin{equation*}
+        \forall\ve\, \exists\{\bar I_i\}: M \subset \bigcup_i\bar I_i: \sum_i|\bar I_i|<\ve
+    \end{equation*}
+    \item Пусть $\{I_i\}$ - замкнутые брусы
+    \begin{equation*}
+        I_i = [a^i_1, b^i_1]\times\ldots\times[a^i_n, b^i_n] \quad V_i = \sum_i|I_i|<\frac{\ve}{2^n}
+    \end{equation*}
+    Пусть 
+    \begin{equation*}
+        D_i = \left(\frac{a_1^i+b_1^i}{2} - (b_1^i-a_1^i) ; \frac{a_1^i + b_1^i}{2} + (b_1^i - a_1^i)\right) \times \ldots\times \left(\frac{a_n^i+b_n^i}{2} - (b_n^i-a_n^i) ; \frac{a_n^i + b_n^i}{2} + (b_n^i - a_n^i)\right)
+    \end{equation*}
+    $\implies V_2 = \displaystyle\sum_i|D_i| = 2^nV_1 < \ve$
+    \QED
+    
+\end{enumerate}
 \end{document}
