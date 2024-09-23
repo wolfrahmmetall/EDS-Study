@@ -279,8 +279,81 @@ $P(\xi\in B)=\sum_{\omega} P(\omega:\xi(\omega)\in B)$
 
 % Эта вероятность называется \textbf{распределением Пуассона}
 
+\section{Основные дискретные распределения. Математическое ожидание}
+Напомним определение случайной величины — $\xi:\Omega\rightarrow\mathbb{R}$
 
+\definition Дискретное вероятностное пространство — $(\Omega,P)\rightarrow(\mathbb{R},P(\xi))$, где $P\xi:P(\xi=a)\ \forall a\in\mathbb{R}$
 
+Если $\xi\in a_1\ldots a_k$, а вероятности равны $p_1\ldots p_k$, где $p_i=P(\xi=a)$, тогда
+$$P(\xi=a)=P\left(\underbrace{\{\omega:\xi(\omega)=a_i\}}_{A\text{-прообраз }\{\xi=a_i\}}\right)\text{ — распределение вероятностей случайной величины }\xi$$
+
+\ex $\xi:0,1,\ldots,n$, $p:P(\xi=k)=C_n^k p^k(1-p)^{n-k}$ — биномиальное распредеденме
+
+Обозначение: $Bi(n,p)$
+
+\definition $\mathbb{E}(\xi)=\sum_{\omega\in\Omega} \xi(\omega)P(\omega)$ — если ряд сходится абсолютно
+
+Если ряд не сходится, то математического ожидания \textbf{не существует}
+
+\subsection{Основные дискретные распределения}
+\begin{enumerate}
+    \item Вырожденное распределение. $\exists c:P(\xi=c)=1,\ c\in\mathbb{R}$
+    \item Распределение Бернулли: $Bi(1,p)$. $\xi\in[0,1]$ с вероятностями $p$ и $1-p$ соответственно
+
+    Индикатор события $A$ — $I\{A\}=\begin{cases}
+        1,\text{ если }A\\
+        0,\text{ если }\overline{A}
+    \end{cases}$
+
+    \ex 10 кубиков, $A$ — хотя бы одна 6
+
+    $I\{A\}=\begin{cases}
+        1, P=1-\left(\frac{5}{6}\right)^{10}\\
+        0, P=\left(\frac{5}{6}\right)^{10}
+    \end{cases}$
+    \item Биномиальное распределение $Bi(n,p)$, где $\mu_n$ — число успехов в $n$ испытаниях
+
+    $P(\mu_n=k)=C_n^kp^{k}(1-p)^{n-k},k=\overline{0,n}$
+
+    $\mathbb{E}(\mu_n)=\sum_{k=0}^{n}kC_n^kp^k(1-p)^{n-k}$
+
+    \item Распределение Пуассона: $\Pi(\lambda)$
+
+    $P(\xi=k)=\displaystyle\frac{\lambda^k}{k!}e^{-\lambda},k\in\mathbb{Z}$
+
+    Иногда это распределение называют \textit{распределением редких событий}
+
+    $\mathbb{E}(\xi)=\lambda\ (\lambda=np)$, где $\mathbb{E}(\xi)=\sum_{k=0}^{\infty} k\displaystyle\frac{\lambda^k}{k!}e^{-\lambda}$
+
+    \item Геометрическое распределение
+    
+    \ex Число неудач до первого успеха = $\xi-1$ \textbf{или} номер первого успеха = $\xi$
+    
+    При этом, $p$ — вероятность успеха
+
+    $\xi:1,\ldots$. $P(\xi=k)=(1-p)^{k-1}p$
+
+     $\mathbb{E}(\xi)=\sum_{k=1}^{\infty} k(1-p)^{k-1}p$
+
+     Пусть $\mu=\mathbb{E}(\xi)$ — мат.ожидание номера первого успеха
+     
+     Тогда, $\mu=1\cdot p+(1-p)(1+\mu)\Longrightarrow\mu=\frac{1}{p}$
+
+     \item Отрицательное биномиальное распределение: $\overline{Bi}(r,p)$. Номер $r$-го успеха, $k$-е место
+
+    $P(\xi=k)=C_{k-1}^{k-r}\ p^{r-1}(1-p)^{k-r}\cdot p$
+
+    \item Гипергеометрическое распределение
+
+    $P(\xi=k)=\displaystyle\frac{C_{M}^{k}C_{N-M}^{n-k}}{C_n^k}$
+\end{enumerate}
+
+\subsection{Свойства линейности мат.ожидания}
+Пусть $\mu_n=\sum_{i=1}^{n}I\{A_i\}$, где $A_i$ — в $i$-ом опыте был успех
+
+$\mathbb{E}(I\{A_i\})=P(A_i)=p$, тогда, $\mathbb{E}(\mu_n)=np$
+
+$np-q\leqslant\text{(наиболее вероятное число успехов)}\leqslant np+p$
 
 
 
