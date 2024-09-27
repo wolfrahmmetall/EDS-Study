@@ -1,0 +1,139 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage{standart-header}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [C] {\thepage}
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{2mm}
+\newcommand{\orr}{\text{ or }}
+\newcommand{\andd}{\text{ and }}
+\newcommand{\definition}{\textbf{Определение. }}
+\newcommand{\state}{\textbf{Утверждение. }}
+\newcommand{\comment}{\textbf{Замечание. }}
+\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
+\newcommand{\matwait}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\dispersia}[1]{\mathbb{D}\left[#1\right]}
+\fancyhead[L]{ТВиМС—1. Консультация—3 по минимуму 27.09.2024}
+
+\begin{document}
+\definition Случайная величина $\xi$ имеет распределение Пуассона с параметром $\lambda>0$ пишут, что $\xi\sim\text{Pois}(\lambda)$, если случаная величина $\xi$ принимает значения $0,1,2,\ldots,k,\ldots$ с вероятностями 
+$$\prob{\{\xi=k\}}=\displaystyle\frac{\lambda^k}{k!}e^{-\lambda},$$
+где $k\in\{0,1,\ldots\}$
+
+\state Если $\xi\sim\text{Pois}(\lambda)$, то $\mathbb{E}\left[\xi\right]=\mathbb{D}\left[\xi\right]=\lambda$
+
+\comment $\displaystyle\sum_{k=0}^{\infty}\frac{\lambda^{k}}{k!}e^{-\lambda}=e^{-\lambda}\underbrace{\left(\sum_{k=0}^{\infty}\frac{\lambda^k}{k!}\right)}_{=e^\lambda}=1$
+\section*{№8}
+Имеется случайная величина $X\sim\text{Pois}(\lambda=100)$
+\begin{enumerate}
+    \item[\textbf{a)}] $\prob{\{x=0\}}=\displaystyle\frac{\lambda^0}{0!}e^{-\lambda}=e^{-\lambda}=e^{-100}$
+    \item[\textbf{б)}] $\prob{\{x>0\}}=1-\prob{\{x=0\}}=1-e^{-100}$
+    \item[\textbf{в)}] $\prob{\{x<0\}}=\prob{\varnothing}=0$
+    \item[\textbf{г)}] По определению, $\mathbb{E}\left[\xi\right]=\lambda$. Докажем
+    \begin{equation*}
+        \begin{aligned}
+            \matwait{\xi}&=\sum_{k=0}^{\infty} k\cdot\prob{\{x=k\}}\\
+            &=\sum_{k=0}^{\infty} k\frac{\lambda^k}{k!}e^{-\lambda}\\
+            &=\sum_{k=1}^{\infty} \frac{\lambda^k}{(k-1)!}e^{-\lambda}\\
+            &=\lambda e^{-\lambda}\sum_{k=1}^{\infty}\frac{\lambda^{k-1}}{(k-1)!}\\
+            &=\left(\sum_{l=0}^{\infty}\frac{\lambda^l}{l!}\right)\lambda e^{-\lambda}\\
+            &=\lambda
+        \end{aligned}
+    \end{equation*}
+    \item[\textbf{д)}] Для того, чтобы посчитать дисперсию $X$ сначала посчитаем мат.ожидание $X^2$, а для этого посчитаем $\matwait{X(X-1)}$:
+    \begin{equation*}
+        \begin{aligned}
+            \matwait{X(X-1)}&=\sum_{k=0}^{\infty} k(k-1)\prob{\{x=k\}}\\
+            &=\sum_{k=2}^{\infty} k(k-1)\frac{\lambda^k}{k!}e^{-\lambda}\\
+            &=\lambda^2e^{-\lambda}\sum_{k=2}^{\infty}\frac{\lambda^{k-2}}{(k-2)!}e^{-\lambda}\\
+            &=\lambda^2e^{-\lambda}\sum_{l=0}^{\infty}\frac{\lambda^{l}}{l!}\\
+            &=\lambda
+        \end{aligned}
+    \end{equation*}
+    Тогда, $\lambda^2=\matwait{X(X-1)}=\matwait{X^2}-\matwait{X}\Longrightarrow\matwait{X^2}=\lambda+\lambda^2$
+    
+    Теперь можем выразить дисперсию через известное равенство:
+    \begin{equation*}
+        \dispersia{X}=\matwait{X^2}-\left(\matwait{X}\right)^2=\lambda+\lambda^2-\lambda^2=\lambda
+    \end{equation*}
+    \item[\textbf{e)}] Предположим, что $X=k$ и есть наиболее вероятное значение, принимаемое $X$. При этом, $k\in\{0,1,2,\ldots\}$. Так как $k$ — дискретная, то дифференцированием мы воспользоваться не можем, тогда посчитаем $\displaystyle\frac{\prob{\{X=k+1\}}}{\prob{\{X=k\}}}$:
+    \begin{equation*}
+        \begin{aligned}
+            \frac{\prob{\{X=k+1\}}}{\prob{\{X=k\}}}&=\frac{\frac{\lambda^{k+1}}{(k+1)!}e^{-\lambda}}{\frac{\lambda^{k}}{k!}e^{-\lambda}}\\
+            &=\frac{\lambda}{k+1}\\
+            &=\frac{100}{k+1}
+        \end{aligned}
+    \end{equation*}
+    Теперь проанализируем при каких $k$ это отношение будет больше, меньше или равно $1$:
+    \begin{itemize}
+        \item $\displaystyle\frac{100}{k+1}>1\Longrightarrow k <99$
+        \item $\displaystyle\frac{100}{k+1}<1\Longrightarrow k >99$
+        \item $\displaystyle\frac{100}{k+1}=1\Longrightarrow k =99$
+    \end{itemize}
+    Значит, $99$ и $100$ — наиболее вероятные значения, принимаемые случайной величиной $X$
+    $$
+    \begin{tikzpicture}
+        \draw[black, ->] (0,0) -- (0,2.5) node[black, left] {$\prob{\{X=k\}}$};
+        \draw[black, ->] (0,0) -- (7,0) node[black, right] {$k$};
+        \draw[black, thick] (0,0) -- (2,1);
+        \draw[black, very thick] (2,1) -- (4,1);
+        \draw[black, thick] (4,1) -- (6,0);
+        \draw[black, dashed] (2,0) node[black, below] {$99$} -- (2,1);
+        \draw[black, dashed] (4,0) node[black, below] {$100$} -- (4,1);
+    \end{tikzpicture}
+    $$
+\end{enumerate}
+
+\section*{№9}
+\begin{enumerate}
+    \item[\textbf{а)}] Пусть $\xi_i=\begin{cases}
+        1,&\text{если $i$-й \textit{пассажир} вышелна шестом этаже}\\
+        0,&\text{иначе}
+    \end{cases}$. При этом $i\in\{1,2,3,4,5\}$
+
+    Тогда, $\xi=\xi_1+\ldots+\xi_5$ — число \textit{пассажиров}, которые вышли на шестом этаже
+
+    Заметим, что $\xi_1,\ldots,\xi_5$ — независимые, а также $\xi_i\sim\text{Be}\left(p=\frac{1}{9}\right)$. Тогда, $\xi\sim\text{Bi}\left(n=5,p=\frac{1}{9}\right)$
+
+    $\prob{\{\xi>0\}}=1-\prob{\{\xi=0\}}=1-\left(\frac{8}{9}\right)^5$
+    \item[\textbf{б)}] $\prob{\{\xi=0\}}=C_n^k p^k q^{n-k}=C_5^0\left(\frac{1}{9}\right)^0\left(\frac{8}{9}\right)^5=\left(\frac{8}{9}\right)^5$
+    \item[\textbf{в)}] Пусть $\eta_i=\begin{cases}
+        1,&\text{если $i$-й \textit{пассажир} вышел на 6 этаже или выше}\\
+        0,&\text{иначе}
+    \end{cases}$. При этом $i\in\{1,2,3,4,5\}$
+
+    Тогда, $\eta=\eta_1+\ldots+\eta_5$ — число \textit{пассажиров}, которые вышли на шестом этаже и выше
+
+    Заметим, что $\eta_1,\ldots,\eta_5$ — независимые, а также $\eta_i\sim\text{Be}\left(p=\frac{5}{9}\right)$. Тогда, $\eta\sim\text{Bi}\left(n=5,p_1=\frac{5}{9}\right)$
+
+    $\prob{\{\eta=5\}}=C_5^5\cdot p_1^5\cdot q^0=\left(\frac{5}{9}\right)^5$
+\end{enumerate}
+
+\section*{№10}
+$\xi_i\sim\text{Pois}(\lambda=3)$ — число сбоев за $i$-е сутки
+\begin{enumerate}
+    \item[\textbf{а)}] \begin{equation*}
+        \begin{aligned}
+            \prob{\{\xi_i>0\}}&=1-\prob{\{\xi_i=0\}}\\
+            &=1-\frac{\lambda^0}{0!}e^{-\lambda}\\
+            &=1-e^{-3}
+        \end{aligned}
+    \end{equation*}
+    \item[\textbf{б)}] Требуется вычислить вероятность того, что за двое суток не произойдет ни одного сбоя. То есть нужно найти вероятность двух событий: $\{\xi_1=0\}$ и $\{\xi_2=0\}$. Заметим, что эти события независимы. Формально:
+    \begin{equation*}
+        \begin{aligned}
+            \prob{\{\xi_1=0\}\cap\{\xi_2=0\}}&=\prob{\{\xi_1=0\}}\cdot\prob{\{\xi_2=0\}}\\
+            &=e^{-3}\cdot e^{-3}
+        \end{aligned}
+    \end{equation*}
+\end{enumerate}
+\definition Пусть $\xi$ принимает значения $a_1,\ldots,a_m$, а случайная величина $\eta$ принимает значения $b_1,\ldots,b_n$. Тогда, случайные величины $\xi$ и $\eta$ независимы, если
+\begin{equation*}
+    \forall\ i\in\{1,\ldots,m\},\ \forall\ j\in\{1,\ldots,n\}\text{ события }\{\xi=a_i\}\text{ и }\{\eta=b_j\}\text{ независимы}
+\end{equation*}
+Формально: $\prob{\{\xi=a_i\}\cap\{\eta=b_j\}}=\prob{\{\xi=a_i\}}\cdot\prob{\{\eta=b_j\}}$
+
+
+
+
+
+\end{document}
