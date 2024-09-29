@@ -194,13 +194,13 @@ $D_i:=\{\text{выбираем $i$-ю урну}\}$, где $i=1,2,3$ — раз�
 \subsection{Пусть случайная величина $X$ имеет распределение Пуассона с параметром $\lambda= 100$}
 Имеется случайная величина $X\sim\text{Pois}(\lambda=100)$
 \begin{enumerate}
-    \item[\textbf{a)}] $\prob{\{x=0\}}=\displaystyle\frac{\lambda^0}{0!}e^{-\lambda}=e^{-\lambda}=e^{-100}$
-    \item[\textbf{б)}] $\prob{\{x>0\}}=1-\prob{\{x=0\}}=1-e^{-100}$
-    \item[\textbf{в)}] $\prob{\{x<0\}}=\prob{\varnothing}=0$
-    \item[\textbf{г)}] По определению, $\mathbb{E}\left[\xi\right]=\lambda$. Докажем
+    \item[\textbf{a)}] $\prob{\{X=0\}}=\displaystyle\frac{\lambda^0}{0!}e^{-\lambda}=e^{-\lambda}=e^{-100}$
+    \item[\textbf{б)}] $\prob{\{X>0\}}=1-\prob{\{x=0\}}=1-e^{-100}$
+    \item[\textbf{в)}] $\prob{\{X<0\}}=\prob{\varnothing}=0$
+    \item[\textbf{г)}] По определению, $\mathbb{E}\left[X\right]=\lambda$. Докажем
     \begin{equation*}
         \begin{aligned}
-            \matwait{\xi}&=\sum_{k=0}^{\infty} k\cdot\prob{\{x=k\}}\\
+            \matwait{X}&=\sum_{k=0}^{\infty} k\cdot\prob{\{x=k\}}\\
             &=\sum_{k=0}^{\infty} k\frac{\lambda^k}{k!}e^{-\lambda}\\
             &=\sum_{k=1}^{\infty} \frac{\lambda^k}{(k-1)!}e^{-\lambda}\\
             &=\lambda e^{-\lambda}\sum_{k=1}^{\infty}\frac{\lambda^{k-1}}{(k-1)!}\\
@@ -254,7 +254,7 @@ $D_i:=\{\text{выбираем $i$-ю урну}\}$, где $i=1,2,3$ — раз�
 \subsection{В лифт 10-этажного дома на первом этаже вошли 5 человек}
 \begin{enumerate}
     \item[\textbf{а)}] Пусть $\xi_i=\begin{cases}
-        1,&\text{если $i$-й \textit{пассажир} вышелна шестом этаже}\\
+        1,&\text{если $i$-й \textit{пассажир} вышел на шестом этаже}\\
         0,&\text{иначе}
     \end{cases}$. При этом $i\in\{1,2,3,4,5\}$
 
