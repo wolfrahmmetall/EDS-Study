@@ -1,7 +1,7 @@
 \documentclass[a4paper, 10pt]{article}
 \usepackage{header}
 
-\title{\LARGE{Теория вероятности и математическая статистика—1}}
+\title{\LARGE{Теория вероятностей и математическая статистика—1}}
 \author{Винер Даниил  \href{https://t.me/danya_vin}{@danya\_vin}}
 \date{Версия от \today}
 \begin{document}
@@ -9,6 +9,8 @@
 \tableofcontents
 \setlength{\parindent}{15pt}
 \setlength{\parskip}{2mm}
+\setlist[itemize]{left=1cm}
+\setlist[enumerate]{left=1cm}
 \newpage
 \section{Дискретное вероятностное пространство. Базовые теоремы вероятности}
 \definition $\Omega=\{\omega_1,\ldots,\omega_k,\ldots\}$ называется \textit{пространством элементарных исходов}, где $w_i$ — элементарный исход\\[2mm]
@@ -356,24 +358,123 @@ $\mathbb{E}(I\{A_i\})=P(A_i)=p$, тогда, $\mathbb{E}(\mu_n)=np$
 $np-q\leqslant\text{(наиболее вероятное число успехов)}\leqslant np+p$
 
 
+\section{Аксиоматика Колмогарова}
+\state Всякий непротиворечивый веротяностный эксперимпент может быть заисан на языке теории меры
 
+\definition Пусть задана непустное множество $\Omega$. Система подмножеств $\fk$ называется \s-алгеброй, если
+\begin{itemize}
+    \item $\Omega\in\fk$
+    \item если $A\in\fk$, то $A^c\in\fk$
+    \item если $A_1,\ldots,A_n\in\fk$, то $\displaystyle\bigcup_{i=1}^{\infty} A_i\in\fk$
+\end{itemize}
 
+При этом, $\Omega$ называется единицей \s-алгебры $\fk$
 
+\ex $\Omega=\{a,b,c,d\}$, $\fk=\{\varnothing,\Omega\}$ — \s-алгебра?
+Первые два условия выполняются тривиально, а третье
+\begin{equation*}
+    \bigcup_{i=1}^{\infty}A_i=
+    \begin{cases}
+    \varnothing \in\fk\text{, если все $A_i=\varnothing$}\\
+    \Omega\in\fk\text{, если хотя бы один из $A_i=\Omega$}
+\end{cases}
+\end{equation*}
 
+\ex $\Omega=\{a,b,c,d\}$, $\fk=\{\varnothing,\Omega,\{a,b\}\}$ — \s-алгебра?
 
+Нет, так как $\{a,b\}\in\fk$, но $\{a,b\}=\{c,d\}\notin\fk$
 
+\state Пусть $\fk$ — \s-алгебра, тогда если $B,C\in\fk$, то
+\begin{itemize}
+    \item $B\cup C\in\fk$
+    
+    \proof $B\cup C\cup \varnothing \cup \varnothing\ldots\cup \varnothing\ldots\in\fk$
+    \item $B\cap C\in\fk$
+    
+    \proof $B\cap C=\left(B^c\cup C^c\right)^c\in\fk$ по предыдущему пункту и свойству \s-алгебры №2
+    \item $B\setminus C\in\fk$
+    
+    \proof $B\cap C^c\in\fk$
+\end{itemize}
 
+\state Пусть $\fk$ — \s-алгебра, тогда если $A_1,\ldots,A_n\ldots\in\fk$, то $\displaystyle\bigcap_{i=1}^{\infty}A_i\in\fk$
 
+\proof $\displaystyle\bigcap_{n=1}^{\infty}A_n=\underbrace{\bigcup_{n=1}^{\infty}\underbrace{A_n^c}_{\in\fk}}_{\in\fk}\in\fk$
 
+Пусть $\omega\in\displaystyle\bigcap A_i\Longleftrightarrow(\forall i\in\mathbb{N}\ \omega\in A_i)\Longleftrightarrow(\forall i\in\mathbb{N}\ \omega\notin A_i^c)\Longleftrightarrow(\omega\notin\displaystyle\bigcup_{i=1}^{\infty} A_i^c)\Longleftrightarrow\omega\in(\displaystyle\bigcup A_i^c)^c$
 
+\definition Пусть $\Omega\neq\varnothing$ и $\mathcal{S}$ — это непустая система подмножеств множества $\Omega$
 
+\textbf{Минимальной \s-алгеброй}, содержащей систему $\mathcal{S}$ называется такая \s-алгебра $\sigma(\mathcal{S})$, что
+\begin{itemize}
+    \item $\mathcal{S}\subseteq\sigma(\mathcal{S})$
+    \item $\forall$ \s-алгебры $\mathcal{G}$, которая содержит систему $\mathcal{S}$ $(\mathcal{S}\subseteq\mathcal{G})$ справедливо, что $\sigma(\mathcal{S})\subseteq\mathcal{G}$
+\end{itemize}
 
+\definition Минимальная \s-алгебра, содержащая все полуинтервалы вида $\left.(a;b\right]\in\mathbb{R}$, где $a$ и $b$, такие что $a,b\in(-\infty;+\infty)$ называется \textbf{борелевской \s-алгеброй} на числовой прямой и обозначается $\mathcal{B}(\mathbb{R})$
 
+Элементы борелевской \s-алгебры называются \textbf{борелевскими множествами}
 
+\ex Докажите, что следующие помдмножества числовой прямой являются борелевскими
+\begin{enumerate}
+    \item[\textbf{a)}] $\{b\}=\displaystyle\bigcap^\infty_{n=1}\underbrace{\left(b-\frac{1}{b}, b\right]}_{\in\mathcal{B}(\mathbb{R}) \text{ по опр.}}\in\mathcal{B}(\mathbb{R})$
+    \item[\textbf{b)}] $(a, b)=\underbrace{(a, b]}_{\underset{\text{по опр.}}{\in\mathcal{B}(\mathbb{R})}}\setminus\underbrace{\{b\}}_{\underset{\text{по 1.}}{\in\mathcal{B}(\mathbb{R})}}\in\mathcal{B}(\mathbb{R})$
+    \item[\textbf{c)}]  $[a, b)=\underbrace{\{a\}}_{\underset{\text{по 1.}}{\in\mathcal{B}(\mathbb{R})}}\cup\underbrace{(a, b)}_{\underset{\text{по 2.}}{\in\mathcal{B}(\mathbb{R})}}\in\mathcal{B}(\mathbb{R})$
+    \item[\textbf{d)}]  $[a, b]=\underbrace{\{a\}}_{\underset{\text{по 1.}}{\in\mathcal{B}(\mathbb{R})}}\cup\underbrace{(a, b]}_{\underset{\text{по опр.}}{\in\mathcal{B}(\mathbb{R})}}\in\mathcal{B}(\mathbb{R})$
+    
+    % $\fk$ — $\sigma$-алгебра, 
 
+    % $$F_1, A_2\in\underset{=\mathcal{B}(\mathcal{R})}{\fk}\implies
+    % \begin{aligned}
+    %     A_1\cup A_2\in\fk\\
+    %     A_1\setminus A_2\in\fk\\
+    %     A_1\cup A_2\in\fk
+    % \end{aligned}$$
+    \item[\textbf{e)}] $\mathbb{Q}=\displaystyle\bigcup^\infty_{k=1}\underbrace{\{r_k\}}_{\in\mathcal{B}(\mathbb{R})}\in\mathcal{B}(\mathbb{R})$
+    \item[\textbf{f)}] $\underbrace{\mathbb{R}}_{=\Omega}\setminus \underbrace{\mathbb{Q}}_{\in\mathcal{B}(\mathbb{R})} \in \mathbb{Q}^c\in \mathcal{B}(\mathbb{R})$
+\end{enumerate}
 
+\definition Пусть задано непустое множество $\Omega$ и некоторая $\sigma$-алгебра $\fk$ подмножества в множестве $\Omega$. Тогда упорядоченная пара $(\Omega, \fk)$ называется \textbf{измеримым пространством}
 
+\definition Пусть задано измеримое пространство $(\Omega,\fk)$. Функция $\xi:\Omega\rightarrow\mathbb{R},\xi=\xi(\omega),\omega\in\Omega$ называется измеримой относительно \s-алгебры $\fk$ функцией, если
+$$\forall c\in\mathbb{R}\text{ множество }\{\omega\in\Omega:\xi(\omega)>c\}\in\fk$$
+Функцию, измеримую относительно \s-алгебры $\fk$, также называют $\fk$-измеримой функцией
 
+\definition В теории вероятностей $\fk$-измеримые функции также называются слчайными величинами, или $\fk$-измеримыми случайными величинами, если хотят подчернкуть тот факт, что они измеримы относительно \s-алгебры $\fk$
 
+\ex $\Omega=\{a,b,c,d\}$, $\fk=\{\varnothing, \Omega, \{a,b\}, \{c,d\}\}$, $\xi:\Omega\rightarrow\mathbb{R},\eta:\Omega\rightarrow\mathbb{R}$
+\begin{enumerate}
+    \item $\xi$ — $\fk$-измерима
+    
+    $c=10^6:\ \{\omega\in\Omega:\xi(\omega)=c\}=\varnothing\in\fk$
+    
+    $c>1:\ \{\omega\in\Omega:\xi(\omega)>c\}=\varnothing\in\fk$
+
+    $c=1:\ \{\omega\in\Omega:\xi(\omega)>1\}=\varnothing\in\fk$
+
+    $-1<c<1:\ \{\omega\in\Omega:\xi(\omega)>c\}=\{c,d\}\in\fk$
+    \item $\eta$ — не $\fk$-измерима
+    
+    $c=3.5:\ \{\omega\in\Omega:\eta(\omega)>3.5\}=\{d\}\notin\fk\Longrightarrow$ не $\fk$-измерима 
+\end{enumerate}
+
+\theorem Пусть $\xi:\Omega\rightarrow\mathbb{R}$ — $\fk$-измеримая функция. Тогда, $\forall a,b,c\in\mathbb{R}$
+\begin{enumerate}
+    \item $\{\omega\in\Omega:\xi(\omega)\leqslant c\}\in\fk$
+    \item 
+    \proof $\{\omega\in\Omega:\xi(\omega)\leqslant c\}=\underbrace{\Omega}_{\in\fk}\setminus\underbrace{\{\omega\in\Omega:\xi(\omega)>c\}}_{\in\fk}\in\fk$
+\end{enumerate}
+
+\definition Пусть задано измеримое пространство $(\Omega, \fk)$. Функция $\mathbb{P}\colon\fk\to[0,1]$ называется \textbf{вероятностной мерой}, если выполнены следующие условия:
+\begin{enumerate}
+    \item \textbf{(условие нормировки)} $P(\Omega)=1$
+    \item \textbf{(условие счётной аддитивности, $\sigma$-аддитивность)} Для любой последовательности попарно непересекающихся множеств $A_1,\dots,A_n,\dots\subset\mathcal{F}$ верно
+    $$\mathbb{P}\left(\bigcup^\infty_{i=1}A_i\right)=\sum^\infty_{i=1}\mathbb{P}(A_i)$$
+    
+\end{enumerate}
+
+\definition Пусть $\xi:\Omega\rightarrow\mathbb{R}$ — $\fk$-измеримая функция. Функция
+$$F_\xi(x)=\mathbb{P}(\{\omega\in\Omega:\xi(\omega)\leqslant x\}),x\in\mathbb{R}$$
+называется \textbf{функцией распределения} случайной величины $\xi$
 
 \end{document}
