@@ -188,9 +188,77 @@ $D_i:=\{\text{выбираем $i$-ю урну}\}$, где $i=1,2,3$ — раз�
     Заметим, что события $(D_2|A)$ и $(D_1|A)$ образуют полную группу вероятностей, то есть $$P(D_2|A)+P(D_1|A)=1\Longrightarrow P(D_1|A)=0.286$$
 \end{enumerate}
 
-\subsection{TBA}
-\subsection{TBA}
-\subsection{TBA}
+\subsection{Пусть случайная величина X имеет таблицу распределения}
+\begin{table}[h]
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $x$ & -1 & 0 & 1 \\
+        \hline
+        $\mathbb{P}(\{X = x\})$ & $0.25$ & $c$ & $0.25$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{itemize}
+    \item[\textbf{а)}] $\Omega = \{X=-1\} + \{X = 0\} + \{X = 1\} \text{ и } 1 = \{X=-1\} + \{X=0\} + \{X=1\} \implies c = 0.5$
+    \item[\textbf{б)}]  $\mathbb{P}\{X=0\} = \mathbb{P}(\{X=-1\}\sqcup\{X=1\}) = \mathbb{P}(\{X=0\}) + \mathbb{P}(\{X=1\}) = 0.75$
+    \item[\textbf{в)}]  $\mathbb{P}(\{X<-3\}) = 0$, т.к. $\{X<-3\} = \{\omega\in \Omega: X(\omega)<-3\}$
+    \item[\textbf{г)}]  $\mathbb{P}(\{X\in [-0.5;0.5]\}) = \mathbb{P}(\{X=0\}) = 0.5$
+\end{itemize}
+
+\subsection{Пусть случайная величина X имеет таблицу распределения}
+
+
+\begin{itemize}
+    \item[\textbf{а)}] $F_X(-100) = \mathbb{P}(\{\omega\in\Omega:\xi(\omega)\leqslant -100\}) = 0$
+
+    $$\begin{aligned}
+        F_X(0.77) &= \mathbb{P}(\{\omega\in\Omega:\xi(\omega)\leqslant 0.77\})\\
+        &=\mathbb{P}(\{X\leqslant 0.77\})\\
+        &= \mathbb{P}(\{X=-1\}\sqcup\{X=0\}\\
+        &= \mathbb{P}(\{X=-1\}) \mathbb{P}(\{X = 0\}\\
+        &= 0.75
+    \end{aligned}$$
+    \item[\textbf{б)}] $\mathbb{E}[X] = -1\cdot0.25 + 0\cdot0.5+1\cdot0.25 = 0$
+    \item[\textbf{в)}] $\mathbb{E}[X^2] = (-1)^2\cdot0.25 + 0\cdot0.5 + 1\cdot0.25 = 0.5$
+
+    $\mathbb{E}[\sin{(X)}] = \sin(-1)\cdot0.25 + \sin(0)\cdot0.5 + \sin(1)\cdot0.25$
+    \item[\textbf{г)}] $\dispersia{X} \equiv \dispersia{X} := \mathbb{E}[(X-\mathbb{E}[X])^2] = \mathbb{E}[X^2]- \mathbb{E}^2[X]$
+    \item[\textbf{д)}] $\mathbb{E}[|X|] = |-1|\cdot0.25 + |0|\cdot0.25 + |1|\cdot0.25 = 0.5$
+
+\end{itemize}
+
+\begin{table}[h]
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $x$ & -1 & 0 & 1 \\
+        \hline
+        $\mathbb{P}(\{\xi = x\})$ & $0.25$ & $c$ & $0.25$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Пусть случайная величина $X$ имеет биномиальное распределение с параметрами $n = 4$ и $p = 0.75$}
+$X\sim\text{Bi}(n=4,p=\frac{3}{4})$. Напомним, что $\prob{X=k}=C_4^k (\frac{3}{4})^k(\frac{1}{4})^{4-k}$
+\begin{itemize}
+    \item[\textbf{a)}] $\prob{X=0}=C_4^0 \left(\displaystyle\frac{3}{4}\right)^0\left(\displaystyle\frac{1}{4}\right)^{4}=\left(\displaystyle\frac{1}{4}\right)^4$
+    \item[\textbf{б)}] $\prob{X>0}=1-\prob{X=0}=1-\left(\displaystyle\frac{1}{4}\right)^4$
+    \item[\textbf{в)}] $\prob{X<0}=0$, так как количество успехов в биномиальном распределении $\geqslant0$
+    \item[\textbf{г)}] $\matwait{X}=n\cdot p=4\cdot\frac{3}{4}=3$
+    \item[\textbf{д)}] $\dispersia{X}=np(1-p)=\frac{3}{4}$
+    \item[\textbf{е)}] Нужно посчитать наиболее вероятную величину. Всего есть 5 значений — 5 возможных успешных исходов
+    
+    $\prob{X=0}=\left(\displaystyle\frac{1}{4}\right)^4$
+    
+    $\prob{X=1}=C_4^1\cdot\displaystyle\frac{3}{4}\cdot\left(\frac{1}{4}\right)^3$
+
+    $\prob{X=2}=C_4^2\cdot\displaystyle\left(\frac{3}{4}\right)^2\cdot\left(\frac{1}{4}\right)^2$
+
+    $\prob{X=3}=C_4^3\cdot\displaystyle\left(\frac{3}{4}\right)^3\cdot\left(\frac{1}{4}\right)^1$
+
+    $\prob{X=4}=C_4^4\cdot\displaystyle\left(\frac{3}{4}\right)^4\cdot\left(\frac{1}{4}\right)^0$
+
+\end{itemize}
 \subsection{Пусть случайная величина $X$ имеет распределение Пуассона с параметром $\lambda= 100$}
 Имеется случайная величина $X\sim\text{Pois}(\lambda=100)$
 \begin{enumerate}
