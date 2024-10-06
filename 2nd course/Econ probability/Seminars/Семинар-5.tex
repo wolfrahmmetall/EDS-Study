@@ -1,0 +1,94 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage{standart-header}
+\usepackage{textcomp}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [C] {\thepage}
+\usepackage{pgfplots}
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{2mm}
+% \setlist[itemize]{left=1cm}
+% \setlist[enumerate]{left=1cm}
+\fancyhead[L]{ТВиМС—1. Семинар 04.10.2024}
+
+\begin{document}
+\definition Пусть задано измеримое пространство $(\Omega,\fk)$. Функция $\xi:\Omega\longrightarrow\mathbb{R}$, $\xi=\xi(\omega)$, $\omega\in\Omega$ называется \textit{измеримой} функцией относительно \s-алгебры $\fk$, если $$\forall c\in\mathbb{R}\ \{\omega\in\Omega:\xi(\omega)>c\}\in\fk$$
+
+Назовем условием измеримости функцию, измеримую относительно \s-алгебры $\fk$, также называают $\fk$-измеримой функцией или функцией, согласованной с \s-алгеброй $\fk$
+    
+% В теории вероятностей $\fk$—измеримая функция называется случайными мвеличинами (или $\fk$-измеримой с.в.)
+
+
+
+\section*{Задача №1}
+$\Omega=\{\heartsuit, \diamondsuit,\spadesuit,\clubsuit\}$, $\fk=\{\varnothing, \{\heartsuit,\diamondsuit\}, \{\spadesuit\}, \{\clubsuit\}, \{\heartsuit,\diamondsuit,\spadesuit\}, \{\heartsuit,\diamondsuit,\clubsuit\}, \{\spadesuit, \clubsuit\}, \Omega\}$, $\xi:\Omega\rightarrow\mathbb{R}, \eta:\Omega\rightarrow\mathbb{R}$
+
+\begin{table}[h]
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $\omega$ & $\heartsuit$ & $\diamondsuit$ & $\spadesuit$  & $\clubsuit$\\
+        \hline
+        $\xi(\omega)$ & 1 & 1 & 2 & 3\\
+        \hline
+        $\eta(\omega)$ & 3 & 2 & 1 & 1\\
+        \hline
+        
+    \end{tabular}
+\end{table}
+\begin{itemize}
+    \item[a)] Является ли $\xi$ $\fk$-измеримой? мяу мяу мяу всем привет от яны
+    \begin{itemize}
+        \item[1)] $c>3:\ \{\omega\in\Omega:\ \xi(\omega)>c=100\}=\varnothing\in\fk$
+        \item[2)] $c=3:\ \{\omega\in\Omega:\ \xi(\omega)>3\}=\varnothing\in\fk$
+        \item[3)] $c\in(2;3):\ \{\omega\in\Omega:\ \xi(\omega)>c=27\}=\{\clubsuit\}\in\fk$ 
+        \item[4)] $c=2:\ \{\omega\in\Omega:\ \xi(\omega)>2\}=\{\clubsuit\}\in\fk$  
+        \item[5)] $c\in(1;2):\ \{\omega\in\Omega:\ \xi(\omega)>c=13\}=\{\spadesuit,\clubsuit\}\in\fk$
+        \item[6)] $c=1:\ \{\omega\in\Omega:\ \xi(\omega)>1\}=\{\spadesuit,\clubsuit\}\in\fk$  
+        \item[7)] $c<1:\ \{\omega\in\Omega:\ \xi(\omega)>c=-200\}=\Omega\in\fk$ 
+    \end{itemize}
+    \item[б)] Является ли $\eta$ $\fk$-измеримой?
+    
+    $c=2.5:\ \{\omega\in\Omega:\eta(\omega)>2.5\}=\{\heartsuit\}\notin\fk\Longrightarrow$ не является $fk$-измеримой 
+\end{itemize}
+
+\section*{№2}
+$\Omega=\mathbb{R},\ \fk=\mathcal{B}(\mathbb{R}),\xi(\omega)=\omega^2$. Определить, $\xi$ — $\fk$-измерима?
+
+\begin{itemize}
+    \item $c<0:\ \{\omega\in\Omega:\xi(\omega)>c\}=\{\omega\in\mathbb{R}:\underbrace{\omega^2}_{\geqslant0}>c\}=\mathbb{R}\in\bk(\mathbb{R})$
+    \item $c\geqslant0:$
+    \begin{equation*}
+        \begin{aligned}
+            \{\omega\in\Omega:\xi(\omega)>c\}&=\{\omega\in\mathbb{R}:\omega^2>c\}\\
+            &=\{\omega\in\mathbb{R}:\omega<-\sqrt{c}\}\cup\{\omega\in\mathbb{R}:\omega>\sqrt{c}\}\\
+            &=\left(-\infty;-\sqrt{c}\right)\cup\left(\sqrt{c};+\infty\right)\\
+            &=\underbrace{\mathbb{R}}_{\bk(\mathbb{R})}\setminus\underbrace{[-\sqrt{c};\sqrt{c}]}_{\in\bk(\mathbb{R})}\in\bk(\mathbb{R})\in\fk
+        \end{aligned}
+    \end{equation*}
+\end{itemize}
+
+
+\section*{№3}
+$(\Omega, \fk)$ — измеримое пространство, $\xi:\Omega\rightarrow\mathbb{R}$ — $\fk$-измеримая функция $\forall c\in\mathbb{R}$
+
+Доказать утверждения
+\begin{itemize}
+    \item[\textbf{а)}] $\underbrace{\{\omega\in\Omega:\ \xi(\omega)\geqslant c\}}_{=LHS}=\underbrace{\displaystyle\bigcap_{i=1}^n \left\{\omega\in\Omega:\ \xi(\omega)>c-\frac{1}{n}\right\}\in\fk}_{=RHS}$
+    \begin{itemize}
+        \item $(LHS\subseteq RHS)$: $\omega_0\in LHS\Longrightarrow\xi(\omega)\geqslant c\Longrightarrow\forall n\in\mathbb{N}:  \xi{w_0}>c-\frac{1}{n}\Longrightarrow \omega_0\in RHS$
+        \item $(RHS\subseteq LHS)$: $\omega_0\in RHS\Longrightarrow\forall n\in\mathbb{N}: \xi(\omega_0)>c-\frac{1}{n}\Longrightarrow\xi(\omega_0)\geqslant\lim\limits_{n\mapsto\infty}\left(c-\frac{1}{n}\right)=c\Longrightarrow\omega_0\in LHS$
+    \end{itemize}
+    \item[\textbf{b)}] $\{\omega\in\Omega:\xi(\omega)=c\}=\underbrace{\{\omega\in\Omega:\xi(\omega)\geqslant c\}}_{\in\fk\text{(см.п.а)}}\setminus\underbrace{\{\omega\in\Omega:\xi(\omega)>c\}}_{\in\fk\text{(по опр. $\fk$-изм.ф-и)}}\in\fk$
+    \item[\textbf{c)}] $\{\omega\in\Omega:\xi(\omega)\leqslant c\}=\underbrace{\Omega}_{\in\fk}\setminus\underbrace{\{\omega\in\Omega:\xi(\omega)>c\}}_{\in\fk\text{(по опр. $\fk$-изм.ф-и)}}\in\fk$ 
+    \item[\textbf{d)}] $\{\omega\in\omega:\xi(\omega)<c\}=\underbrace{\{\omega\in\Omega:\xi(\omega)\leqslant c\}}_{\in\fk\text{(см. п.c)}}\setminus\underbrace{\{\omega\in\Omega:\xi(\omega)=c\}}_{\in\fk\text{(см.п.b)}}$
+\end{itemize}
+
+\section*{№4}
+$(\Omega,\fk)$ — измеримое пространство, $\xi:\Omega\rightarrow\mathbb{R}$ — $\fk$-измеримая функция
+
+Докажите, что $\xi^2(\omega)$ — $\fk$-измерима
+\begin{itemize}
+    \item $c<0:\ \{\omega\in\Omega:\xi^2(\omega)>c\}=\Omega\in\fk$
+    \item $c\geqslant 0:\ \{\omega\in\Omega:\xi^2(\omega)>c\}=\underbrace{\{\omega\in\Omega:\xi(\omega)<-\sqrt{c}\}}_{\in\fk\text{(см. п.3d)}}\cup\underbrace{\{\omega\in\Omega:\xi(\omega)>\sqrt{c}\}}_{\in\fk\text{(по опр.$\fk$-изм.ф-и)}}\in\fk$
+\end{itemize}
+
+\end{document}
