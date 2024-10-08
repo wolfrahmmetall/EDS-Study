@@ -145,6 +145,7 @@ $$
     \end{tikzpicture}
 $$
 \end{minipage}
+\newpage
 \section{Свойства кратных интегралов. Условия интегрирования. Лебегова мера}
 \subsection{Свойства кратных интегралов}
 \begin{enumerate}
@@ -354,7 +355,7 @@ $$
         \end{equation*}
     \end{itemize}
  \end{enumerate}
-
+\newpage
 \section{Топология в $\mathbb{R}^n$}
 \definition Пусть имеется $M\subset\mathbb{R}^n$. Точку $x_0\in M$ будем называть \textit{внутренней} точкой $M$, если $$\exists\ve>0:B_{\ve}(x_0)\subset M$$
 
@@ -433,12 +434,73 @@ $$
     Пусть $y_0$ — не является предельной для $M$, то есть $y_0\in\mathbb{R}^n\setminus M\Longrightarrow\exists r>0$:
     \begin{equation*}
         \begin{cases}
-            \stackrel{\circ}{B_{r}}(x_0)\cap M=\varnothing\\
+            \stackrel{\circ}{B_{r}}(y_0)\cap M=\varnothing\\
             y_0\in\mathbb{R}^n\setminus M
-        \end{cases}\Longrightarrow B_r(x_0)\subset \mathbb{R}^n\setminus M
+        \end{cases}\Longrightarrow B_r(y_0)\subset \mathbb{R}^n\setminus M
     \end{equation*}
     $\Longrightarrow\mathbb{R}^n\setminus M$ — открытое и состоит из всех точек, не являющихся предельными $\Longrightarrow$ $M$ — замкнуто по определению\qed
 \end{enumerate}
+
+\newpage
+\section{Компакты в $\mathbb{R}^n$}
+\subsection{Замкнутый брус — компакт}
+\theorem Пусть $I\subset\mathbb{R}^n$ — замкнутый брус $\Longrightarrow I$ — компакт
+
+\proof Пойдем от противного
+
+Пусть $I=[a_1;b_1]\times\ldots\times[a_n;b_n]$
+\begin{enumerate}
+    \item Положим, что $I$ — не компакт. Значит, существует его покрытие $\{A_{\alpha}\}$ — открытые множества, такие что $I\subset \{A_{\alpha}\}$, не допускающее выделения конечного подкпорытия
+    \item Поделим каждую сторону пополам. Тогда, $\exists I_1$, такой что не допускает конечного подпокрытия. Иначе, $I$ — компакт
+    \item Аналогично, повторим процесс и получим систему вложенных брусов: $$I\supset I_1\supset I_2\supset \ldots$$
+    То есть на каждой стороне возникает последовательность вложенных отрезков, которые стягиваются в точку $a=(a_1,\ldots,a_n)$
+    
+    При этом, $a\in I_i\ \forall i\text{ или } a\in\displaystyle\bigcap_{i=1}^{\infty}I_i$
+
+    \item $a\in I\Longrightarrow a\in \bigcup A_{\alpha}\Longrightarrow\exists \alpha_0:a\in \underbrace{A_{\alpha_0}}_{\text{открытое}}\Longrightarrow\exists \ve>0: B_{\ve}(a)\subset A_{\alpha_0}$
+
+    \item Мы знаем, что $d(I_i)\mapsto0$ при $i\mapsto\infty$. Тогда, $$\exists N:\forall i > N\ I_i\subset B_{\ve}(a)\subset A_{\alpha_0}$$
+    Получается, что $\forall i>N\ I_i$ покрывается одним лишь $A_{\alpha_0}$ из системы $\{A_{\alpha}\}$
+
+    Получаем противоречие тому, что любое $I_i$ не допускает конечного подпокрытия, а у нас получилось, что $I_i\in A_{\alpha_0}\forall i>N$
+\end{enumerate}
+
+\comment Любое ограниченное мноджество можно вписать в замкнутый брус. Потому что можно вокруг него описать шарик, который точно можно вписать в брус
+
+\subsection{Критерий компактности}
+\theorem $K\subset \mathbb{R}^n$. $K$ — компакт $\Longleftrightarrow$ $K$ замкнуто и ограниченного
+
+\proof Докажем необходимость $(\Longrightarrow)$
+\begin{itemize}
+    \item \textit{Ограниченность.} $K$ — компакт, значит монжо выбрать покрытие $\{B_{m}(0)\}_{m=1}^{\infty}$ — открытые шары
+    
+    Тогда, $\exists m_0:K\subset \displaystyle\bigcup_{m=1}^{m_0} B_m(0)\Longrightarrow K\subset B_{m_0}(0)\Longrightarrow$ по определению $K$ — ограничено
+
+    \item \textit{Замкнутость.} Пойдем от противного. $K$ — компакт, тогда возьмем $\{B_{\frac{\delta(x)}{2}}(0)\}_{x\in K}$ — покрытие открытыми шарами, где $\delta(x)=\rho(x,x_0)$. $x_0$ — предельная точка, которая $\notin K$ (или же $\in \mathbb{R}^n\setminus K$)
+    
+    Так как $K$ — компакт, $\exists x_1,\ldots, x_s:K\subset\displaystyle\bigcup_{i=1}^{s} B_{\frac{\delta(x_i)}{2}}(x_i)$
+
+    Пусть $\delta=\min\limits_{1\leqslant i\leqslant s}{\delta(x_i)}$, тогда
+    \begin{equation*}
+        \begin{aligned}
+            B_{\frac{\delta}{2}}(x_0)\cap\bigcup_{i=1}^{s}B_{\frac{\delta(x_i)}{2}}(x_i)=\varnothing&\Longrightarrow B_{\frac{\delta}{2}}(x_0)\subset\mathbb{R}^n\setminus K\\
+            &\Longrightarrow\stackrel{\circ}{B}_{\frac{\delta}{2}}(x_0)\cap K=\varnothing
+        \end{aligned}
+    \end{equation*}
+
+    Значит, $x_0$ \textit{не является предельной точкой} $K$, что противоречит нашему противоречию
+\end{itemize}
+
+\proof Докажем достаточность
+
+$K$ — замкнуто и ограничено $\Longrightarrow r>0:B_r(0)\supset K\Longrightarrow\exists I$ — замкнутый брус, такой что 
+$$K\subset I\text{ и }I=[-r;r]^n\supset K$$
+% тут позже будет картинка
+
+Пусть $A_{\alpha}$ — произвольное покрытие открытыми множествами для $K$. Тогда, $I\subset \{A_{\alpha}\}\cup\underbrace{\{\mathbb{R}^n\setminus K\}}_{\text{открыто}}$. Так как $I$ — компакт, то $\exists $ конечное подпокрытие 
+$$\{A_{\alpha_i}\}_{i=1}^m\cup\{\mathbb{R}^n\setminus K\}\supset I\supset K\text{ — покрытие для $I$}$$
+
+Значит, $K\subset\{A_{\alpha_i}\}_{i=1}^{m}$ — конечное и $\{A_{\alpha}\}$ — произвольное, тогда $K$ — компакт по определению\qed
 
 
 
