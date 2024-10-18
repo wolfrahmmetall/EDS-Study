@@ -1,0 +1,251 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage{standart-header}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [C] {\thepage}
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{2mm}
+\newcommand{\orr}{\text{ or }}
+\newcommand{\andd}{\text{ and }}
+\newcommand{\prob}[1]{\mathbb{P}\left(\left\{#1\right\}\right)}
+\newcommand{\matwait}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\dispersia}[1]{\mathbb{D}\left[#1\right]}
+\fancyhead[L]{ТВиМС—1. Консультация—1 по максимуму 18.10.2024}
+
+\begin{document}
+\section*{№4}
+Дано: $\xi$ — абсолютная непрерывная величина, $\eta=2\xi+7$
+
+Найти: $F_{\eta}(y),f_{\eta}(y)$
+
+\begin{enumerate}
+    \item Найдем $F_{\eta}(y)$
+    \begin{equation*}
+        \begin{aligned}
+            F_{\eta}(y)&=\prob{\eta\leqslant y}\\
+            &=\prob{2\xi+7\leqslant y}\\
+            &=\prob{\xi\leqslant\frac{y-7}{2}}\\
+            &=F_{\xi}(y)
+        \end{aligned}
+    \end{equation*}
+    \item Теперь продифференцируем функцию распределения и найдем функцию плотности
+    \begin{equation*}
+        \begin{aligned}
+            f_{\eta}(y)&=\frac{d}{dy}F_{\eta}(y)\\
+            &=\frac{d}{dy}F_{\xi}\left(\frac{y-7}{2}\right)\\
+            &=f_{\xi}\left(\frac{y-7}{2}\right)\cdot\frac{1}{2}
+        \end{aligned}
+    \end{equation*}
+\end{enumerate}
+
+
+\section*{№5}
+Дано: $\xi$ — абсолютная непрерывная величина, $\eta=8-9\xi$
+
+Найти: $F_{\eta}(y),f_{\eta}(y)$
+
+\comment Так как $\xi$ — абсолютная непрерывная величина, то $\prob\xi\in B=\displaystyle\int\limits_{B}f_{\xi}(t)dt$. Тогда, можно записать, что 
+\begin{equation*}
+    \begin{aligned}
+        \prob{\xi=a}&=\prob{\xi\in[a;a]}\\
+        &=\int_a^af_{\xi}(t)dt\\
+        &=0
+    \end{aligned}
+\end{equation*}
+
+Найдем $F_{\eta}(y):$
+\begin{equation*}
+    \begin{aligned}
+        F_{\eta}(y)&=\prob{\eta\leqslant y}\\
+        &=\prob{8-9\xi\leqslant y}\\
+        &=\prob{\xi\geqslant \frac{8-y}{9}}\\
+        &=1-\prob{\xi<\frac{8-y}{9}}\\
+        &=1-\prob{\xi\leqslant\frac{8-y}{9}}\\
+        &=1-F_{\xi}\left(\frac{8-y}{9}\right)
+    \end{aligned}
+\end{equation*}
+
+Тогда, $f_{\eta}(y)=f_{\xi}\left(\displaystyle\frac{8-y}{9}\right)\cdot\displaystyle\frac{1}{9}$
+
+\definition Говорят, что случайная величина $\xi$ имеет равномерное распределение на отрезке $[a;b]$, $\xi\sim U(a;b)$, если $\xi$ имеет плотность вида $f_{\xi}(t)=\begin{cases}
+    \frac{1}{b-a},&\text{ если }a\leqslant t\leqslant b\\
+    0,&\text{ иначе}
+\end{cases}$
+
+$F_{\xi}(x)=\begin{cases}
+    0,&x<a\\
+    \frac{x-a}{b-a},&a\leqslant x\leqslant b\\
+    1,&x>b
+\end{cases}$
+
+$\matwait{\xi}=\displaystyle\frac{a+b}{2},\ \dispersia{\xi}=\displaystyle\frac{(b-a)^2}{12}$
+
+\section*{№6}
+Дано: $\xi\sim U(0;1)$, $\eta=1-2\xi$
+\subsection*{a)}
+В данной ситуации, $F_{\xi}(x)=\begin{cases}
+    0,&x<0\\
+    x,&x\in[0;1]\\
+    1,&x>1
+\end{cases}$
+
+Тогда,
+\begin{equation*}
+    \begin{aligned}
+        F_{\eta}(y)&=\prob{\eta\leqslant y}\\
+        &=\prob{1-2\xi\leqslant y}\\
+        &=\prob{\xi\geqslant\frac{1-y}{2}}\\
+        &=1-\prob{\xi<\frac{1-y}{2}}\\
+        &=1-\prob{\xi\leqslant\frac{1-y}{2}}\\
+        &=1-F_{\eta}\left(\frac{1-y}{2}\right)\\
+        &=1-\begin{cases}
+            0,&\frac{1-y}{2}<0\\
+            \frac{1-y}{2},&0\leqslant\frac{1-y}{2}\leqslant1\\
+            1,&\frac{1-y}{2}>1
+        \end{cases}\\
+        &=1-\begin{cases}
+            0,&y>1\\
+            \frac{1-y}{2},&y\in[-1;1]\\
+            1,&y<-1
+        \end{cases}\\
+        &=\begin{cases}
+            1,&y>1\\
+            \frac{1+y}{2},&y\in[-1;1]\\
+            0,&y<-1
+        \end{cases}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{b)}
+$f_{\eta}(y)=\displaystyle\frac{d}{dy}F_{\eta}(y)=\begin{cases}
+    0,&y<-1\\
+    \frac{1}{2},&y\in[-1;1]\\
+    0,&y>1
+\end{cases}$
+
+Получается, что $\eta\sim U(0;1)$
+
+\textbf{Вывод:} если какая-то случайная величина $\xi$ имеет равномерное распределение, а величина $\eta$ зависит от $\xi$, то $\eta$ также имеет равномерное распределение
+
+\subsection*{c)}
+\begin{equation*}
+    \begin{aligned}
+        \prob{\eta\in[-0.5;0.5]}&=\int_{-0.5}^{0.5}f_{\eta}(y)dy\\
+        &=\int_{-0.5}^{0.5}\frac{1}{2}dy\\
+        &=\frac{1}{2}\cdot1\\
+        &=\frac{1}{2}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{d)}
+трубется найти медиану $M$
+\begin{equation*}
+    \begin{cases}
+        \int\limits_{-\infty}^{M} f_{\xi}(y)dy = 0.5\\
+        \int \limits_{-1}^{M} \frac{1}{2} dy = 0.5
+    \end{cases}\Longrightarrow\frac{1}{2}(M+1)=0.5\Longrightarrow M=0
+\end{equation*}
+
+\section*{№7}
+$f_{\xi} =\begin{cases}
+    0,&x > 1\\
+    \frac 3 {x^4},& x \geqslant 1
+\end{cases},\ \eta = \ln {\xi}$
+    
+Пусть $x<1$, тогда $F_{\xi}(x)=\displaystyle\int_{-\infty}^{x} f_{\xi}(t)dt\Longrightarrow F_{\xi}(x)=0$
+
+Пусть $x\geqslant1$, тогда 
+\begin{equation*}
+    \begin{aligned}
+        F_{\xi}(x)&=\int_{-\infty}^{1}f_{\xi}(t)dt+\int_1^x f_{\xi}(t)dt\\
+        &=3\cdot\frac{t^{-3}}{-3}\vert^{t=x}_{t=1}\\
+        &=1-\frac{1}{x^3}
+    \end{aligned}
+\end{equation*}
+Тогда, $F_{\xi}=\begin{cases}
+    0,&x<1\\
+    1-\frac{1}{x^3},&x\geqslant 1
+\end{cases}$
+
+\subsection*{a) Найти $F_{\xi}(y)$}
+\begin{equation*}
+    \begin{aligned}
+        F_{\eta}(y)&=\prob{\eta\leqslant y}\\
+        &=\prob{\ln{\xi}\leqslant y}\\
+        &=\prob{\xi\leqslant e^y}\\
+        &=F_{\xi}(e^y)\\
+        &=\begin{cases}
+            0,&e^y>1\\
+            1-e^{-3y},&e^y\geqslant 1
+        \end{cases}\\
+        &=\begin{cases}
+            0,&y<0\\
+            1-e^{-3y},&y\geqslant 0
+        \end{cases}
+    \end{aligned}
+\end{equation*}
+
+
+\subsection*{b)}
+Дано $f_{\eta}(y)=\begin{cases}
+    0,&y<0\\
+    3e^{-3y},&y\geqslant 0
+\end{cases}\Longrightarrow \eta\sim \text{Exp}(\lambda=3)$
+
+\section*{№8}
+Имеется случайная величина $\xi\sim\text{Exp}(\lambda=1)$
+
+\begin{equation*}
+    f_{\xi}(x)=\begin{cases}
+    0,&x<0\\
+    e^{-x},&x\geqslant 0
+\end{cases}, F_{\xi}(x)=\begin{cases}
+    0,&x<0\\
+    1-e^{-x},&x\geqslant0
+\end{cases}
+\end{equation*}
+
+\ex Пусть $\eta=\lceil\xi\rceil$ — наименьшее целое число, большее, чем $\xi$
+
+Найдем $\matwait{\eta}$. Так как $\xi$ — абсолютная непрерывная величина, то $\prob{\eta=0}=\prob{\xi=0}=0$
+
+Пусть имеется $k=1,2,3,\ldots$, тогда 
+\begin{equation*}
+    \begin{aligned}
+        \prob{\eta=k}&=\prob{\xi\in[k-1;k]}\\
+        &=\mathbb{P}(\{\xi\leqslant k\}\setminus\{\xi\leqslant k-1\})\\
+        &=\prob{\xi\leqslant k}-\prob{\xi\leqslant k-1}\\
+        &=F_{\xi}(k)-F_{\xi}(k-1)\\
+        &=\left[1-e^{-k}\right]-\left[1-e^{-(k-1)}\right]\\
+        &=e^{-(k-1)}-e^{-k}\\
+        &=e^{-(k-1)}\cdot\underbrace{(1-e^{e^{-1}})}_{p,q=1-p=e^{-1}}\\
+        &=q^{k-1}p
+    \end{aligned}
+\end{equation*}
+Значит, $\eta\sim \text{Geom}(p=1-e^{-1})\Longrightarrow\matwait{\eta}=\displaystyle\frac{1}{p}=\frac{1}{1-e^{-1}}$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
