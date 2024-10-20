@@ -1,0 +1,235 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage{standart-header}
+\usepackage{textcomp}
+\fancyhead[R]{Винер Даниил. БЭАД232}
+\fancyfoot [C] {\thepage}
+\usepackage{pgfplots}
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{2mm}
+% \setlist[itemize]{left=1cm}
+% \setlist[enumerate]{left=1cm}
+\fancyhead[L]{ТВиМС—1. Семинар 18.10.2024}
+
+\begin{document}
+\definition Случайная величина $\xi$ абсолютно непрерывная если существует интегрируемая функция $f_{\xi}(t)$, такая что для любого $x\in\mathbb{R}$:
+\begin{equation*}
+    F_{\xi}=\int_{-\infty}^{x}f_{\xi}(t)dt
+\end{equation*}
+При этом, функция $f_{\xi}(t)$ называется плотностью распределения случайной величины $\xi$
+
+\section*{№1}
+$\Omega=[0;1]$, $\fk=\bk([0;1])$, $\prob{A}$ — длина $A\in\fk$, $\xi(\omega)=\omega^2$ — случайная величина
+
+\subsection*{a)}
+\begin{equation*}
+    \begin{aligned}
+        F_{\xi}(x)&=\prob{\xi\leqslant x}\\
+        &=\prob{\omega\in\Omega:\xi(\omega)\leqslant x}\\
+        &=\prob{\omega\in[0;1]:\omega^2\leqslant x}\\
+        &=\begin{cases}
+            1,&x<0\\
+            \sqrt{x},&x\in[0;1]\\
+            1,&x>1
+        \end{cases}
+    \end{aligned}
+\end{equation*}
+
+Рассмотрим $x\in[0;1]:$
+\begin{equation*}
+    \begin{aligned}
+        \prob{\omega\in[0;1]:\omega^2\leqslant x}=\prob{\omega\in[0;1]:-\sqrt{x}\leqslant \omega\leqslant\sqrt{x}}\Longrightarrow\prob{[0;\sqrt{x}]}
+    \end{aligned}
+\end{equation*}
+
+
+\subsection*{b)}
+$f_{\xi}(x)=\displaystyle\frac{d}{dx}F_{\xi}(x)=\begin{cases}
+    0,&x<0\\
+    \frac{1}{2\sqrt{x}},&x\in[0;1]\\
+    0,&x>1
+\end{cases}$
+
+\subsection*{c)}
+\begin{equation*}
+    \begin{aligned}
+        \matwait{\xi}&=\int_{-\infty}^{+\infty}xf_{\xi}(x)dx\\
+        &=\int_0^1 x\frac{1}{2\sqrt{x}}dx\\
+        &=\frac{1}{2}\int_0^1\sqrt{x}dx\\
+        &=\frac{1}{2}\cdot\left.\frac{x^{\frac{3}{2}}}{\frac{3}{2}}\right\vert_{x=0}^{x=1}\\
+        &=\frac{1}{3}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{d)}
+\begin{equation*}
+    \begin{aligned}
+        \matwait{\xi^2}&=\int_{-\infty}^{+\infty} x^2f_{\xi}(x)dx\\
+        &=\int_0^1 x^2\frac{1}{2\sqrt{x}}dx\\
+        &=\frac{1}{2}\cdot\left.\frac{x^{\frac{5}{2}}}{\frac{5}{2}}\right\vert_{0}^1\\
+        &=\frac{1}{5}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{e)}
+\begin{equation*}
+    \begin{aligned}
+        \dispersia{\xi}&=\matwait{\xi^2}-(\matwait{\xi})^2\\
+        &=\frac{1}{5}-\left(\frac{1}{3}\right)^2\\
+        &=\frac{4}{45}
+    \end{aligned}
+\end{equation*}
+
+
+\section*{№2}
+$f_{\xi}(x)=\begin{cases}
+    cx,&x\in[0;1]\\
+    0,&x\notin[0;1]
+\end{cases}$
+
+\subsection*{a)}
+$\lim\limits_{x\longrightarrow+\infty}F_{\xi}(x)=1$:
+\begin{equation*}
+    \begin{aligned}
+        1&=\int_{-\infty}^{+\infty} f_{\xi}(t)dt\\
+        &=\int_0^1 ctdt\\
+        &=c\left.\frac{t}{2}\right\vert_0^1\\
+        &=\frac{c}{2}
+    \end{aligned}\Longrightarrow c=2
+\end{equation*} 
+
+\subsection*{b)}
+\definition Пусть $\xi$ — абсолютная непрерывная величина. Тогда, $\forall B(\bk(\mathbb{R}))$:
+\begin{equation*}
+    \prob{\xi\in B}=\int\limits_{B}f_{\xi}(t)dt
+\end{equation*}
+
+Требуется найти $\prob{\xi\leqslant\frac{1}{2}}$. Тогда, исходя из определения выше:
+\begin{equation*}
+    \begin{aligned}
+        \int_{0}^{0.5} f_{\xi}(t)dt&=\int_0^{0.5}2tdt\\
+        &=\left.t^2\right\vert_{0}^{0.5}\\
+        &=\frac{1}{4}
+    \end{aligned}
+\end{equation*}
+
+
+\subsection*{c)}
+\begin{equation*}
+    \begin{aligned}
+        \prob{\xi\in[0.5;1.5]}&=\displaystyle\int\limits_{B}f_{\xi}(t)dt\\
+        &=\int_{0.5}^1 2tdt\\
+        &=\left.t^2\right\vert_{0.5}^1\\
+        &=\frac{3}{4}
+    \end{aligned}
+\end{equation*}
+
+
+\subsection*{d)}
+$\prob{\xi\in[2;3]}=\int\limits_{[2;3]}\underbrace{f_{\xi}(t)}_{=0,\text{по усл.}}dt=0$
+
+
+\subsection*{e)}
+Пусть $x<0\Longrightarrow F_{\xi}(x)=\displaystyle\int_{-\infty}^{\infty}f_{\xi}(t)dt=0$
+
+Пусть $0\leqslant x\leqslant 0\Longrightarrow$
+\begin{equation*}
+    \begin{aligned}
+        F_{\xi}(x)&=\displaystyle\int_{-\infty}^{\infty}f_{\xi}(t)dt\\
+        &=\int_{-\infty}^0 f_{\xi}(t)dt+\int_{0}^{x}\\
+        &=\left.t^2\right\vert_0^x\\
+        &=x^2
+    \end{aligned}
+\end{equation*}
+
+Пусть $x>1$, тогда
+\begin{equation*}
+    \begin{aligned}
+        F_{\xi}(x)&=\int_{-\infty}^{x} f_{\xi}(t)dt\\
+        &=\int_{-\infty}^{0}f_{\xi}(t)dt+\int_0^1 f_{\xi}(t)dt+\int_{1}^x f_{\xi}(t)dt\\
+        &=1
+    \end{aligned}
+\end{equation*}
+
+\subsection*{f)}
+\begin{equation*}
+    \begin{aligned}
+        \matwait{\xi}&=\int_{-\infty}^{\infty} xf_{\xi}(x)dx\\
+        &=\int_{0}^{1} x2xdx\\
+        &=2\int_{0}^{1} x^2dx\\
+        &=\frac{2}{3}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{g)}
+\begin{equation*}
+    \begin{aligned}
+        \matwait{\xi^2}&=\int_{-\infty}^{\infty} x^2f_{\xi}(x)dx\\
+        &=\int_{0}^{1} x^22xdx\\
+        &=2\int_{0}^{1} x^3dx\\
+        &=\frac{1}{2}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{h)}
+\begin{equation*}
+    \begin{aligned}
+        \dispersia{\xi}&=\matwait{\xi^2}-\left(\matwait{\xi}\right)^2\\
+        &=\frac{1}{2}-\frac{4}{9}\\
+        &=\frac{1}{18}
+    \end{aligned}
+\end{equation*}
+\subsection*{i)}
+\begin{equation*}
+    \begin{aligned}
+        \matwait{\sqrt{\xi}}&=\int_{0}^1 \sqrt{x}2xdx\\
+        &=2\int_0^1x^{\frac{3}{2}}dx\\
+        &=2\cdot\left.\frac{x^{\frac{5}{2}}}{\frac{5}{2}}\right\vert_{x=0}^{x=1}\\
+        &=\frac{4}{5}
+    \end{aligned}
+\end{equation*}
+
+\definition Пусть случайная величина $\xi$ имеет плотность $f_{\xi}(t)$
+
+\textit{Квантилью} уровня $u\in(0;1)$ случайной величины $\xi$ называется наименьшее число $q\in\mathbb{}R$:
+\begin{equation*}
+    \int_{-\infty}^q f_{\xi}(t)dt=u
+\end{equation*}
+
+\section*{№3}
+$\xi$ — продолжительность ругания Васи, $\xi\sim\text{Exp}(\lambda)\Longleftrightarrow f_{\xi}(x)=\begin{cases}
+    0,&x <0\\
+    \lambda e^{-\lambda x},&x\geqslant 0
+\end{cases}$
+
+$\matwait{\xi}=\displaystyle\frac{1}{\lambda}=6\Longrightarrow\lambda=6,\ \dispersia{\xi}=\frac{1}{\lambda^2}$
+
+$F_{\xi}(x)=\begin{cases}
+    0,&x<0\\
+    1-e^{-\lambda x},&x\geqslant0
+\end{cases}$
+
+\subsection*{a)}
+\begin{equation*}
+    \begin{aligned}
+        \prob{\xi>6}&=1-\prob{\xi\leqslant 6}\\
+        &=1-F_{\xi}(6)\\
+        &=1-\left[1-e^{-\lambda6}\right]\\
+        &=e^{-\lambda6}\\
+        &=e^{-1}
+    \end{aligned}
+\end{equation*}
+
+\subsection*{b)}
+$\dispersia{\xi}=\displaystyle\frac{1}{\lambda^2}=36$
+
+\subsection*{c)}
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{P}(\{\xi\leqslant 7\}|\{\xi>6\})&=\frac{\prob{6<\xi\leqslant 7}}{\underbrace{\prob{\xi>6}}_{=e^{-1}}}\\
+        &=\frac{F_{\xi}(7)-F_{\xi}(6)}{e^{-1}}\\
+        &=1-e^{\frac{1}{6}}
+    \end{aligned}
+\end{equation*}
+
+
+\end{document}
